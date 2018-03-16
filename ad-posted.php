@@ -28,7 +28,7 @@
       DB_PASSWORD,
       DB_NAME
     ) or Die('Error connecting to database');
-    $query = "INSERT INTO cls_ads VALUES (0, NOW(), '$visitor_name', '$ad_title', '$ad_description', '$ad_price', '$image')";
+    $query = "INSERT INTO cls_ads VALUES (0, NOW(), '$visitor_name', '$ad_title', '$ad_description', '$ad_price', '$image', 0)";
     $result = mysqli_query($dbc, $query) or die('Error querying database.');
     mysqli_close($dbc);
 

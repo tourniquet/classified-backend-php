@@ -1,3 +1,7 @@
+<?php
+  require_once('../authorize.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,17 +22,19 @@
     ) or Die('Error connecting to database');
     
     $ad_id = $_GET['id'];
-    $img_query = "SELECT * FROM cls_ads WHERE id = $ad_id";
-    $img = mysqli_query($dbc, $img_query);
+    $query = "SELECT * FROM cls_ads WHERE id = $ad_id";
+    $res = mysqli_query($dbc, $query);
 
-    while ($row = mysqli_fetch_array($img)) {
-      // remove image
-      @unlink('../' . UPLOADS_PATH . $row['image']);
+    if (mysqli_connect_errno($dbc)) {
+      printf("Connect failed: %s\n", mysqli_connect_error());
+      exit();
+    }
 
-      $query = 'DELETE FROM cls_ads WHERE id = ' . $_GET['id'];
-      $data = mysqli_query($dbc, $query);
+    while ($row = mysqli_fetch_array($res)) {
+      $enable_ad = 'UPDATE cls_ads SET enabled = 1 WHERE id = ' . $ad_id;
+      $data = mysqli_query($dbc, $enable_ad);
 
-      echo '<h3>Your ad ' . $row['title'] . ' was removed!</h3';
+      echo '<h3>Your ad ' . $row['title'] . ' ' . $ad_id . ' was enabled!</h3';
     }
 
     mysqli_close($dbc);

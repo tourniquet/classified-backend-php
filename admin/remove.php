@@ -20,24 +20,26 @@
       DB_PASSWORD,
       DB_NAME
     ) or Die('Error connecting to database');
+    
+    $ad_id = $_GET['id'];
+    $img_query = "SELECT * FROM cls_ads WHERE id = $ad_id";
+    $img = mysqli_query($dbc, $img_query);
 
-    $query = "SELECT * FROM cls_ads ORDER BY pub_date DESC";
-    $data = mysqli_query($dbc, $query);
+    while ($row = mysqli_fetch_array($img)) {
+      // remove image
+      @unlink('../' . UPLOADS_PATH . $row['image']);
 
-    echo '<ul>';
+      $query = 'DELETE FROM cls_ads WHERE id = ' . $_GET['id'];
+      $data = mysqli_query($dbc, $query);
 
-    while ($row = mysqli_fetch_array($data)) {
-      echo '<li>' . $row['title'] .
-          '<a href="remove.php?id=' . $row['id'] . '"> Remove</a>&nbsp;
-          <a href="enable.php?id=' . $row['id'] . '">Enable</a>&nbsp;
-          <a href="disable.php?id=' . $row['id'] . '">Disable</a>
-          <a href="renew.php?id=' . $row['id'] . '">Renew</a>
-        </li>';
+      echo '<h3>Your ad ' . $row['title'] . ' was removed!</h3';
     }
-
-    echo '</ul>';
 
     mysqli_close($dbc);
   ?>
+  
+  <div>
+    <a href="/classified/backend/admin"><<< Back</a>
+  </div>
 </body>
 </html>
