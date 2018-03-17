@@ -9,10 +9,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+
+  <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
   <?php
-    require_once('../appvars.php');
+    require_once('../config.php');
 
     $dbc = mysqli_connect(
       DB_HOST,
@@ -27,12 +29,21 @@
     echo '<ul>';
 
     while ($row = mysqli_fetch_array($data)) {
-      echo '<li>' . $row['title'] .
-          '<a href="remove.php?id=' . $row['id'] . '"> Remove</a>&nbsp;
-          <a href="enable.php?id=' . $row['id'] . '">Enable</a>&nbsp;
-          <a href="disable.php?id=' . $row['id'] . '">Disable</a>
-          <a href="renew.php?id=' . $row['id'] . '">Renew</a>
-        </li>';
+      if ($row['enabled'] == 1) {
+        echo '<li class="enabled">' . $row['title'] .
+            '<a href="remove.php?id=' . $row['id'] . '"> Remove</a>&nbsp;
+            <a href="enable.php?id=' . $row['id'] . '">Enable</a>&nbsp;
+            <a href="disable.php?id=' . $row['id'] . '">Disable</a>
+            <a href="renew.php?id=' . $row['id'] . '">Renew</a>
+          </li>';
+      } else {
+        echo '<li class="disabled">' . $row['title'] .
+            '<a href="remove.php?id=' . $row['id'] . '"> Remove</a>&nbsp;
+            <a href="enable.php?id=' . $row['id'] . '">Enable</a>&nbsp;
+            <a href="disable.php?id=' . $row['id'] . '">Disable</a>
+            <a href="renew.php?id=' . $row['id'] . '">Renew</a>
+          </li>';
+      }
     }
 
     echo '</ul>';

@@ -12,7 +12,7 @@
 </head>
 <body>
   <?php
-    require_once('../appvars.php');
+    require_once('../config.php');
 
     $dbc = mysqli_connect(
       DB_HOST,

@@ -8,7 +8,7 @@
 </head>
 <body>
   <?php
-    require_once('appvars.php');
+    require_once('config.php');
 
     $visitor_name = $_POST['name'];
     $ad_title = $_POST['title'];
@@ -28,7 +28,7 @@
       DB_PASSWORD,
       DB_NAME
     ) or Die('Error connecting to database');
-    $query = "INSERT INTO cls_ads VALUES (0, NOW(), '$visitor_name', '$ad_title', '$ad_description', '$ad_price', '$image', 0)";
+    $query = "INSERT INTO cls_ads (pub_date, name, title, description, price, image) VALUES (NOW(), '$visitor_name', '$ad_title', '$ad_description', '$ad_price', '$image')";
     $result = mysqli_query($dbc, $query) or die('Error querying database.');
     mysqli_close($dbc);
 
