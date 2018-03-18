@@ -1,4 +1,7 @@
 <?php
+  /** Root folder path */
+  // define(ROOT, dirname(__FILE__));
+
   /** Uploads folder path */
   define('UPLOADS_PATH', 'uploads/');
 

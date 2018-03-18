@@ -1,5 +1,36 @@
 <?php
-  require_once('../authorize.php');
+  require_once('../config.php');
+
+  $error_msg = '';
+
+  if (!isset($_COOKIE['email'])) {
+    $home_url = 'http://' . $_SERVER['HTTP_HOST'] . '/classified/backend/login.php';
+    header('Location: ' . $home_url);
+
+    if (isset($_POST['submit'])) {
+      $dbc = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME) or die('Error connecting to database');
+
+      $email = mysqli_real_escape_string($dbc, trim($_POST['email']));
+      $password = mysqli_real_escape_string($dbc, trim($_POST['password']));
+
+      if (!empty($email) && !empty($password)) {
+        $query = "SELECT email FROM cls_users WHERE email = '$email' AND password = SHA('$password')";
+        $data = mysqli_query($dbc, $query);
+
+        if (mysqli_num_rows($data) == 1) {
+          $row = mysqli_fetch_array($data);
+          setcookie('email', $row['email']);
+
+          $home_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/';
+          header('Location: ' . $home_url);
+        } else {
+          $error_msg = 'Sorry, you must enter a valid email and password to log in.';
+        }
+      } else {
+        $error_msg = 'Sorry, you must enter your email and password to log in.';
+      }
+    }
+  }
 ?>
 
 <!DOCTYPE html>
@@ -14,8 +45,6 @@
 </head>
 <body>
   <?php
-    require_once('../config.php');
-
     $dbc = mysqli_connect(
       DB_HOST,
       DB_USER,
@@ -25,6 +54,12 @@
 
     $query = "SELECT * FROM cls_ads ORDER BY pub_date DESC";
     $data = mysqli_query($dbc, $query);
+
+    if (isset($_COOKIE['email'])) {
+      echo '<a href="../logout.php" style="color: red;">Logout</a>';
+    } else {
+      echo '<a href="../login.php" style="color: red;">Login</a>';
+    }
 
     echo '<ul>';
 

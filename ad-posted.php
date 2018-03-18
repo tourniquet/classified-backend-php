@@ -36,6 +36,6 @@
     @unlink($_FILES['image']['tmp_name']);
   ?>
 
-  <a href="https://google.com">Google</a>
+  <a href="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/' ?>">Homepage</a>
 </body>
 </html>
