@@ -16,7 +16,7 @@
 
         if (mysqli_num_rows($data) == 1) {
           $row = mysqli_fetch_array($data);
-          setcookie('email', $row['email']);
+          setcookie('email', $row['email'], time() + (86400 * 30), "/");
 
           $home_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/';
           header('Location: ' . $home_url);

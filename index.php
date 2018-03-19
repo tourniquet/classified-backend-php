@@ -14,6 +14,12 @@
     $query = "SELECT * FROM cls_ads ORDER BY pub_date DESC";
     $data = mysqli_query($dbc, $query);
 
+    if (isset($_COOKIE['email'])) {
+      echo '<a href="logout.php">Logout</a>';
+    } else {
+      echo '<a href="login.php">Login</a>';
+    }
+
     echo '<ul>';
 
     while ($row = mysqli_fetch_array($data)) {
