@@ -8,7 +8,7 @@
     header('Location: ' . $home_url);
 
     if (isset($_POST['submit'])) {
-      $dbc = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME) or die('Error connecting to database');
+      require_once('../dbc.php');
 
       $email = mysqli_real_escape_string($dbc, trim($_POST['email']));
       $password = mysqli_real_escape_string($dbc, trim($_POST['password']));

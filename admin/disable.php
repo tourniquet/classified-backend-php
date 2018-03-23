@@ -9,14 +9,8 @@
 <body>
   <?php
     require_once('../config.php');
+    require_once('../dbc.php');
 
-    $dbc = mysqli_connect(
-      DB_HOST,
-      DB_USER,
-      DB_PASSWORD,
-      DB_NAME
-    ) or Die('Error connecting to database');
-    
     $ad_id = $_GET['id'];
     $query = "SELECT * FROM cls_ads WHERE id = $ad_id";
     $res = mysqli_query($dbc, $query);

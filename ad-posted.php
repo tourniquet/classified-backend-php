@@ -22,12 +22,7 @@
     echo "<h2>Your ad \"$ad_title\" was posted!</h2>";
     echo '<img src="' . UPLOADS_PATH . $image . '" alt="some alt">';
 
-    $dbc = mysqli_connect(
-      DB_HOST,
-      DB_USER,
-      DB_PASSWORD,
-      DB_NAME
-    ) or Die('Error connecting to database');
+    require_once('dbc.php');
     $query = "INSERT INTO cls_ads (pub_date, name, title, description, price, image) VALUES (NOW(), '$visitor_name', '$ad_title', '$ad_description', '$ad_price', '$image')";
     $result = mysqli_query($dbc, $query) or die('Error querying database.');
     mysqli_close($dbc);

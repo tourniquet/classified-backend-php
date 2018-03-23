@@ -9,13 +9,7 @@
 <body>
   <?php
     require_once('../config.php');
-
-    $dbc = mysqli_connect(
-      DB_HOST,
-      DB_USER,
-      DB_PASSWORD,
-      DB_NAME
-    ) or Die('Error connecting to database');
+    require_once('../dbc.php');
     
     $ad_id = $_GET['id'];
     $img_query = "SELECT * FROM cls_ads WHERE id = $ad_id";

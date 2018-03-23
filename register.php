@@ -1,7 +1,7 @@
 <?php
   require_once('config.php');
 
-  $dbc = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+  require_once('dbc.php');
 
   if (isset($_POST['submit'])) {
     $email = mysqli_real_escape_string($dbc, trim($_POST['email']));
@@ -16,7 +16,7 @@
 
         if (mysqli_num_rows($data) == 0) {
           // the email is unique, so insert the data into the database
-          $query = "INSERT INTO cls_users (email, password) VALUES ('$email', SHA('$password'))";
+          $query = "INSERT INTO cls_users (email, password, token) VALUES ('$email', SHA('$password'), bin2hex(random_bytes(12)))";
           mysqli_query($dbc, $query);
 
           // confirm success with the user

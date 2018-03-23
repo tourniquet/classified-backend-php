@@ -4,8 +4,10 @@
   $error_msg = '';
 
   if (!isset($_COOKIE['email'])) {
+    $error_msg = 'Sorry, you must enter a valid email and password to log in.';
+
     if (isset($_POST['submit'])) {
-      $dbc = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME) or die('Error connecting to database');
+      require_once('dbc.php');
 
       $email = mysqli_real_escape_string($dbc, trim($_POST['email']));
       $password = mysqli_real_escape_string($dbc, trim($_POST['password']));
@@ -17,6 +19,7 @@
         if (mysqli_num_rows($data) == 1) {
           $row = mysqli_fetch_array($data);
           setcookie('email', $row['email'], time() + (86400 * 30), "/");
+          setcookie('token', $row['token'], time() + (86400 * 30), "/");
 
           $home_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/';
           header('Location: ' . $home_url);
