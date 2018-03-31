@@ -13,11 +13,14 @@
 
   $res = [];
 
-  while ($i = mysqli_fetch_array($data)) {
+  while ($i = mysqli_fetch_assoc($data)) {
     $res[] = $i;
   }
 
+  // mysqli_fet
+
   echo json_encode($res);
+  // print_r(mysqli_fetch_array($data));
 
   mysqli_close($dbc);
 ?>

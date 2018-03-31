@@ -13,7 +13,7 @@
   define('DB_USER', 'root');
 
   /** MySQL database password */
-  define('DB_PASSWORD', 'qwerty123');
+  define('DB_PASSWORD', '');
 
   /** The name of the database */
   define('DB_NAME', 'classified');
