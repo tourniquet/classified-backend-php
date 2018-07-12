@@ -3,3 +3,6 @@ config.php
 uploads/*
 
 !*.gitkeep
+
+node_modules/
+npm-debug.log
