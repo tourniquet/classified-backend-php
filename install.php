@@ -48,15 +48,23 @@
 
         $query = "
           CREATE TABLE cls_ads (
-            id INTEGER PRIMARY KEY, /* EXTRA AUTOINCREMENT */
-            pub_date DATETIME,
-            name VARCHAR(30),
+            id INTEGER PRIMARY KEY AUTO_INCREMENT,
+            url INT(8),
+            published DATETIME,
+            modified DATETIME,
             title VARCHAR(50),
             description VARCHAR(100),
             price VARCHAR(10),
             image VARCHAR(64),
+            name VARCHAR(30),
             enabled TINYINT(4)
           );
+        ";
+        $result = mysqli_query($dbc, $query) or die('Error querying database.');
+
+        $query = "
+          INSERT INTO cls_ads (url, published, name, title, description, price)
+            VALUES (12345678, NOW(), 'Anonymous', 'Demo ad', 'Demo description', 'free');
         ";
         $result = mysqli_query($dbc, $query) or die('Error querying database.');
 

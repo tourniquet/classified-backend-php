@@ -21,7 +21,7 @@
     }
 
     while ($row = mysqli_fetch_array($res)) {
-      $enable_ad = 'UPDATE cls_ads SET pub_date = NOW() WHERE id = ' . $ad_id;
+      $enable_ad = 'UPDATE cls_ads SET published = NOW() WHERE id = ' . $ad_id;
       $data = mysqli_query($dbc, $enable_ad);
 
       echo '<h3>Your ad ' . $row['title'] . ' ' . $ad_id . ' was renewed!</h3';
