@@ -57,7 +57,8 @@
             price VARCHAR(10),
             image VARCHAR(64),
             name VARCHAR(30),
-            enabled TINYINT(4)
+            enabled TINYINT(4),
+            views INT(6)
           );
         ";
         $result = mysqli_query($dbc, $query) or die('Error querying database.');

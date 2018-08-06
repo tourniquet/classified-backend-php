@@ -23,8 +23,8 @@
     TODO: I think that there will be a good idea to allow only front end host,
     which can be stored in the database and set up when back-end is installed
   */}
-  header("Access-Control-Allow-Origin: *", false);
-  header("Content-type: application/json");
+  header('Access-Control-Allow-Origin: *', false);
+  header('Content-type: application/json');
   echo json_encode($res);
 
   mysqli_close($dbc);

@@ -6,17 +6,17 @@
     TODO: I think that there will be a good idea to allow only front end host,
     which can be stored in the database and set up when back-end is installed
   */}
-  header("Access-Control-Allow-Origin: *", false);
+  header('Access-Control-Allow-Origin: *', false);
 
   $raw_data = file_get_contents('php://input');
   $data = json_decode($raw_data, true);
 
-  print_r($data);
+  // print_r($data);
 
   $url = $data['url'];
   $visitor_name = $data['name'];
-  $ad_title = $data['title'];
-  $ad_description = $data['description'];
+  $ad_title = mysqli_real_escape_string($dbc, $data['title']);
+  $ad_description = mysqli_real_escape_string($dbc, $data['description']);
   $ad_price = $data['price'];
   // $image = $_FILES['image']['name'];
   
