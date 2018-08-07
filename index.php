@@ -24,7 +24,8 @@
     which can be stored in the database and set up when back-end is installed
   */}
   header('Access-Control-Allow-Origin: *', false);
-  header('Content-type: application/json');
+  header('Content-type: application/json', false);
+  header('HTTP/1.1 200 OK');
   echo json_encode($res);
 
   mysqli_close($dbc);
