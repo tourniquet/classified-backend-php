@@ -1,6 +1,13 @@
 This is the API Documentation for CLASSIFIED.
 
-**Get all ads**
+## Table of contents
+
+- [GET /](#get-all-ads)
+- [GET /item.php?url=$:id](#get-single-ad)
+- [POST /registration.php](#user-registration)
+
+## **Get all ads**
+
 ----
   Returns all ads as JSON data.
 
@@ -63,8 +70,8 @@ This is the API Documentation for CLASSIFIED.
       .catch(error => console.error(error))
   ```
 
-**Get single ad**
-----
+## **Get single ad**
+---
   Returns JSON data for a single ad.
 
 * **URL**
@@ -112,5 +119,56 @@ This is the API Documentation for CLASSIFIED.
     fetch(url)
       .then(response => response.json())
       .then(result => console.log(result))
+      .catch(error => console.error(error))
+  ```
+
+## **User registration**
+---
+Send JSON data to register user
+
+* **URL**
+
+  /registration.php
+
+* **Method:**
+
+  `POST`
+
+*  **URL Params**
+
+    None
+
+* **Data Params**
+
+  ```json
+    {
+      "email": "username@example.com",
+      "password": "qwerty123",
+      "passwordConfirmation": "qwerty123"
+    }
+  ```
+
+* **Success Response:**
+
+    **Content:** 
+    ```
+      Success!
+    ```
+
+* **Sample Call:**
+
+  ```javascript
+    const data = {
+      email: 'email@example.com',
+      password: 'qwerty123',
+      passwordConfirmation: 'qwerty123'
+    }
+
+    const url = `/registration.php`
+    fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(data)
+    })
+      .then(() => ())
       .catch(error => console.error(error))
   ```

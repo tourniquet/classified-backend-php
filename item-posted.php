@@ -11,27 +11,31 @@
   $raw_data = file_get_contents('php://input');
   $data = json_decode($raw_data, true);
 
-  // print_r($data);
-
   $url = $data['url'];
-  $visitor_name = $data['name'];
   $ad_title = mysqli_real_escape_string($dbc, $data['title']);
   $ad_description = mysqli_real_escape_string($dbc, $data['description']);
   $ad_price = $data['price'];
+  $visitor_name = $data['name'];
   // $image = $_FILES['image']['name'];
-  
+
   // $file_target = UPLOADS_PATH . $image;
   // move_uploaded_file($_FILES['image']['tmp_name'], $file_target);
 
-  $query = "INSERT INTO cls_ads (url, published, name, title, description, price)
-    VALUES ('$url', NOW(), '$visitor_name', '$ad_title', '$ad_description', '$ad_price')";
-  $result = mysqli_query($dbc, $query) or die('Error querying database.');
+  if ($url && $ad_title && $ad_description && $visitor_name) {
+    header('HTTP/1.1 200 OK');
+
+    $query = "INSERT INTO cls_ads (url, published, name, title, description, price)
+      VALUES ('$url', NOW(), '$visitor_name', '$ad_title', '$ad_description', '$ad_price')";
+    $result = mysqli_query($dbc, $query) or die('Error querying database.');
+
+    mysqli_close($dbc);
+  } else {
+    // TODO: To find what header should be send to front end if something is wrong
+  }
 
   // get last posted ad id and send it to the client
   // $query = "SELECT ";
   // $result = mysqli_query($dbc, $query) or die('Error querying database.');
-
-  mysqli_close($dbc);
 
   // try to delete temporary image
   // @unlink($_FILES['image']['tmp_name']);
