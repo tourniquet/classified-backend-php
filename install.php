@@ -45,7 +45,8 @@
           $db_password,
           $db_name
         ) or Die('Error connecting to database');
-
+        
+        // create cls_ads table
         $query = "
           CREATE TABLE cls_ads (
             id INTEGER PRIMARY KEY AUTO_INCREMENT,
@@ -60,6 +61,17 @@
             enabled TINYINT(4),
             views INT(6)
           );
+        ";
+        $result = mysqli_query($dbc, $query) or die('Error querying database.');
+
+        // create cls_users table
+        $query = "
+          CREATE TABLE cls_users (
+            id INTEGER PRIMARY KEY AUTO_INCREMENT,
+            email VARCHAR(50),
+            password VARCHAR(50),
+            token VARCHAR(12)
+          )
         ";
         $result = mysqli_query($dbc, $query) or die('Error querying database.');
 
