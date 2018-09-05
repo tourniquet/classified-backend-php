@@ -1,5 +1,4 @@
 <?php
-  require_once('config.php');
   require_once('dbc.php');
 
   $raw_data = file_get_contents('php://input');
@@ -7,7 +6,7 @@
 
   $error_msg = '';
 
-  $email = mysqli_real_escape_string($dbc, trim($data['email']));
+  $email = mysqli_real_escape_string($dbc, trim(strtolower($data['email'])));
   $password = mysqli_real_escape_string($dbc, trim($data['password']));
 
   // if (!isset($_COOKIE['email'])) {
