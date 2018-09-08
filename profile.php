@@ -1,6 +1,4 @@
 <?php
-  require_once('config.php');
-
   if (!isset($_COOKIE['email'])) {
     $login_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/login.php';
     header('Location: ' . $login_url);

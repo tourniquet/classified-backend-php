@@ -1,5 +1,4 @@
 <?php
-  require_once('config.php');
   require_once('dbc.php');
 
   $query = "SELECT * FROM cls_ads WHERE url = " . $_GET['url'];
@@ -17,7 +16,7 @@
 
   // increment views when ad is viewed
   $query = "UPDATE cls_ads SET views = views + 1 WHERE url = " . $_GET['url'];
-  $update = mysqli_query($dbc, $query)
+  mysqli_query($dbc, $query)
     or die('mysql throw an error when tried to update views column');
 
   mysqli_close($dbc);

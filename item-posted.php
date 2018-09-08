@@ -1,5 +1,4 @@
 <?php
-  require_once('config.php');
   require_once('dbc.php');
 
   {/* 
@@ -26,7 +25,7 @@
 
     $query = "INSERT INTO cls_ads (url, published, name, title, description, price)
       VALUES ('$url', NOW(), '$visitor_name', '$ad_title', '$ad_description', '$ad_price')";
-    $result = mysqli_query($dbc, $query) or die('Error querying database.');
+    mysqli_query($dbc, $query) or die('Error querying database.');
 
     mysqli_close($dbc);
   } else {
