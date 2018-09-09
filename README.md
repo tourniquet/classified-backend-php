@@ -1,32 +1,40 @@
-This is the API Documentation for CLASSIFIED.
+# This is the API Documentation for CLASSIFIED
 
 ## Table of contents
 
+- [Build styles](#build-styles)
 - [GET /](#get-all-ads)
 - [GET /item.php?url=$:id](#get-single-ad)
 - [POST /registration.php](#user-registration)
 
+## **Build styles**
+
+---
+
+- In root folder, run **sass styles/import.scss styles/styles.css**
+- For --watch mode, in root folder, run **sass -watch styles/import.scss styles/styles.css**
+
 ## **Get all ads**
 
-----
+---
   Returns all ads as JSON data.
 
-* **URL**
+- **URL**
 
   /
 
-* **Method:**
+- **Method:**
 
   `GET`
 
-* **URL Params**
+- **URL Params**
 
   None
 
-* **Success Response:**
+- **Success Response:**
 
-  * **Code:** 200 <br />
-    **Content:** 
+  - **Code:** 200
+  - **Content:**
     ```json
       [
         {
@@ -59,11 +67,11 @@ This is the API Documentation for CLASSIFIED.
       ]
     ```
 
-* **Sample Call:**
+- **Sample Call:**
 
   ```javascript
     const url = `/`
-    
+
     fetch(url)
       .then(response => response.json())
       .then(result => console.log(result))
@@ -71,31 +79,32 @@ This is the API Documentation for CLASSIFIED.
   ```
 
 ## **Get single ad**
+
 ---
   Returns JSON data for a single ad.
 
-* **URL**
+- **URL**
 
   /item.php?url=$:id
 
-* **Method:**
+- **Method:**
 
   `GET`
 
-*  **URL Params**
+- **URL Params**
 
    **Required:**
- 
+
    `id=[integer]`
 
-* **Data Params**
+- **Data Params**
 
   None
 
-* **Success Response:**
+- **Success Response:**
 
-  * **Code:** 200 <br />
-    **Content:** 
+  - **Code:** 200
+  - **Content:**
     ```json
       {
         "id": "40",
@@ -111,11 +120,11 @@ This is the API Documentation for CLASSIFIED.
       }
     ```
 
-* **Sample Call:**
+- **Sample Call:**
 
   ```javascript
     const url = `/item.php?url=$:id`
-    
+
     fetch(url)
       .then(response => response.json())
       .then(result => console.log(result))
@@ -123,22 +132,23 @@ This is the API Documentation for CLASSIFIED.
   ```
 
 ## **User registration**
+
 ---
 Send JSON data to register user
 
-* **URL**
+- **URL**
 
   /registration.php
 
-* **Method:**
+- **Method:**
 
   `POST`
 
-*  **URL Params**
+- **URL Params**
 
     None
 
-* **Data Params**
+- **Data Params**
 
   ```json
     {
@@ -148,14 +158,14 @@ Send JSON data to register user
     }
   ```
 
-* **Success Response:**
+- **Success Response:**
 
-    **Content:** 
-    ```
+    **Content:**
+    ```text
       Success!
     ```
 
-* **Sample Call:**
+- **Sample Call:**
 
   ```javascript
     const data = {

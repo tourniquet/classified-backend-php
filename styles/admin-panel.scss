@@ -5,16 +5,18 @@ a {
   text-decoration: none;
 }
 
-li {
-  border: 0;
-  border-bottom: 1px solid #F5F5F5;
-}
+ul.items-list {
+  li {
+    border: 0;
+    border-bottom: 1px solid #F5F5F5;
 
-.disabled {
-  /* background: gray; */
-  color: grey;
-}
-
-.enabled {
-  color: black;
+    &.disabled {
+      /* background: gray; */
+      color: #818181;
+    }
+    
+    &.enabled {
+      color: black;
+    }
+  }
 }

@@ -1,10 +1,33 @@
+/* temporary styles */
+/* admin panel styles */
 @import url("https://fonts.googleapis.com/css?family=Roboto:400,500");
+a {
+  color: black;
+  text-decoration: none;
+}
+
+ul.items-list li {
+  border: 0;
+  border-bottom: 1px solid #F5F5F5;
+}
+ul.items-list li.disabled {
+  /* background: gray; */
+  color: #818181;
+}
+ul.items-list li.enabled {
+  color: black;
+}
+
 * {
   font-family: "Roboto", sans-serif;
 }
 
 body {
   background: #f1f1f1;
+}
+
+ul {
+  list-style-type: none;
 }
 
 .container {

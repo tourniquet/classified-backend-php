@@ -44,42 +44,42 @@
           $db_user,
           $db_password,
           $db_name
-        ) or Die('Error connecting to database');
+        ) or die('Error connecting to database');
         
         // create cls_ads table
         $query = "
           CREATE TABLE cls_ads (
             id INTEGER PRIMARY KEY AUTO_INCREMENT,
-            url INT(8),
-            published DATETIME,
-            modified DATETIME,
-            title VARCHAR(50),
-            description VARCHAR(100),
-            price VARCHAR(10),
-            image VARCHAR(64),
-            name VARCHAR(30),
-            enabled TINYINT(4),
-            views INT(6)
+            url INT(8) NOT NULL,
+            published DATETIME NOT NULL,
+            modified DATETIME NULL,
+            title VARCHAR(50) NOT NULL,
+            description VARCHAR(100) NOT NULL,
+            price VARCHAR(10) NULL,
+            image VARCHAR(64) NULL,
+            name VARCHAR(30) NOT NULL,
+            enabled TINYINT(4) NOT NULL,
+            views INT(6) NOT NULL
           );
         ";
-        $result = mysqli_query($dbc, $query) or die('Error querying database.');
+        mysqli_query($dbc, $query) or die('Error querying database.');
 
         // create cls_users table
         $query = "
           CREATE TABLE cls_users (
             id INTEGER PRIMARY KEY AUTO_INCREMENT,
-            email VARCHAR(50),
-            password VARCHAR(50),
-            token VARCHAR(12)
+            email VARCHAR(50) NOT NULL,
+            password VARCHAR(50) NOT NULL,
+            token VARCHAR(12) NOT NULL
           )
         ";
-        $result = mysqli_query($dbc, $query) or die('Error querying database.');
+        mysqli_query($dbc, $query) or die('Error querying database.');
 
         $query = "
           INSERT INTO cls_ads (url, published, name, title, description, price)
             VALUES (12345678, NOW(), 'Anonymous', 'Demo ad', 'Demo description', 'free');
         ";
-        $result = mysqli_query($dbc, $query) or die('Error querying database.');
+        mysqli_query($dbc, $query) or die('Error querying database.');
 
         mysqli_close($dbc);
       }
