@@ -6,6 +6,7 @@
 - [GET /](#get-all-ads)
 - [GET /item.php?url=$:id](#get-single-ad)
 - [POST /registration.php](#user-registration)
+- [POST /item-posted.php](#item-posted)
 
 ## **Build styles**
 
@@ -182,3 +183,6 @@ Send JSON data to register user
       .then(() => ())
       .catch(error => console.error(error))
   ```
+
+## **Item posted**
+---
