@@ -7,7 +7,7 @@
   */}
   header('Access-Control-Allow-Origin: *', false);
 
-  $data = $_POST; // file_get_contents('php://input');
+  $data = $_POST;
 
   $url = $data['url'];
   $ad_title = mysqli_real_escape_string($dbc, $data['title']);
@@ -18,24 +18,26 @@
 
   // move each image in uploads/ folder
   foreach ($_FILES['images']['tmp_name'] as $key => $name) {
-    $image = $_FILES['images']['name'][$key];
-    $temp_name = $_FILES['images']['tmp_name'][$key];
-
-    move_uploaded_file($temp_name, UPLOADS_PATH . $image);
+    if (!empty($_FILES['images']['tmp_name'][$key])) {
+      $temp_name = $_FILES['images']['tmp_name'][$key];
+      $image_extension = pathinfo($_FILES['images']['name'][$key]);
+      $image = UPLOADS_PATH . $url . '_' . $key . '.' . $image_extension['extension'];
+  
+      move_uploaded_file($temp_name, $image);
+    }
   }
 
   if ($url && $ad_title && $ad_description && $visitor_name) {
-    header('HTTP/1.1 200 OK');
-
     $query = "INSERT INTO cls_ads (url, published, name, title, description, phone, price)
       VALUES ('$url', NOW(), '$visitor_name', '$ad_title', '$ad_description', '$phone', '$ad_price')";
     mysqli_query($dbc, $query) or die('Error querying database.');
-
+    
     // TODO: if !error, send an email to site admin
-    // if (mysqli_affected_rows($query)) {
+    if (mysqli_affected_rows($dbc)) {
+      header('HTTP/1.1 200 OK');
       // mail('admyn3d@gmail.com', '$subject', '$msg', 'admyn3d@gmail.com');
       // echo json_encode('$res');
-    // }
+    }
 
     mysqli_close($dbc);
   } else {
