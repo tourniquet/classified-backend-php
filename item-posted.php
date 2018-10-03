@@ -8,7 +8,6 @@
   header('Access-Control-Allow-Origin: *', false);
 
   $data = $_POST; // file_get_contents('php://input');
-  // $data = json_decode($raw_data, true);
 
   $url = $data['url'];
   $ad_title = mysqli_real_escape_string($dbc, $data['title']);
@@ -17,15 +16,15 @@
   $visitor_name = $data['name'];
   $ad_price = $data['price'];
 
-  $first_image = $_FILES['image']['name'][0];
-  $first_file_target = UPLOADS_PATH . $first_image;
-  move_uploaded_file($_FILES['image']['tmp_name'][0], $first_file_target);
+  // move each image in uploads/ folder
+  foreach ($_FILES['images']['tmp_name'] as $key => $name) {
+    $image = $_FILES['images']['name'][$key];
+    $temp_name = $_FILES['images']['tmp_name'][$key];
 
-  $second_image = $_FILES['image']['name'][1];
-  $second_file_target = UPLOADS_PATH . $second_image;
-  move_uploaded_file($_FILES['image']['tmp_name'][1], $second_file_target);
+    move_uploaded_file($temp_name, UPLOADS_PATH . $image);
+  }
 
-  if ($url) { //  && $ad_title && $ad_description && $visitor_name
+  if ($url && $ad_title && $ad_description && $visitor_name) {
     header('HTTP/1.1 200 OK');
 
     $query = "INSERT INTO cls_ads (url, published, name, title, description, phone, price)
