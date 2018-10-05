@@ -1,7 +1,7 @@
 <?php
   require_once('dbc.php');
 
-  $query = "SELECT * FROM cls_ads WHERE url = " . $_GET['url'];
+  $query = "SELECT * FROM cls_ads, cls_images WHERE url = " . $_GET['url'] . " AND cls_ads.id = cls_images.ad_id";
   $data = mysqli_query($dbc, $query) or die('mysql_error');
   $res = mysqli_fetch_assoc($data);
   // send data as a valid JSON and allow Origin Access
