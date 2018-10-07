@@ -76,6 +76,15 @@
         ";
         mysqli_query($dbc, $query) or die('Error querying database.');
 
+        // create cls_images table
+        $query = "
+            CREATE TABLE cls_images (
+              image VARCHAR(30),
+              ad_id INT
+            )
+        ";
+        mysqli_query($dbc, $query) or die('Error querying database.');
+
         $query = "
           INSERT INTO cls_ads (url, published, name, title, description, price)
             VALUES (12345678, NOW(), 'Anonymous', 'Demo ad', 'Demo description', 'free');

@@ -24,18 +24,6 @@
     // to be used in 'insert image name into table' query
     $ad_id = mysqli_insert_id($dbc);
 
-    function resize_image ($image) {
-      // write something smart here
-      // https://www.minddevelopmentanddesign.com/blog/image-resize-crop-thumbnail-watermark-php-script/
-      // https://www.sitepoint.com/image-resizing-php/
-      // https://itsolutionstuff.com/post/how-to-upload-and-resize-image-in-php-example.html
-
-      // aspect ratio formula
-      // if width > height -> (original height / original width) * new width = new height
-      // if height > width (original width / original height) * new height = new width
-      // (600 / 800) * 500 = 375
-    }
-
     // move each image in uploads/ folder
     foreach ($_FILES['images']['tmp_name'] as $key => $name) {
       if (!empty($_FILES['images']['tmp_name'][$key])) {
@@ -43,8 +31,39 @@
         $image_extension = pathinfo($_FILES['images']['name'][$key]);
         $image_name = $url . '_' . $key . '.' . $image_extension['extension'];
         $image_path = UPLOADS_PATH . $image_name;
+        $thumbnail_name = 'thumb_' . $image_name;
+        $thumbnail_path = UPLOADS_PATH . $thumbnail_name;
+
+        $src_image_width = getimagesize($temp_name)[0];
+        $src_image_height = getimagesize($temp_name)[1];
+        $src_image_type = getimagesize($temp_name)[2];
+
+        // aspect ratio formula
+        // if width > height -> (original height / original width) * new width = new height
+        if ($src_image_width > $src_image_height) {
+          $new_image_width = 800;
+          $new_image_height = ($src_image_height / $src_image_width) * $new_image_width;
+          $thumbnail_width = 170;
+          $thumbnail_height = ($src_image_height / $src_image_width) * $thumbnail_width;
+        } elseif ($src_image_height >= $src_image_width) {
+          $new_image_height = 800;
+          $new_image_width = ($src_image_width / $src_image_height) * $new_image_height;
+          $thumbnail_height = 170;
+          $thumbnail_width = ($src_image_height / $src_image_width) * $thumbnail_height;
+        }
+
+        if ($src_image_type == IMAGETYPE_JPEG) {
+          $create_new_image = imagecreatefromjpeg($temp_name);
+          $target_layer = imagecreatetruecolor($new_image_width, $new_image_height);
+          imagecopyresampled($target_layer, $create_new_image, 0, 0, 0, 0, $new_image_width, $new_image_height, $src_image_width, $src_image_height);
+          $resized_image = imagejpeg($target_layer, $image_path);
+          $target_layer = imagecreatetruecolor($thumbnail_width, $thumbnail_height);
+          imagecopyresampled($target_layer, $create_new_image, 0, 0, 0, 0, $thumbnail_width, $thumbnail_height, $src_image_width, $src_image_height);
+          $thumbnail = imagejpeg($target_layer, $thumbnail_path);
+        }
     
-        move_uploaded_file($temp_name, $image_path);
+        move_uploaded_file($resized_image, $image_path);
+        move_uploaded_file($thumbnail, $thumbnail_path);
         // remove temporary image
         unlink($temp_name);
 
