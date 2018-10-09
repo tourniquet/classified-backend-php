@@ -49,7 +49,7 @@
           $new_image_height = 800;
           $new_image_width = ($src_image_width / $src_image_height) * $new_image_height;
           $thumbnail_height = 170;
-          $thumbnail_width = ($src_image_height / $src_image_width) * $thumbnail_height;
+          $thumbnail_width = ($src_image_width / $src_image_height) * $thumbnail_height;
         }
 
         if ($src_image_type == IMAGETYPE_JPEG) {
@@ -57,6 +57,7 @@
           $target_layer = imagecreatetruecolor($new_image_width, $new_image_height);
           imagecopyresampled($target_layer, $create_new_image, 0, 0, 0, 0, $new_image_width, $new_image_height, $src_image_width, $src_image_height);
           $resized_image = imagejpeg($target_layer, $image_path);
+
           $target_layer = imagecreatetruecolor($thumbnail_width, $thumbnail_height);
           imagecopyresampled($target_layer, $create_new_image, 0, 0, 0, 0, $thumbnail_width, $thumbnail_height, $src_image_width, $src_image_height);
           $thumbnail = imagejpeg($target_layer, $thumbnail_path);
@@ -78,7 +79,7 @@
     if (mysqli_affected_rows($dbc)) {
       header('HTTP/1.1 200 OK');
       // mail('admyn3d@gmail.com', '$subject', '$msg', 'admyn3d@gmail.com');
-      // echo json_encode('$res');
+      echo json_encode($url);
     }
 
     mysqli_close($dbc);
