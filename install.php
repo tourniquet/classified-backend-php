@@ -58,7 +58,6 @@
             phone INT(12),
             name VARCHAR(30) NOT NULL,
             price VARCHAR(10) NULL,
-            image VARCHAR(64) NULL,
             enabled TINYINT(4) NOT NULL,
             views INT(6) NOT NULL
           );
