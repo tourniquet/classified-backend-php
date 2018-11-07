@@ -13,7 +13,7 @@
 ---
 
 - In root folder, run **sass styles/import.scss styles/styles.css**
-- For --watch mode, in root folder, run **sass -watch styles/import.scss styles/styles.css**
+- For --watch mode, in root folder, run **sass --watch styles/import.scss styles/styles.css**
 
 ## **Get all ads**
 
