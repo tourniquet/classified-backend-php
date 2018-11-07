@@ -95,7 +95,7 @@
     }
   ?>
 
-  <div class="container">
+  <div class="install">
     <span class="somespan">Below you should enter your database connection details. If you're not sure about these, contact your host.</span>
 
     <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" enctype="multipart/form-data">

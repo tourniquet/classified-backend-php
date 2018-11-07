@@ -1,36 +1,140 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto&subset=cyrillic");
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
 /* temporary styles */
 /* admin panel styles */
-@import url("https://fonts.googleapis.com/css?family=Roboto:400,500");
-a {
+.admin-panel {
+  background: #FFF;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  grid-template-areas: "header header" "aside main" "footer footer";
+  min-height: 100%;
+  grid-template-rows: auto 1fr auto;
+}
+.admin-panel header {
+  grid-area: header;
+  background: red;
+  height: 50px;
+}
+.admin-panel header nav {
+  align-items: center;
+  display: flex;
+  font-family: "Roboto", sans-serif;
+  height: 100%;
+  justify-content: space-around;
+}
+.admin-panel header nav > a {
+  color: #FFF;
+  text-decoration: none;
+}
+.admin-panel main {
+  grid-area: main;
+  padding: 50px 50px 50px 0;
+}
+.admin-panel main a {
   color: black;
   text-decoration: none;
 }
-
-ul.items-list li {
+.admin-panel main ul.items-list li {
   border: 0;
-  border-bottom: 1px solid #F5F5F5;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 10px;
 }
-ul.items-list li.disabled {
-  /* background: gray; */
+.admin-panel main ul.items-list li:hover {
+  background: #F3F2F3;
+}
+.admin-panel main ul.items-list li.disabled {
   color: #818181;
 }
-ul.items-list li.enabled {
+.admin-panel main ul.items-list li.enabled {
   color: black;
+}
+.admin-panel main ul.items-list li > .action-icons {
+  display: flex;
+  justify-content: space-between;
+  width: 150px;
+}
+.admin-panel main ul.items-list li > .action-icons > a {
+  background: url("../img/spritesheet.png");
+  cursor: pointer;
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+}
+.admin-panel main ul.items-list li > .action-icons > a.url-icon {
+  background-position-y: 240px;
+}
+.admin-panel main ul.items-list li > .action-icons > a.edit-icon {
+  background-position-y: 470px;
+}
+.admin-panel main ul.items-list li > .action-icons > a.renew-icon {
+  background-position-y: 70px;
+}
+.admin-panel main ul.items-list li > .action-icons > a.spam-icon {
+  background-position-y: 175px;
+}
+.admin-panel main ul.items-list li > .action-icons > a.remove-icon {
+  background-position-y: 220px;
+}
+.admin-panel aside {
+  grid-area: aside;
+  background: red;
+}
+.admin-panel footer {
+  align-items: center;
+  background: #262626;
+  color: #FFF;
+  display: flex;
+  font-family: "Roboto", sans-serif;
+  grid-area: footer;
+  height: 130px;
+  justify-content: space-around;
+  padding-top: 0;
+  width: 100%;
+}
+.admin-panel footer > .admin-footer-list a {
+  color: #FFF;
+  text-decoration: none;
 }
 
 * {
   font-family: "Roboto", sans-serif;
 }
 
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
 body {
-  background: #f1f1f1;
+  background: #F1F1F1;
 }
 
 ul {
   list-style-type: none;
 }
 
-.container {
+.install {
   background: #fff;
   box-shadow: 0px 0 20px 0px #cacaca;
   height: 415px;
@@ -41,25 +145,25 @@ ul {
   padding: 20px;
   padding-top: 30px;
 }
-.container span.somespan {
+.install span.somespan {
   color: black;
 }
-.container form {
+.install form {
   margin-top: 27px;
 }
-.container form .form-group {
+.install form .form-group {
   align-items: center;
   display: flex;
   justify-content: space-between;
   margin-bottom: 25px;
 }
-.container form .form-group label {
+.install form .form-group label {
   display: inline-block;
   font-weight: 500;
   margin-bottom: 5px;
   width: 20%;
 }
-.container form .form-group input.form-control {
+.install form .form-group input.form-control {
   background-color: #fff;
   border: 1px solid #ccc;
   color: #555;
@@ -69,20 +173,20 @@ ul {
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   width: 35%;
 }
-.container form .form-group input.form-control:focus {
+.install form .form-group input.form-control:focus {
   border-color: #66afe9;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
   outline: 0;
 }
-.container form .form-group span.required {
+.install form .form-group span.required {
   color: red;
   float: right;
   width: 10%;
 }
-.container form .form-group span.hint {
+.install form .form-group span.hint {
   width: 30%;
 }
-.container form .button {
+.install form .button {
   background-color: #fff;
   border-color: #122b40;
   border: 1px solid #e6d6d6;

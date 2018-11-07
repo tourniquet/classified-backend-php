@@ -31,52 +31,65 @@
     // }
   // } -->
 
-<?php
-  include './header.php';
+<div class="admin-panel">
+  <?php
+    include './head.php';
+    include './header.php';
+  ?>
 
-  require_once('../dbc.php');
+  <main>
+    <?php
+      require_once('../dbc.php');
 
-  $query = "SELECT * FROM cls_ads ORDER BY published DESC";
-  $data = mysqli_query($dbc, $query);
+      $query = "SELECT * FROM cls_ads ORDER BY published DESC";
+      $data = mysqli_query($dbc, $query);
 
-  // if (!$data) {
-  //   echo json_encode(mysqli_connect_error());
-  // }
+      // if (!$data) {
+      //   echo json_encode(mysqli_connect_error());
+      // }
 
-  // echo json_encode($data);
+      // echo json_encode($data);
 
-  // if (isset($_COOKIE['email'])) {
-  //   echo '<a href="../logout.php" style="color: red;">Logout</a>';
-  // } else {
-  //   echo '<a href="../login.php" style="color: red;">Login</a>';
-  // }
+      // if (isset($_COOKIE['email'])) {
+      //   echo '<a href="../logout.php" style="color: red;">Logout</a>';
+      // } else {
+      //   echo '<a href="../login.php" style="color: red;">Login</a>';
+      // }
 
-  echo '<ul class="items-list">';
-  while ($row = mysqli_fetch_array($data)) {
-    // TODO: sprintf()
+        echo '<ul class="items-list">';
+        while ($row = mysqli_fetch_array($data)) {
+          // TODO: sprintf()
 
-    $item_state = $row['enabled'] == 1
-      ? array(
-        'class_name' => 'enabled',
-        'href' => 'enable.php?id=' . $row['id'],
-        'title' => 'Enable'
-      )
-      : array(
-        'class_name' => 'disabled',
-        'href' => 'disable.php?id=' . $row['id'],
-        'title' => 'Disable'
-      );
+          $item_state = $row['enabled'] == 1
+            ? array(
+              'class_name' => 'enabled',
+              'href' => 'disable.php?id=' . $row['id'],
+              'state' => 'Disable'
+            )
+            : array(
+              'class_name' => 'disabled',
+              'href' => 'enable.php?id=' . $row['id'],
+              'state' => 'Enable'
+            );
 
+          echo '<li class="' . $item_state['class_name']  . '">' . $row['title'] .
+                  '<div class="action-icons">
+                    <a href="#" class="url-icon"></a>
+                    <a href="#" class="edit-icon"></a>
+                    <a href="' . $item_state['href'] . '" class="enable-icon"></a> <!-- $item_state[state] -->
+                    <a href="renew.php?id=' . $row['id'] . '" class="renew-icon"></a>
+                    <a href="#" class="disable-icon"></a>
+                    <a href="#" class="spam-icon"></a>
+                    <a href="remove.php?id=' . $row['id'] . '" class="remove-icon">❌</a>
+                  </div>
+                </li>';
+        }
+        echo '</ul>';
 
-    echo '<li class="' . $item_state['class_name']  . '">' . $row['title'] .
-            '<a href="remove.php?id=' . $row['id'] . '"> Remove</a>&nbsp;
-            <a href="' . $item_state['href'] . '">' . $item_state['title'] .'</a>
-            <a href="renew.php?id=' . $row['id'] . '">Renew</a>
-          </li>';
-  }
-  echo '</ul>';
+      mysqli_close($dbc);
+    ?>
+  </main>
+  
+  <?php include './footer.php'; ?>
+</div>
 
-  mysqli_close($dbc);
-
-  include './footer.php';
-?>
