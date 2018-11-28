@@ -21,14 +21,14 @@
         
         // confirm success with the user
         echo json_encode('Success!');
-        mysqli_close($dbc);
       } elseif (mysqli_num_rows($data) > 0) {
         echo json_encode('Existing!');
-        mysqli_close($dbc);
       }
     // password and confirmation password did not match
     } else {
       echo json_encode('Unmatch!');
     }
   }
+
+  mysqli_close(dbc);
 ?>
