@@ -2,32 +2,31 @@
   require_once('dbc.php');
 
   $data = file_get_contents('php://input');
-  $raw_query = 'some, description, here'; // json_decode($data, true);
-  $query = explode(' ', str_replace(', ', ' ', $raw_query));
+  $keywords = explode(' ', str_replace(', ', ' ', json_decode($data, true)));
 
-  $keywords = array();
-  foreach ($query as $keyword) {
-    if (!empty($keyword)) $keywords[] = "description LIKE '%$keyword%'";
+  $description_query = array();
+  foreach ($keywords as $keyword) {
+    if (!empty($keyword)) $description_query[] = "description LIKE '%$keyword%'";
   }
 
-  $search_query = 'SELECT * FROM cls_ads ';
-  $where_clause = implode(' OR ', $keywords);
+  $query = 'SELECT * FROM cls_ads ';
+  $where_clause = implode(' OR ', $description_query);
   if (!empty($where_clause)) {
-    $search_query .= "WHERE $where_clause";
+    $query .= "WHERE $where_clause";
   }
 
-  $sql_data = mysqli_query($dbc, $search_query) or die('Some error here');
+  $sql_data = mysqli_query($dbc, $query) or die('Some error here');
 
-  $res = [];
+  $results = [];
   while ($i = mysqli_fetch_assoc($sql_data)) {
-    $res[] = $i;
+    $results[] = $i;
   }
 
   header('Access-Control-Allow-Origin: *', false);
   header('Content-type: application/json', false);
   header('HTTP/1.1 200 OK');
 
-  echo json_encode($res);
+  echo json_encode($results);
 
   mysqli_close($dbc);
 ?>
