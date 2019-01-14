@@ -7,6 +7,7 @@
 - [GET /item.php?url=$:id](#get-single-ad)
 - [POST /registration.php](#user-registration)
 - [POST /item-posted.php](#item-posted)
+- [POST /search.php](#search)
 
 ## **Build styles**
 
@@ -186,3 +187,76 @@ Send JSON data to register user
 
 ## **Item posted**
 ---
+
+## **Search**
+---
+Send JSON data to create a search query
+
+- **URL**
+
+  /search.php
+
+- **Method:**
+
+  `POST`
+
+- **URL Params**
+
+    None
+
+- **Data Params**
+
+  ```json
+    {
+      "body": "keywords"
+    }
+  ```
+
+- **Success Response:**
+
+    **Content:**
+    ```json
+      [
+        {
+          "id": "40",
+          "published": "2018-08-06 20:58:57",
+          "name": "John",
+          "title": "Ad title",
+          "description": "Ad description",
+          "price": "3.20",
+          "image": null,
+          "enabled": "0",
+          "url": "89137472",
+          "views": "17"
+        },
+        {
+          "id": "40",
+          "published": "2018-08-06 20:58:57",
+          "name": "John",
+          "title": "Ad title",
+          "description": "Ad description",
+          "price": "3.20",
+          "image": null,
+          "enabled": "0",
+          "url": "89137471",
+          "views": "17"
+        },
+        {
+          ...
+        }
+      ]
+    ```
+
+- **Sample Call:**
+
+  ```javascript
+    const searchQuery = 'keywords'
+
+    const url = `/search.php`
+    fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(searchQuery)
+    })
+      .then(() => ())
+      .catch(error => console.error(error))
+  ```
