@@ -10,11 +10,16 @@
   $password = mysqli_real_escape_string($dbc, trim($data['password']));
 
   if (!empty($email) && !empty($password)) {
-    $query = "SELECT email FROM cls_users WHERE email = '$email' AND password = '$password'"; //SHA()
+    $query = "SELECT id, email FROM cls_users WHERE email = '$email' AND password = '$password'";
     $data = mysqli_query($dbc, $query);
+    $res = mysqli_fetch_assoc($data);
+
+    header('Access-Control-Allow-Origin: *', false);
+    header('Content-type: application/json', false);
+    header('HTTP/1.1 200 OK');
 
     if (mysqli_num_rows($data) == 1) {
-      echo json_encode('Success!');
+      echo json_encode($res);
     } else {
       echo json_encode('Unsuccess!');
     }

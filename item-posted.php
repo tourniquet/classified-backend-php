@@ -10,15 +10,16 @@
   $data = $_POST;
 
   $url = $data['url'];
+  $user_id = (!empty($data['userId'])) ? $data['userId'] : "NULL";
   $ad_title = mysqli_real_escape_string($dbc, $data['title']);
   $ad_description = mysqli_real_escape_string($dbc, $data['description']);
-  $phone = $data['phone'];
-  $visitor_name = $data['name'];
-  $ad_price = $data['price'];
+  $phone = mysqli_real_escape_string($dbc, $data['phone']);
+  $visitor_name = mysqli_real_escape_string($dbc, $data['name']);
+  $ad_price = mysqli_real_escape_string($dbc, $data['price']);
 
   if ($url && $ad_title && $ad_description && $visitor_name) {
-    $query = "INSERT INTO cls_ads (url, published, name, title, description, phone, price)
-      VALUES ('$url', NOW(), '$visitor_name', '$ad_title', '$ad_description', '$phone', '$ad_price')";
+    $query = "INSERT INTO cls_ads (url, user_id, published, name, title, description, phone, price)
+      VALUES ('$url', $user_id, NOW(), '$visitor_name', '$ad_title', '$ad_description', '$phone', '$ad_price')";
     mysqli_query($dbc, $query) or die('Error querying database.');
 
     // to be used in 'insert image name into table' query
