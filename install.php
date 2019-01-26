@@ -52,6 +52,7 @@
             id INTEGER PRIMARY KEY AUTO_INCREMENT,
             url INT(8) NOT NULL,
             user_id INTEGER  NULL,
+            user_email VARCHAR(50) NULL,
             published DATETIME NOT NULL,
             modified DATETIME NULL,
             title VARCHAR(50) NOT NULL,
