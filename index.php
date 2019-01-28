@@ -4,12 +4,6 @@
   $query = "SELECT * FROM cls_ads ORDER BY published DESC";
   $data = mysqli_query($dbc, $query);
 
-  // if (isset($_COOKIE['email'])) {
-  //   echo '<a href="logout.php">Logout</a>';
-  // } else {
-  //   echo '<a href="login.php">Login</a>';
-  // }
-
   $res = [];
   while ($i = mysqli_fetch_assoc($data)) {
     $res[] = $i;
