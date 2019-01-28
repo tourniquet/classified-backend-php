@@ -81,7 +81,7 @@
     if (mysqli_affected_rows($dbc)) {
       header('HTTP/1.1 200 OK');
       // mail('admyn3d@gmail.com', '$subject', '$msg', 'admyn3d@gmail.com');
-      echo json_encode($url);
+      echo json_encode(['url' => $url]);
     }
 
     mysqli_close($dbc);
