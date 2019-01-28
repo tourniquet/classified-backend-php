@@ -187,6 +187,54 @@ Send JSON data to register user
 
 ## **Item posted**
 ---
+Send JSON data to create a new ad
+
+- **URL**
+  /item-posted.php
+
+- **Method:**
+  `POST`
+
+- **URL Params**
+    None
+
+- **Data params**
+  ```json
+    {
+      "title": "string",
+      "description": "string",
+      "images[]": "array",
+      "phone": "number",
+      "name": "string",
+      "email": "string",
+      "price": "string?",
+      "url": "number",
+      "userId": "number",
+      "userEmail": "string"
+    }
+  ```
+- **Success Response:**
+
+    **Content:**
+    ```json
+      {
+        "url": 12345678
+      }
+    ```
+
+- **Sample Call:**
+
+  ```javascript
+    const url = `${apiHost}/item-posted.php`
+    window
+      .fetch(url, {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(result => props.history.push(`/item/${result.url}`))
+      .catch(err => console.error(err))
+  ```
 
 ## **Search**
 ---
@@ -202,7 +250,7 @@ Send JSON data to create a search query
 
 - **URL Params**
 
-    None
+  None
 
 - **Data Params**
 
