@@ -10,3 +10,19 @@
   <link rel="stylesheet" href="../styles/styles.css">
 </head>
 <body>
+  <?php
+    if (isset($_POST['submit'])) {
+      setcookie('email', '', time() - 3600, '/');
+
+      header('Location: ' . 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/login.php');
+      exit;
+    }
+
+    if (isset($_COOKIE['email'])) {
+  ?>
+    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+      <button name="submit">Log out</button>
+    </form>
+  <?php
+    }
+  ?>

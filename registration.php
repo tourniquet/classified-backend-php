@@ -5,18 +5,18 @@
   $data = json_decode($raw_data, true);
 
   $email = mysqli_real_escape_string($dbc, trim(strtolower($data['email'])));
-  $password = mysqli_real_escape_string($dbc, trim($data['password']));
-  $password_confirmation = mysqli_real_escape_string($dbc, trim($data['passwordConfirmation']));
+  $password = mysqli_real_escape_string($dbc, password_hash($data['password'], PASSWORD_DEFAULT));
+  $password_confirmation = mysqli_real_escape_string($dbc, $data['passwordConfirmation']);
 
   if (!empty($email) && !empty($password) && !empty($password_confirmation)) {
-    if ($password == $password_confirmation) {
+    if (password_verify($password_confirmation, $password)) {
       // check if email is already taken
       $query = "SELECT * FROM cls_users WHERE email = '$email'";
       $data = mysqli_query($dbc, $query);
 
       if (mysqli_num_rows($data) == 0) {
         // the email is unique, so insert the data into the database
-        $query = "INSERT INTO cls_users (email, password, token) VALUES ('$email', '$password', '012345678912')";
+        $query = "INSERT INTO cls_users (email, password) VALUES ('$email', '$password')";
         mysqli_query($dbc, $query) or die('Error querying database.');
         
         // confirm success with the user
