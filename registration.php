@@ -14,21 +14,25 @@
       $query = "SELECT * FROM cls_users WHERE email = '$email'";
       $data = mysqli_query($dbc, $query);
 
+      header('Access-Control-Allow-Origin: *', false);
+      header('Content-type: application/json', false);
+      header('HTTP/1.1 200 OK');
+
       if (mysqli_num_rows($data) == 0) {
         // the email is unique, so insert the data into the database
         $query = "INSERT INTO cls_users (email, password) VALUES ('$email', '$password')";
         mysqli_query($dbc, $query) or die('Error querying database.');
         
         // confirm success with the user
-        echo json_encode('Success!');
-        mysqli_close($dbc);
+        echo json_encode(['message' => 'Success!']);
       } elseif (mysqli_num_rows($data) > 0) {
-        echo json_encode('Existing!');
-        mysqli_close($dbc);
+        echo json_encode(['message' => 'Existing!']);
       }
     // password and confirmation password did not match
     } else {
-      echo json_encode('Unmatch!');
+      echo json_encode(['message' => 'Unmatch!']);
     }
   }
+
+  mysqli_close($dbc);
 ?>
