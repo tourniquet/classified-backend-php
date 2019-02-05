@@ -24,7 +24,7 @@
 
     if (mysqli_num_rows($data) == 1) {
       if (password_verify($password, $res['password'])) {
-        echo json_encode(['email' => $res['email']]);
+        echo json_encode(['email' => $res['email'], 'id' => $res['id']]);
       } else {
         echo json_encode(['message' => 'Password!']);
       }
