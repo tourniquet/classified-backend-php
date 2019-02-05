@@ -1,5 +1,5 @@
 <?php
-  require_once('dbc.php');
+  require_once('../dbc.php');
 
   $raw_data = file_get_contents('php://input');
   $credentials = json_decode($raw_data, true);
@@ -17,7 +17,7 @@
 
   $results = [];
   while ($i = mysqli_fetch_assoc($data)) {
-    $results = $i;
+    $results[] = $i;
   }
 
   header('Access-Control-Allow-Origin: *', false);
