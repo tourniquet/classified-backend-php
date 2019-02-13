@@ -1,19 +1,13 @@
-  <ul class="admin-footer-list">
-    <li class="admin-footer-list-item">
-      Thank you for using CLASSIFIED
-    </li>
+  <footer>
+    <div class="copyright">
+      © This website is proudly using the classifieds scripts software SCRIPT_NAME
+    </div>
 
-    <li class="admin-footer-list-item">
-      Documentation
-    </li>
-
-    <li class="admin-footer-list-item">
-      Forums
-    </li>
-
-    <li class="admin-footer-list-item">
-      Feedback
-    </li>
-  </ul>
+    <nav class="admin-footer-list">
+      <a href="#">Documentation</a>
+      <a href="#">Forums</a>
+      <a href="#">Feedback</a>
+    </nav>
+  </footer>
 </body>
 </html>
