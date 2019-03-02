@@ -57,7 +57,7 @@
             modified DATETIME NULL,
             title VARCHAR(50) NOT NULL,
             description VARCHAR(100) NOT NULL,
-            phone INT(12),
+            phone VARCHAR(30) NOT NULL,
             name VARCHAR(30) NOT NULL,
             price VARCHAR(10) NULL,
             enabled TINYINT(4) NOT NULL,
