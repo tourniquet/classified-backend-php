@@ -1,8 +1,11 @@
 <?php
   require_once('dbc.php');
 
-  $query = "SELECT * FROM cls_ads
-    WHERE url = " . $_GET['url'];
+  $query = "SELECT ads.*, sub.title AS subcategory, cat.title AS category
+    FROM cls_ads as ads
+    INNER JOIN cls_categories as sub ON ads.subcategory_id = sub.id
+    INNER JOIN cls_categories AS cat ON sub.parent_id = cat.id
+    WHERE ads.url = " . $_GET['url'];
   $data = mysqli_query($dbc, $query) or die('mysql_error');
   $res = mysqli_fetch_assoc($data);
   // send data as a valid JSON and allow Origin Access
