@@ -2,8 +2,8 @@
   require_once('dbc.php');
 
   $query = "SELECT ads.*, sub.title AS subcategory, cat.title AS category
-    FROM cls_ads as ads
-    INNER JOIN cls_categories as sub ON ads.subcategory_id = sub.id
+    FROM cls_ads AS ads
+    INNER JOIN cls_categories AS sub ON ads.subcategory_id = sub.id
     INNER JOIN cls_categories AS cat ON sub.parent_id = cat.id
     WHERE ads.url = " . $_GET['url'];
   $data = mysqli_query($dbc, $query) or die('mysql_error');
