@@ -61,7 +61,8 @@
             name VARCHAR(30) NOT NULL,
             price VARCHAR(10) NULL,
             enabled TINYINT(4) NOT NULL,
-            views INT(6) NOT NULL
+            views INT(6) NOT NULL,
+            currency_id TINYINT NOT NULL
           );
         ";
         mysqli_query($dbc, $query) or die('Error querying database.');
@@ -85,6 +86,15 @@
             )
         ";
         mysqli_query($dbc, $query) or die('Error querying database.');
+
+        /** create currencies table */
+        $query = "
+          CREATE TABLE cls_currencies (
+            id INT NOT NULL AUTO_INCREMENT,
+            title VARCHAR(10) NOT NULL
+        ";
+        mysqli_query($dbc, $query) or die('Error creating currencies table');
+
 
         $query = "
           INSERT INTO cls_ads (url, published, name, title, description, price)
