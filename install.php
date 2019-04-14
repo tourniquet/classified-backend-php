@@ -91,10 +91,17 @@
         $query = "
           CREATE TABLE cls_currencies (
             id INT NOT NULL AUTO_INCREMENT,
-            title VARCHAR(10) NOT NULL
+            title VARCHAR(10) NULL
         ";
         mysqli_query($dbc, $query) or die('Error creating currencies table');
-
+        /**
+         * insert a currency with ID == 0 && title == '' (empty string)
+         * TODO: this query MUST be deleted when a solution to query an item without price && currency is found
+         */
+        $query = "
+          INSERT INTO cls_currencies (id, ttile)
+          VALUES (1, '')";
+        mysqli_query($dbc, $query) or die('Error inserting into cls_currencies table');
 
         $query = "
           INSERT INTO cls_ads (url, published, name, title, description, price)

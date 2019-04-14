@@ -1,6 +1,10 @@
 <?php
   require_once('dbc.php');
 
+  /**
+   * TODO: When a solution will be found how to JOIN currencies if there is a price set for the item,
+   * remove INSERT query to cls_currencies from install.php
+   */
   $query = "SELECT ads.*, sub.title AS subcategory, cat.title AS category, currency.title AS currency
     FROM cls_ads AS ads
     INNER JOIN cls_categories AS sub ON ads.subcategory_id = sub.id
