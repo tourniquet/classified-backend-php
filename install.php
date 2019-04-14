@@ -103,6 +103,17 @@
           VALUES (1, '')";
         mysqli_query($dbc, $query) or die('Error inserting into cls_currencies table');
 
+        /** Create categories table */
+        $query = "
+          CREATE TABLE cls_categories (
+            id INT(4) PRIMARY KEY AUTO_INCREMENT,
+            title VARCHAR(50),
+            parent_id INT(4) NULL
+          )
+        ";
+        mysqli_query($dbc, $query) or die('Error creating categories table');
+        
+        /** Add a basic ad on newly instaled script */
         $query = "
           INSERT INTO cls_ads (url, published, name, title, description, price)
             VALUES (12345678, NOW(), 'Anonymous', 'Demo ad', 'Demo description', 'free');

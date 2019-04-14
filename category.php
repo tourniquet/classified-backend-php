@@ -5,7 +5,7 @@
     FROM cls_ads AS ads
     INNER JOIN cls_categories AS sub ON ads.subcategory_id = sub.id
     INNER JOIN cls_categories AS cat ON sub.parent_id = cat.id
-    WHERE cat.title = '" . $_GET['url'] . "'";
+    WHERE cat.title = '" . $_GET['category'] . "'";
   $data = mysqli_query($dbc, $query) or die('category.php mysql error');
 
   $res = [];
