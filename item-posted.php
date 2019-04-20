@@ -20,11 +20,12 @@
   $ad_price = mysqli_real_escape_string($dbc, $data['price']);
   $subcategory_id = mysqli_real_escape_string($dbc, $data['subcategoryId']);
   $currency_id = mysqli_real_escape_string($dbc, $data['currencyId']);
+  $region_id = mysqli_real_escape_string($dbc, $data['regionId']);
 
 
   if ($url && $ad_title && $ad_description && $visitor_name) {
-    $query = "INSERT INTO cls_ads (url, user_id, user_email, published, name, title, description, phone, price, currency_id, subcategory_id)
-      VALUES ('$url', $user_id, $user_email, NOW(), '$visitor_name', '$ad_title', '$ad_description', '$phone', '$ad_price', '$currency_id', '$subcategory_id')";
+    $query = "INSERT INTO cls_ads (url, user_id, user_email, published, name, title, description, phone, price, currency_id, subcategory_id, region_id)
+      VALUES ('$url', $user_id, $user_email, NOW(), '$visitor_name', '$ad_title', '$ad_description', '$phone', '$ad_price', '$currency_id', '$subcategory_id', '$region_id')";
     mysqli_query($dbc, $query) or die('Error querying database.');
 
     // to be used in 'insert image name into table' query
