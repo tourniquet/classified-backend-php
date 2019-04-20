@@ -112,6 +112,15 @@
           )
         ";
         mysqli_query($dbc, $query) or die('Error creating categories table');
+
+        /** Create regions table */
+        $query = "
+          CREATE TABLE cls_regions (
+            id INT(4) PRIMARY KEY AUTO_INCREMENT
+            title VARCHAR(20)
+          )
+        ";
+        mysqli_query($dbc, $query) or die('Error creating regions table');
         
         /** Add a basic ad on newly instaled script */
         $query = "
