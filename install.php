@@ -62,7 +62,8 @@
             price VARCHAR(10) NULL,
             enabled TINYINT(4) NOT NULL,
             views INT(6) NOT NULL,
-            currency_id TINYINT NOT NULL
+            currency_id TINYINT NOT NULL,
+            region_id INT(4) NOT NULL
           );
         ";
         mysqli_query($dbc, $query) or die('Error querying database.');
@@ -112,7 +113,15 @@
           )
         ";
         mysqli_query($dbc, $query) or die('Error creating categories table');
-        
+
+        /** create regions table */
+        $query = "
+        CREATE TABLE cls_regions (
+          id INT(4) NOT NULL AUTO_INCREMENT,
+          title VARCHAR(20) NOT NULL
+          ";
+          mysqli_query($dbc, $query) or die('Error creating cls_regions table');
+
         /** Add a basic ad on newly instaled script */
         $query = "
           INSERT INTO cls_ads (url, published, name, title, description, price)
