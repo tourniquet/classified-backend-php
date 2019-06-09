@@ -1,10 +1,7 @@
 <?php
   require_once('dbc.php');
 
-  $raw_data = file_get_contents('php://input');
-  $data = json_decode($raw_data, true);
-
-  $error_msg = '';
+  $data = $_POST;
 
   $email = mysqli_real_escape_string($dbc, trim(strtolower($data['email'])));
   $password = mysqli_real_escape_string($dbc, trim($data['password']));
@@ -13,8 +10,7 @@
     $query = "
       SELECT id, email, password
       FROM cls_users
-      WHERE email='$email'
-    ";
+      WHERE email = '$email'";
     $data = mysqli_query($dbc, $query);
     $res = mysqli_fetch_assoc($data);
 
@@ -26,6 +22,7 @@
       if (password_verify($password, $res['password'])) {
         echo json_encode(['email' => $res['email'], 'id' => $res['id']]);
       } else {
+        // wrong password
         echo json_encode(['message' => 'Password!']);
       }
     } else {
