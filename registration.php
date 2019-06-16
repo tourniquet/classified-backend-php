@@ -1,8 +1,7 @@
 <?php
   require_once('dbc.php');
 
-  $raw_data = file_get_contents('php://input');
-  $data = json_decode($raw_data, true);
+  $data = $_POST;
 
   $email = mysqli_real_escape_string($dbc, trim(strtolower($data['email'])));
   $password = mysqli_real_escape_string($dbc, password_hash($data['password'], PASSWORD_DEFAULT));
