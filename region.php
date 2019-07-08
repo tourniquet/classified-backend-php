@@ -6,9 +6,10 @@
   $items_per_page = 10;
   $offset = ($page_number - 1) * $items_per_page;
 
-  $query = "SELECT ads.*, region.title AS region
+  $query = "SELECT ads.*, region.title AS region, sub.title AS subcategory
     FROM cls_ads AS ads
     INNER JOIN cls_regions AS region ON ads.region_id = region.id
+    INNER JOIN cls_categories AS sub ON ads.subcategory_id = sub.id
     WHERE region.title = '$region'
     ORDER BY published DESC
     LIMIT $items_per_page OFFSET $offset";
