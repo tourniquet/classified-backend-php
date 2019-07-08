@@ -3,30 +3,46 @@
 
   $data = file_get_contents('php://input');
   $keywords = explode(' ', str_replace(', ', ' ', json_decode($data, true)));
+  $page_number = $_GET['page'];
+  $items_per_page = 10;
+  $offset = ($page_number - 1) * $items_per_page;
 
   $description_query = array();
   foreach ($keywords as $keyword) {
-    if (!empty($keyword)) $description_query[] = "description LIKE '%$keyword%'";
+    if (!empty($keyword)) $description_query[] = "title LIKE '%$keyword%'";
   }
 
   $query = 'SELECT * FROM cls_ads ';
   $where_clause = implode(' OR ', $description_query);
   if (!empty($where_clause)) {
-    $query .= "WHERE $where_clause";
+    $query .= "WHERE $where_clause
+      ORDER BY published DESC
+      LIMIT $items_per_page OFFSET $offset";
   }
 
-  $sql_data = mysqli_query($dbc, $query) or die('Some error here');
+  $res = mysqli_query($dbc, $query) or die('Some error here');
 
-  $results = [];
-  while ($i = mysqli_fetch_assoc($sql_data)) {
-    $results[] = $i;
+  $items = [];
+  while ($i = mysqli_fetch_assoc($res)) {
+    $items[] = $i;
   }
+
+  $query = "SELECT COUNT(*) AS total
+    FROM cls_ads
+    WHERE $where_clause";
+  $res = mysqli_query($dbc, $query);
+  $total = mysqli_fetch_row($res);
+
+  mysqli_close($dbc);
 
   header('Access-Control-Allow-Origin: *', false);
   header('Content-type: application/json', false);
   header('HTTP/1.1 200 OK');
 
-  echo json_encode($results);
+  $data = (object)[];
+  $data->items = $items;
+  $data->page = $page_number;
+  $data->total = $total[0];
 
-  mysqli_close($dbc);
+  echo json_encode($data);
 ?>
