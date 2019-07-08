@@ -10,8 +10,7 @@
     INNER JOIN cls_categories AS sub ON ads.subcategory_id = sub.id
     INNER JOIN cls_categories AS cat ON sub.parent_id = cat.id
     ORDER BY published DESC
-    LIMIT $items_per_page OFFSET $offset
-  ";
+    LIMIT $items_per_page OFFSET $offset";
   $res = mysqli_query($dbc, $query);
 
   $items = [];
