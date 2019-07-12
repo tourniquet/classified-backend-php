@@ -42,6 +42,11 @@
       require_once('../dbc.php');
 
       $query = "SELECT * FROM cls_ads ORDER BY published DESC";
+      $query = "SELECT ads.*, sub.title AS subcategory
+        FROM cls_ads AS ads
+        INNER JOIN cls_categories AS sub ON ads.subcategory_id = sub.id
+        ORDER BY published DESC
+        LIMIT 10 OFFSET $offset";
       $data = mysqli_query($dbc, $query);
 
       // if (!$data) {
@@ -72,15 +77,18 @@
               'state' => 'Enable'
             );
 
-          echo '<li class="' . $item_state['class_name']  . '">' . $row['title'] .
-                  '<div class="action-icons">
+          echo '<li class="' . $item_state['class_name'] . '">' . '
+                  <a href="#" class="item-title">' . $row['title'] . '</a>
+                  <a href="#" class="subcategory">' . $row['subcategory'] . '</a>
+                  <span class="">' . date_format(date_create($row['published']), 'd F, Y') . '</span>
+                  <div class="action-icons">
                     <a href="#" class="url-icon"></a>
                     <a href="#" class="edit-icon"></a>
                     <a href="' . $item_state['href'] . '" class="enable-icon"></a> <!-- $item_state[state] -->
                     <a href="renew.php?id=' . $row['id'] . '" class="renew-icon"></a>
                     <a href="#" class="disable-icon"></a>
                     <a href="#" class="spam-icon"></a>
-                    <a href="remove.php?id=' . $row['id'] . '" class="remove-icon">❌</a>
+                    <a href="remove.php?id=' . $row['id'] . '" class="remove-icon"></a>
                   </div>
                 </li>';
         }
