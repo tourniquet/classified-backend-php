@@ -41,7 +41,11 @@
     <?php
       require_once('../dbc.php');
 
-      $query = "SELECT * FROM cls_ads ORDER BY published DESC";
+      // when admin panel is accessed, url looks like www.example.com/admin/,
+      // without page value, so by default page=1
+      $page = !empty($_GET['page']) ? $_GET['page'] : 1;
+      $offset = ($page - 1) * 5;
+
       $query = "SELECT ads.*, sub.title AS subcategory
         FROM cls_ads AS ads
         INNER JOIN cls_categories AS sub ON ads.subcategory_id = sub.id
@@ -94,7 +98,39 @@
         }
         echo '</ul>';
 
+      $query = "SELECT COUNT(*) AS total FROM cls_ads";
+      $res = mysqli_query($dbc, $query);
+      $totalItems = mysqli_fetch_row($res);
+      $totalPages = ceil($totalItems[0] / 10);
+
       mysqli_close($dbc);
+
+      $pages = [];
+      for ($i = 0; $i < $totalPages; $i++) {
+        $pages[] = $i + 1;
+      }
+
+      echo '<ul class="pagination">';
+      if ($page == 1) {
+        echo '<li class="prev-button disabled">Prev</li>';
+      } else {
+        echo '<li class="prev-button"><a href="index.php?page=' . ($page - 1) . '">Prev</a></li>';
+      }
+
+      for ($i = 0; $i < count($pages); $i++) {
+        if ($page == $pages[$i]) {
+          echo '<li><a class="page active" href="index.php?page=' . $pages[$i] . '">' . $pages[$i] . '</a></li>';
+        } else {
+          echo '<li><a class="page" href="index.php?page=' . $pages[$i] . '">' . $pages[$i] . '</a></li>';
+        }
+      }
+
+      if ($page >= count($pages)) {
+        echo '<li class="next-button disabled">Next</li>';
+      } else {
+        echo '<li class="next-button"><a href="index.php?page=' . ($page + 1) . '">Next</a></li>';
+      }
+      echo '</ul>';
     ?>
   </main>
   
