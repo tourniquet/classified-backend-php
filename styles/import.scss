@@ -20,9 +20,10 @@ time, mark, audio, video {
 	vertical-align: baseline;
 }
 
-@import 'admin-panel.scss';
+@import 'admin-panel';
 @import 'body';
+@import 'categories';
 @import 'install';
-@import 'footer.scss';
-@import 'header.scss';
-@import 'users.scss';
+@import 'footer';
+@import 'header';
+@import 'users';
