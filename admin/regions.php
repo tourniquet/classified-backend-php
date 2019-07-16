@@ -47,7 +47,7 @@
           <span class="region-title">' . $row['title'] . '</span>
           <div class="action-icons">
             <a href="#" class="edit-region"><i class="icon ion-md-create"></i></a>
-            <a href="remove.php?id=' . $row['id'] . '" class="remove-region">
+            <a href="remove_region.php?id=' . $row['id'] . '" class="remove-region">
               <i class="icon ion-md-trash"></i>
             </a>
           </div>
