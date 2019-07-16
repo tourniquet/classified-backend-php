@@ -5,16 +5,12 @@
 <div class="admin-panel">
   <?php
     include './header.php';
+
+    require_once('../dbc.php');
+    require_once('./constants.php');
   ?>
 
   <main>
-    <?php
-      require_once('../dbc.php');
-
-      $page = !empty($_GET['page']) ? $_GET['page'] : 1;
-      $offset = ($page - 1) * 5;
-    ?>
-
     <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" class="add-currency" method="POST">
       <input class="currency-name" name="currency" placeholder="Currency name" required type="text">
       <button name="submit">Add currency</button>
@@ -41,10 +37,13 @@
     </ul>
 
     <?php
+      $page = !empty($_GET['page']) ? $_GET['page'] : 1;
+      $offset = ($page - 1) * ITEMS_PER_PAGE;
+
       $query = "SELECT *
         FROM cls_currencies
         ORDER BY id DESC
-        LIMIT 5 OFFSET $offset";
+        LIMIT " . ITEMS_PER_PAGE . " OFFSET $offset";
       $currencies = mysqli_query($dbc, $query);
 
       echo '<ul class="currencies-list">';
@@ -68,7 +67,7 @@
       $query = "SELECT COUNT(*) AS total FROM cls_currencies";
       $res = mysqli_query($dbc, $query);
       $total_items = mysqli_fetch_row($res);
-      $total_pages = ceil($total_items[0] / 10);
+      $total_pages = ceil($total_items[0] / ITEMS_PER_PAGE);
 
       mysqli_close($dbc);
 
