@@ -47,7 +47,7 @@
         echo '<li>
           <span class="check-category"><input type="checkbox"></span>
           <span class="category-id">' . $row['id'] . '</span>
-          <span class="category-title">' . $row['title'] . '</span>
+          <span class="category-name">' . $row['title'] . '</span>
           <div class="action-icons">
             <a href="#" class="edit-category"><i class="icon ion-md-create"></i></a>
             <a href="remove.php?id=' . $row['id'] . '" class="remove-category">
