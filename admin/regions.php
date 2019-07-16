@@ -5,16 +5,22 @@
   ?>
 
   <main>
+    <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>"class="add-region" method="POST">
+      <input class="region-name" name="region" placeholder="Region name" required type="text">
+      <button name="submit">Add region</button>
+    </form>
+
     <?php
-      require_once('../dbc.php');
+      if (isset($_POST['submit'])) {
+        $region = $_POST['region'];
 
-      $page = !empty($_GET['page']) ? $_GET['page'] : 1;
-      $offset = ($page - 1) * 5;
+        $query = "INSERT INTO cls_regions (title) VALUES ('$region')";
+        mysqli_query($dbc, $query) or die('Error adding region.');
 
-      echo '<form class="add-region">
-          <input class="region-name" placeholder="Region name" type="text">
-          <button>Add region</button>
-        </form>';
+        header('Location: ' . $_SERVER['PHP_SELF']);
+      }
+    ?>
+
 
       $query = "SELECT *
       FROM cls_regions
