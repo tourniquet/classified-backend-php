@@ -10,13 +10,24 @@
 
       $page = !empty($_GET['page']) ? $_GET['page'] : 1;
       $offset = ($page - 1) * 5;
-
-      echo '<form class="add-currency">
-          <input class="currency-name" placeholder="Currency name" type="text">
-          <button>Add currency</button>
-        </form>';
     ?>
-    
+
+    <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" class="add-currency" method="POST">
+      <input class="currency-name" name="currency" placeholder="Currency name" required type="text">
+      <button name="submit">Add currency</button>
+    </form>
+
+    <?php
+      if (isset($_POST['submit'])) {
+        $currency = $_POST['currency'];
+
+        $query = "INSERT INTO cls_currencies (title) VALUES ('$currency')";
+        mysqli_query($dbc, $query) or die('Error adding currency.');
+
+        header('Location: ' . $_SERVER['PHP_SELF']);
+      }
+    ?>
+
     <ul class="currencies-list-header">
       <li class="check-all">
         <input id="check-all" type="checkbox">
