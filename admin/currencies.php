@@ -1,6 +1,9 @@
+<?php
+  include './head.php';
+?>
+
 <div class="admin-panel">
   <?php
-    include './head.php';
     include './header.php';
   ?>
 
@@ -53,13 +56,15 @@
           <span class="currency-id">' . $row['id'] . '</span>
           <span class="currency-name">' . $row['title'] . '</span>
           <div class="action-icons">
-            <a href="#" class="edit-region"><i class="icon ion-md-create"></i></a>
-            <a href="remove.php?id=' . $row['id'] . '" class="remove-region">
+            <a href="#" class="edit-currency"><i class="icon ion-md-create"></i></a>
+            <a href="remove_currency.php?id=' . $row['id'] . '" class="remove-currency">
               <i class="icon ion-md-trash"></i>
             </a>
           </div>
-        ';
+        </li>';
       }
+      echo '</ul>';
+
       $query = "SELECT COUNT(*) AS total FROM cls_currencies";
       $res = mysqli_query($dbc, $query);
       $total_items = mysqli_fetch_row($res);
@@ -95,4 +100,6 @@
       echo '</ul>';
     ?>
   </main>
+
+  <?php include './footer.php'; ?>
 </div>
