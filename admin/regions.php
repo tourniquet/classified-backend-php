@@ -1,7 +1,13 @@
+<?php
+  include './head.php';
+?>
+
 <div class="admin-panel">
   <?php
-    include './head.php';
     include './header.php';
+
+    require_once('../dbc.php');
+    require_once('./constants.php');
   ?>
 
   <main>
@@ -21,21 +27,24 @@
       }
     ?>
 
+    <ul class="regions-list-header">
+      <li class="check-all">
+        <input id="check-all" type="checkbox">
+      </li>
+      <li class="region-id">ID</li>
+      <li class="region-name">Region</li>
+      <li>Actions</li>
+    </ul>
+
+    <?php
+      $page = !empty($_GET['page']) ? $_GET['page'] : 1;
+      $offset = ($page - 1) * ITEMS_PER_PAGE;
 
       $query = "SELECT *
-      FROM cls_regions
-      ORDER BY id DESC
-      LIMIT 5 OFFSET $offset";
+        FROM cls_regions
+        ORDER BY id DESC
+        LIMIT " . ITEMS_PER_PAGE . " OFFSET $offset";
       $regions = mysqli_query($dbc, $query);
-
-      echo '<ul class="regions-list-header">
-        <li class="check-all">
-          <input id="check-all" type="checkbox">
-        </li>
-        <li class="region-id">ID</li>
-        <li class="region-name">Region</li>
-        <li>Actions</li>
-      </ul>';
 
       echo '<ul class="regions-list">';
       while ($row = mysqli_fetch_array($regions)) {
@@ -90,4 +99,6 @@
       echo '</ul>';
     ?>
   </main>
+
+  <?php include './footer.php'; ?>
 </div>
