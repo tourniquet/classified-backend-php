@@ -31,26 +31,30 @@
     // }
   // } -->
 
+<?php
+  include './head.php';
+?>
+
 <div class="admin-panel">
   <?php
-    include './head.php';
     include './header.php';
+
+    require_once('../dbc.php');
+    require_once('./categories.php');
   ?>
 
   <main>
     <?php
-      require_once('../dbc.php');
-
       // when admin panel is accessed, url looks like www.example.com/admin/,
       // without page value, so by default page=1
       $page = !empty($_GET['page']) ? $_GET['page'] : 1;
-      $offset = ($page - 1) * 5;
+      $offset = ($page - 1) * ITEMS_PER_PAGE;
 
       $query = "SELECT ads.*, sub.title AS subcategory
         FROM cls_ads AS ads
         INNER JOIN cls_categories AS sub ON ads.subcategory_id = sub.id
         ORDER BY published DESC
-        LIMIT 10 OFFSET $offset";
+        LIMIT " . ITEMS_PER_PAGE . " OFFSET $offset";
       $data = mysqli_query($dbc, $query);
 
       // if (!$data) {
@@ -100,13 +104,13 @@
 
       $query = "SELECT COUNT(*) AS total FROM cls_ads";
       $res = mysqli_query($dbc, $query);
-      $totalItems = mysqli_fetch_row($res);
-      $totalPages = ceil($totalItems[0] / 10);
+      $total_items = mysqli_fetch_row($res);
+      $total_pages = ceil($total_items[0] / ITEMS_PER_PAGE);
 
       mysqli_close($dbc);
 
       $pages = [];
-      for ($i = 0; $i < $totalPages; $i++) {
+      for ($i = 0; $i < $total_pages; $i++) {
         $pages[] = $i + 1;
       }
 
