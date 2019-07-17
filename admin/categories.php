@@ -1,36 +1,47 @@
+<?php
+  include './head.php';
+?>
+
 <div class="admin-panel">
   <?php
-    include './head.php';
     include './header.php';
+
+    require_once('../dbc.php');
     require_once('./constants.php');
   ?>
 
   <main>
     <?php
-      require_once('../dbc.php');
-
       $query = "SELECT *
       FROM cls_categories
       WHERE parent_id IS NULL
       ORDER BY id DESC";
+
       $parent_categories = mysqli_query($dbc, $query);
+    ?>
 
-      echo '<form class="add-category">
-        <input class="category-name" type="text" placeholder="Category name">
+    <form class="add-category">
+      <input class="category-name" placeholder="Category name" type="text">
 
-        <select class="parent-category">
-          <option>No parent</option>';
+      <select class="parent-category">
+        <option>No parent</option>
+        <?php
           while ($row = mysqli_fetch_array($parent_categories)) {
-            echo '<option>' . $row['title'] . '</option>';
+            echo '<option value="' . $row['id'] . '">' . $row['title'] . '</option>';
           }
-        echo '</select>
-        <button>Add category</button>
-      </form>';
+        ?>
+      </select>
 
-      $query = "SELECT *
-        FROM cls_categories
-        ORDER BY id DESC
-        LIMIT 5 OFFSET $offset";
+      <button>Add category</button>
+    </form>
+
+    <ul class="categories-list-header">
+      <li class="check-all"><input id="check-all" type="checkbox"></li>
+      <li class="subcategory-id">ID</li>
+      <li class="subcategory-name">Subcategory</li>
+      <li class="subcategory-parent">Category</li>
+      <li>Actions</li>
+    </ul>
 
     <?php
       $page = !empty($_GET['page']) ? $_GET['page'] : 1;
@@ -41,14 +52,6 @@
         WHERE sub.parent_id IS NOT NULL
         LIMIT " . ITEMS_PER_PAGE . " OFFSET $offset";
       $categories = mysqli_query($dbc, $query);
-      
-      echo '<ul class="categories-list-header">
-          <li class="check-all"><input id="check-all" type="checkbox"></li>
-          <li class="category-id">ID</li>
-          <li class="category-name">Category</li>
-          <li>Actions</li>
-        </ul>';
-
 
       $subcategories = [];
       while ($i = mysqli_fetch_assoc($categories)) {
@@ -107,4 +110,6 @@
       echo '</ul>';
     ?>
   </main>
+
+  <?php include './footer.php'; ?>
 </div>
