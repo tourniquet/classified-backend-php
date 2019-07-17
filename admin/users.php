@@ -1,13 +1,25 @@
+<?php
+  include './head.php';
+?>
+
 <div class="admin-panel">
   <?php
-    include './head.php';
     include './header.php';
+    
+    require_once('../dbc.php');
+    require_once('./constants.php');
   ?>
 
   <main>
-    <?php
-      require_once('../dbc.php');
+    <ul class="users-list-header">
+      <li class="check-all"><input id="check-all" type="checkbox"></li>
+      <li class="user-id">ID</li>
+      <li class="user-email">Email</li>
+      <li class="registration-date">Date</li>
+      <li>Actions</li>
+    </ul>
 
+    <?php
       $page = !empty($_GET['page']) ? $_GET['page'] : 1;
       $offset = ($page - 1) * 5;
 
@@ -16,14 +28,6 @@
         ORDER BY id DESC
         LIMIT 10 OFFSET $offset";
       $users = mysqli_query($dbc, $query);
-
-      echo '<ul class="users-list-header">
-          <li class="check-all"><input id="check-all" type="checkbox"></li>
-          <li class="user-id">ID</li>
-          <li class="user-email">Email</li>
-          <li class="registration-date">Date</li>
-          <li>Actions</li>
-        </ul>';
 
       echo '<ul class="users-list">';
       while ($row = mysqli_fetch_array($users)) {
