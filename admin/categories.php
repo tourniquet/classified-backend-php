@@ -33,6 +33,12 @@
         FROM cls_categories
         ORDER BY id DESC
         LIMIT 5 OFFSET $offset";
+      $offset = ($page - 1) * ITEMS_PER_PAGE;
+
+      $query = "SELECT sub.id, sub.title, cat.title AS 'category'
+        FROM cls_categories AS sub LEFT JOIN cls_categories AS cat ON sub.parent_id = cat.id
+        WHERE sub.parent_id IS NOT NULL
+        LIMIT " . ITEMS_PER_PAGE . " OFFSET $offset";
       $categories = mysqli_query($dbc, $query);
       
       echo '<ul class="categories-list-header">
@@ -42,15 +48,22 @@
           <li>Actions</li>
         </ul>';
 
-      echo '<ul class="categories-list">';
-      while ($row = mysqli_fetch_array($categories)) {
+
+      $subcategories = [];
+      while ($i = mysqli_fetch_assoc($categories)) {
+        $subcategories[] = $i;
+      }
+
+      echo '<ul class="subcategories-list">';
+        for ($i = 0; $i < count($subcategories); $i++) {
         echo '<li>
           <span class="check-category"><input type="checkbox"></span>
-          <span class="category-id">' . $row['id'] . '</span>
-          <span class="category-name">' . $row['title'] . '</span>
+          <span class="subcategory-id">' . $subcategories[$i]['id'] . '</span>
+          <span class="subcategory-name">' . $subcategories[$i]['title'] . '</span>
+          <span class="subcategory-parent">' . $subcategories[$i]['category'] . '</span>
           <div class="action-icons">
             <a href="#" class="edit-category"><i class="icon ion-md-create"></i></a>
-            <a href="remove.php?id=' . $row['id'] . '" class="remove-category">
+            <a href="remove.php?id=' . $subcategories[$i]['id'] . '" class="remove-category">
               <i class="icon ion-md-trash"></i>
             </a>
           </div>
