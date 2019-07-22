@@ -61,32 +61,13 @@
 
       mysqli_close($dbc);
 
+      $page_name = 'categories';
       $pages = [];
       for ($i = 0; $i < $total_pages; $i++) {
         $pages[] = $i + 1;
       }
 
-      echo '<ul class="pagination">';
-      if ($page == 1) {
-        echo '<li class="prev-button disabled">Prev</li>';
-      } else {
-        echo '<li class="prev-button"><a href="categories.php?page=' . ($page - 1) . '">Prev</a></li>';
-      }
-
-      for ($i = 0; $i < count($pages); $i++) {
-        if ($page == $pages[$i]) {
-          echo '<li><a class="page active" href="categories.php?page=' . $pages[$i] . '">' . $pages[$i] . '</a></li>';
-        } else {
-          echo '<li><a class="page" href="categories.php?page=' . $pages[$i] . '">' . $pages[$i] . '</a></li>';
-        }
-      }
-
-      if ($page >= count($pages)) {
-        echo '<li class="next-button disabled">Next</li>';
-      } else {
-        echo '<li class="next-button"><a href="categories.php?page=' . ($page + 1) . '">Next</a></li>';
-      }
-      echo '</ul>';
+      include_once('./pagination.php');
     ?>
   </main>
 

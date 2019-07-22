@@ -1,0 +1,36 @@
+ul.pagination {
+  display: flex;
+  margin: 0 auto;
+
+  li {
+    cursor: pointer;
+    font-size: 13px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    width: 25px;
+
+    &.disabled {
+      pointer-events: none;
+    }
+
+    &.next-button,
+    &.prev-button {
+      padding: 0px 15px;
+    }
+
+    a.page {
+      color: #000;
+      display: block;
+      height: inherit;
+      text-decoration: none;
+      width: inherit;
+
+      &.active {
+        background: #E26533;
+        border-radius: 4px;
+        color: #FFF;
+      }
+    }
+  }
+}
