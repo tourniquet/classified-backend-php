@@ -11,7 +11,7 @@
   ?>
 
   <main>
-    <form action="add_category.php" class="add-category" method="POST">
+    <form action="add-category.php" class="add-category" method="POST">
       <input class="category-name" name="title" placeholder="Category name" type="text"> <!-- TODO: replace title with name -->
 
       <button>Add category</button>
@@ -44,7 +44,7 @@
           <span class="category-name">' . $row['title'] . '</span>
           <div class="action-icons">
             <a href="#" class="edit-category"><i class="icon ion-md-create"></i></a>
-            <a href="remove_category.php?id=' . $row['id'] . '" class="remove-category" onclick="return confirm(\'Are you sure?\')">
+            <a href="remove-category.php?id=' . $row['id'] . '" class="remove-category" onclick="return confirm(\'Are you sure?\')">
               <i class="icon ion-md-trash"></i>
             </a>
           </div>
