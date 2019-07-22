@@ -1,5 +1,5 @@
 <?php
-  include './header.php';
+  include_once './header.php';
 
   require_once('../dbc.php');
   
@@ -25,5 +25,5 @@
 </div>
 
 <?php
-  include './footer.php';
+  include_once './footer.php';
 ?>

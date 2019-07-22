@@ -1,11 +1,11 @@
 <?php
-  include './head.php';
+  include_once './head.php';
 ?>
 
 <div class="admin-panel">
   <?php
-    include './header.php';
-    include './sidebar.php';
+    include_once './header.php';
+    include_once './sidebar.php';
 
     require_once('../dbc.php');
     require_once('./constants.php');
@@ -78,9 +78,9 @@
         $pages[] = $i + 1;
       }
 
-      include_once('./pagination.php');
+      include_once './pagination.php';
     ?>
   </main>
 
-  <?php include './footer.php'; ?>
+  <?php include_once './footer.php'; ?>
 </div>
