@@ -56,7 +56,7 @@
           <span class="region-title">' . $row['title'] . '</span>
           <div class="action-icons">
             <a href="#" class="edit-region"><i class="icon ion-md-create"></i></a>
-            <a href="remove_region.php?id=' . $row['id'] . '" class="remove-region">
+            <a href="remove-region.php?id=' . $row['id'] . '" class="remove-region" onclick="confirm(\'Are you sure?\')">
               <i class="icon ion-md-trash"></i>
             </a>
           </div>
