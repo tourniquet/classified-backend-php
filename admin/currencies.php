@@ -56,7 +56,7 @@
           <span class="currency-name">' . $row['title'] . '</span>
           <div class="action-icons">
             <a href="#" class="edit-currency"><i class="icon ion-md-create"></i></a>
-            <a href="remove_currency.php?id=' . $row['id'] . '" class="remove-currency">
+            <a href="remove-currency.php?id=' . $row['id'] . '" class="remove-currency" onclick="return confirm(\'Are you sure?\')">
               <i class="icon ion-md-trash"></i>
             </a>
           </div>
