@@ -121,24 +121,5 @@
         }
       }
     }
-  
-  footer {
-    align-items: center;
-    background: #262626;
-    color: #FFF;
-    display: flex;
-    font-family: 'Roboto', sans-serif;
-    grid-area: footer;
-    height: 130px;
-    justify-content: space-around;
-    padding-top: 0;
-    width: 100%;
-  
-    > .admin-footer-list {
-      a {
-        color: #FFF;
-        text-decoration: none;
-      }
-    }
   }
 }
