@@ -47,7 +47,43 @@
       color: black;
       text-decoration: none;
     }
-    
+
+    ul.items-list-header {
+      background: #F3F3F3;
+      border: 1px solid #DDD;
+      display: flex;
+      height: 22px;
+      line-height: 23px;
+
+      li {
+        padding-left: 5px;
+
+        &:not(:last-child) {
+          border-right: 1px solid #DDD;
+        }
+
+        &.check-all {
+          padding: 0;
+          width: 35px;
+          text-align: center;
+        }
+      
+        &.item-id {
+          width: 45px;
+        }
+      
+        &.item-name {
+          width: 800px;
+        }
+
+        &.item-subcategory,
+        &.item-posted-date,
+        &.item-actions {
+          width: 150px;
+        }
+      }
+    }
+
     ul.items-list {
       font-size: 13px;
       width: 1268px;

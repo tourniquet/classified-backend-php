@@ -45,6 +45,15 @@
   ?>
 
   <main>
+    <ul class="items-list-header">
+      <li class="check-all"><input id="check-all" type="checkbox"></li>
+      <li class="item-id">ID</li>
+      <li class="item-name">Item name</li>
+      <li class="item-subcategory">Item subcategory</li>
+      <li class="item-posted-date">Posted date</li>
+      <li class="item-actions">Actions</li>
+    </ul>
+
     <?php
       // when admin panel is accessed, url looks like www.example.com/admin/,
       // without page value, so by default page=1
