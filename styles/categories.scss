@@ -4,11 +4,6 @@ form.add-category {
   input.category-name {
     margin-right: 10px;
   }
-
-  select.parent-category {
-    height: 22px;
-    margin-right: 6px;
-  }
 }
 
 ul.categories-list-header {
@@ -31,18 +26,17 @@ ul.categories-list-header {
       text-align: center;
     }
   
-    &.subcategory-id {
+    &.category-id {
       width: 45px;
     }
   
-    &.subcategory-name,
-    &.subcategory-parent {
+    &.category-name {
       width: 350px;
     }
   }
 }
 
-ul.subcategories-list {
+ul.categories-list {
   li {
     border: 0;
     display: flex;
@@ -51,7 +45,7 @@ ul.subcategories-list {
     width: 100%;
 
     &:not(:last-child) {
-      border-bottom: 2px solid rgb(246, 246, 246);
+      border-bottom: 2px solid #F6F6F6;
     }
 
     &:hover {
@@ -66,14 +60,13 @@ ul.subcategories-list {
       justify-content: center;
     }
 
-    > span.subcategory-id {
+    > span.category-id {
       border-right: 1px solid #FFF;
       padding-left: 5px;
       width: 45px;
     }
 
-    > span.subcategory-name,
-    > span.subcategory-parent {
+    > span.category-name {
       border-right: 1px solid #FFF;
       color: #E26433;
       padding-left: 5px;
@@ -81,11 +74,10 @@ ul.subcategories-list {
     }
 
     > .action-icons {
-      align-items: center;
       display: flex;
-      justify-content: space-between;
+      justify-content: space-around;
       padding-left: 5px;
-      width: 250px;
+      width: 50px;
 
       > a {
         cursor: pointer;
@@ -93,10 +85,8 @@ ul.subcategories-list {
         height: 20px;
         width: 20px;
 
-        &.user-profile,
-        &.edit-user,
-        &.block-user,
-        &.remove-user {
+        &.edit-category,
+        &.remove-category {
           font-size: 20px;
         }
       }
