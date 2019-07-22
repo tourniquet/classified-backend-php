@@ -1,0 +1,20 @@
+aside.admin-panel-menu {
+  font-family: 'Roboto', sans-serif;
+
+  ul.menu-items {
+    padding: 0 20px;
+
+    li {
+      padding: 5px 0;
+
+      &:not(:last-child) {
+        border-bottom: 1px solid #E26533;
+      }
+
+      a {
+        color: #FFF;
+        text-decoration: none;
+      }
+    }
+  }
+}

@@ -38,6 +38,7 @@
 <div class="admin-panel">
   <?php
     include './header.php';
+    include './sidebar.php';
 
     require_once('../dbc.php');
     require_once('./categories.php');

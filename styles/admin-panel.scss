@@ -31,6 +31,11 @@
     }
   }
 
+  aside {
+    background: #262626;
+    color: #FFF;
+    grid-area: aside;
+  }
 
   main {
     display: flex;
@@ -153,12 +158,6 @@
         }
       }
     }
-  }
-  
-  aside {
-    // temporary styles
-    background: red;
-    grid-area: aside;
   }
   
   footer {
