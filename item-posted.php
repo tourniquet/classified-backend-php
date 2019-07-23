@@ -7,8 +7,9 @@
   */}
   header('Access-Control-Allow-Origin: *', false);
 
-  $data = $_POST;
+  define('THUMBNAIL_SIZE', 375);
 
+  $data = $_POST;
   $url = $data['url'];
   $user_id = (!empty($data['userId'])) ? "'" . $data['userId'] . "'" : "NULL";
   $user_email = (!empty($data['userEmail'])) ? "'" . $data['userEmail'] . "'"  : "NULL";
@@ -17,10 +18,14 @@
   $phone = mysqli_real_escape_string($dbc, $data['phone']);
   $visitor_name = mysqli_real_escape_string($dbc, $data['name']);
   $ad_price = mysqli_real_escape_string($dbc, $data['price']);
+  $subcategory_id = mysqli_real_escape_string($dbc, $data['subcategoryId']);
+  $currency_id = mysqli_real_escape_string($dbc, $data['currencyId']);
+  $region_id = mysqli_real_escape_string($dbc, $data['regionId']);
+
 
   if ($url && $ad_title && $ad_description && $visitor_name) {
-    $query = "INSERT INTO cls_ads (url, user_id, user_email, published, name, title, description, phone, price)
-      VALUES ('$url', $user_id, $user_email, NOW(), '$visitor_name', '$ad_title', '$ad_description', '$phone', '$ad_price')";
+    $query = "INSERT INTO cls_ads (url, user_id, user_email, published, name, title, description, phone, price, currency_id, subcategory_id, region_id)
+      VALUES ('$url', $user_id, $user_email, NOW(), '$visitor_name', '$ad_title', '$ad_description', '$phone', '$ad_price', '$currency_id', '$subcategory_id', '$region_id')";
     mysqli_query($dbc, $query) or die('Error querying database.');
 
     // to be used in 'insert image name into table' query
@@ -45,12 +50,12 @@
         if ($src_image_width > $src_image_height) {
           $new_image_width = 800;
           $new_image_height = ($src_image_height / $src_image_width) * $new_image_width;
-          $thumbnail_width = 170;
+          $thumbnail_width = THUMBNAIL_SIZE;
           $thumbnail_height = ($src_image_height / $src_image_width) * $thumbnail_width;
         } elseif ($src_image_height >= $src_image_width) {
           $new_image_height = 800;
           $new_image_width = ($src_image_width / $src_image_height) * $new_image_height;
-          $thumbnail_height = 170;
+          $thumbnail_height = THUMBNAIL_SIZE;
           $thumbnail_width = ($src_image_width / $src_image_height) * $thumbnail_height;
         }
 

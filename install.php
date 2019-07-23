@@ -57,11 +57,13 @@
             modified DATETIME NULL,
             title VARCHAR(50) NOT NULL,
             description VARCHAR(100) NOT NULL,
-            phone INT(12),
+            phone VARCHAR(30) NOT NULL,
             name VARCHAR(30) NOT NULL,
             price VARCHAR(10) NULL,
             enabled TINYINT(4) NOT NULL,
-            views INT(6) NOT NULL
+            views INT(6) NOT NULL,
+            currency_id TINYINT NOT NULL,
+            region_id INT(4) NOT NULL
           );
         ";
         mysqli_query($dbc, $query) or die('Error querying database.');
@@ -86,6 +88,41 @@
         ";
         mysqli_query($dbc, $query) or die('Error querying database.');
 
+        /** create currencies table */
+        $query = "
+          CREATE TABLE cls_currencies (
+            id INT NOT NULL AUTO_INCREMENT,
+            title VARCHAR(10) NULL
+        ";
+        mysqli_query($dbc, $query) or die('Error creating currencies table');
+        /**
+         * insert a currency with ID == 0 && title == '' (empty string)
+         * TODO: this query MUST be deleted when a solution to query an item without price && currency is found
+         */
+        $query = "
+          INSERT INTO cls_currencies (id, ttile)
+          VALUES (1, '')";
+        mysqli_query($dbc, $query) or die('Error inserting into cls_currencies table');
+
+        /** Create categories table */
+        $query = "
+          CREATE TABLE cls_categories (
+            id INT(4) PRIMARY KEY AUTO_INCREMENT,
+            title VARCHAR(50),
+            parent_id INT(4) NULL
+          )
+        ";
+        mysqli_query($dbc, $query) or die('Error creating categories table');
+
+        /** create regions table */
+        $query = "
+        CREATE TABLE cls_regions (
+          id INT(4) NOT NULL AUTO_INCREMENT,
+          title VARCHAR(20) NOT NULL
+          ";
+          mysqli_query($dbc, $query) or die('Error creating cls_regions table');
+
+        /** Add a basic ad on newly instaled script */
         $query = "
           INSERT INTO cls_ads (url, published, name, title, description, price)
             VALUES (12345678, NOW(), 'Anonymous', 'Demo ad', 'Demo description', 'free');

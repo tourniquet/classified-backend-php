@@ -1,34 +1,34 @@
 <?php
   require_once('dbc.php');
 
+  $region = $_GET['region'];
   $page_number = $_GET['page'];
   $items_per_page = 10;
   $offset = ($page_number - 1) * $items_per_page;
 
-  $query = "SELECT ads.*, sub.title AS subcategory, cat.title AS category
+  $query = "SELECT ads.*, region.title AS region, sub.title AS subcategory
     FROM cls_ads AS ads
+    INNER JOIN cls_regions AS region ON ads.region_id = region.id
     INNER JOIN cls_categories AS sub ON ads.subcategory_id = sub.id
-    INNER JOIN cls_categories AS cat ON sub.parent_id = cat.id
+    WHERE region.title = '$region'
     ORDER BY published DESC
     LIMIT $items_per_page OFFSET $offset";
-  $res = mysqli_query($dbc, $query);
+  $data = mysqli_query($dbc, $query) or die('region.php mysql error');
 
   $items = [];
-  while ($i = mysqli_fetch_assoc($res)) {
+  while ($i = mysqli_fetch_assoc($data)) {
     $items[] = $i;
   }
 
-  $query = "SELECT COUNT(*) AS total FROM cls_ads";
+  $query = "SELECT COUNT(*) AS total, region.title AS region
+    FROM cls_ads AS ads
+    INNER JOIN cls_regions AS region ON ads.region_id = region.id
+    WHERE region.title = '$region'";
   $res = mysqli_query($dbc, $query);
   $total = mysqli_fetch_row($res);
 
   mysqli_close($dbc);
 
-  // send data as a valid JSON and allow Origin Access
-  {/* 
-    TODO: I think that there will be a good idea to allow only front end host,
-    which can be stored in the database and set up when back-end is installed
-  */}
   header('Access-Control-Allow-Origin: *', false);
   header('Content-type: application/json', false);
   header('HTTP/1.1 200 OK');
