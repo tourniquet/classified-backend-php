@@ -111,6 +111,10 @@
                 </li>';
         }
         echo '</ul>';
+            'href' => 'disable-item.php?id=' . $row['id'],
+            'href' => 'enable-item.php?id=' . $row['id'],
+              <a href='renew-item.php?id={$row['id']}' class='renew-icon'>
+              <a href='remove-item.php?id={$row['id']}' class='remove-icon' onclick='return confirm('Are you sure?')'>
 
       $query = "SELECT COUNT(*) AS total FROM cls_ads";
       $res = mysqli_query($dbc, $query);
