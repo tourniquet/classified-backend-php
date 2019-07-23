@@ -31,20 +31,14 @@
     }
   }
 
-  aside {
-    background: #262626;
-    color: #FFF;
-    grid-area: aside;
-  }
-
   main {
     display: flex;
     flex-direction: column;
     grid-area: main;
-    padding: 50px 50px 50px 0;
+    padding: 50px;
 
     a {
-      color: black;
+      color: #000;
       text-decoration: none;
     }
 
@@ -86,18 +80,15 @@
 
     ul.items-list {
       font-size: 13px;
-      width: 1268px;
 
       li {
         border: 0;
         display: flex;
         height: 50px;
-        justify-content: space-between;
         line-height: 50px;
-        padding-left: 10px;
 
         &:not(:last-child) {
-          border-bottom: 2px solid rgb(246, 246, 246);
+          border-bottom: 2px solid #F6F6F6;
         }
 
         &:hover {
@@ -109,50 +100,48 @@
         }
         
         &.enabled {
-          color: black;
+          color: #000;
+        }
+
+        span.check-item {
+          border-right: 1px solid #FFF;
+          align-items: center;
+          display: flex;
+          width: 36px;
+          justify-content: center;
+        }
+
+        span.item-id {
+          border-right: 1px solid #FFF;
+          padding-left: 5px;
+          width: 45px;
         }
 
         a.item-title {
+          border-right: 1px solid #FFF;
+          padding-left: 5px;
           width: 800px;
         }
 
-        a.subcategory {
-          color: E26433;
-          width: 125px;
+        a.subcategory,
+        span.item-posted-date {
+          border-right: 1px solid #FFF;
+          color: #E26433;
+          padding-left: 5px;
+          width: 150px;
         }
 
-        > .action-icons {
-          align-items: center;
+        .action-icons {
           display: flex;
           justify-content: space-between;
+          padding-left: 5px;
           width: 150px;
 
           > a {
-            background: url('../img/spritesheet.png');
             cursor: pointer;
             display: inline-block;
             height: 20px;
             width: 20px;
-
-            &.url-icon {
-              background-position-y: 240px;
-            }
-
-            &.edit-icon {
-              background-position-y: 470px;
-            }
-
-            &.renew-icon {
-              background-position-y: 70px;
-            }
-
-            &.spam-icon {
-              background-position-y: 175px;
-            }
-
-            &.remove-icon {
-              background-position-y: 220px;
-            }
           }
         }
       }
