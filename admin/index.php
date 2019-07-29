@@ -45,109 +45,116 @@
   ?>
 
   <main>
-    <ul class="items-list-header">
-      <li class="check-all"><input id="check-all" type="checkbox"></li>
-      <li class="item-id">ID</li>
-      <li class="item-name">Item name</li>
-      <li class="item-subcategory">Item subcategory</li>
-      <li class="item-posted-date">Posted date</li>
-      <li class="item-actions">Actions</li>
-    </ul>
+    <form action="remove-items.php" method="POST">
+      <ul class="items-list-header">
+        <li class="check-all"><input id="check-all" type="checkbox"></li>
+        <li class="item-id">ID</li>
+        <li class="item-name">Item name</li>
+        <li class="item-subcategory">Item subcategory</li>
+        <li class="item-posted-date">Posted date</li>
+        <li class="item-actions">Actions</li>
+      </ul>
 
-    <?php
-      // when admin panel is accessed, url looks like www.example.com/admin/,
-      // without page value, so by default page=1
-      $page = !empty($_GET['page']) ? $_GET['page'] : 1;
-      $offset = ($page - 1) * ITEMS_PER_PAGE;
+      <?php
+        // when admin panel is accessed, url looks like www.example.com/admin/,
+        // without page value, so by default page=1
+        $page = !empty($_GET['page']) ? $_GET['page'] : 1;
+        $offset = ($page - 1) * ITEMS_PER_PAGE;
 
-      $query = "SELECT ads.*, sub.title AS subcategory
-        FROM cls_ads AS ads
-        INNER JOIN cls_categories AS sub ON ads.subcategory_id = sub.id
-        ORDER BY published DESC
-        LIMIT " . ITEMS_PER_PAGE . " OFFSET $offset";
-      $data = mysqli_query($dbc, $query);
+        $query = "SELECT ads.*, sub.title AS subcategory
+          FROM cls_ads AS ads
+          INNER JOIN cls_categories AS sub ON ads.subcategory_id = sub.id
+          ORDER BY published DESC
+          LIMIT " . ITEMS_PER_PAGE . " OFFSET $offset";
+        $data = mysqli_query($dbc, $query);
 
-      // if (!$data) {
-      //   echo json_encode(mysqli_connect_error());
-      // }
+        // if (!$data) {
+        //   echo json_encode(mysqli_connect_error());
+        // }
 
-      // echo json_encode($data);
+        // echo json_encode($data);
 
-      // if (isset($_COOKIE['email'])) {
-      //   echo '<a href="../logout.php" style="color: red;">Logout</a>';
-      // } else {
-      //   echo '<a href="../login.php" style="color: red;">Login</a>';
-      // }
+        // if (isset($_COOKIE['email'])) {
+        //   echo '<a href="../logout.php" style="color: red;">Logout</a>';
+        // } else {
+        //   echo '<a href="../login.php" style="color: red;">Login</a>';
+        // }
 
-      echo '<ul class="items-list">';
-      while ($row = mysqli_fetch_array($data)) {
-        // TODO: sprintf()
-        $item_state = $row['enabled'] == 1
-          ? array(
-            'class_name' => 'enabled',
-            'href' => 'disable-item.php?id=' . $row['id'],
-            'state' => 'Disable'
-          )
-          : array(
-            'class_name' => 'disabled',
-            'href' => 'enable-item.php?id=' . $row['id'],
-            'state' => 'Enable'
-          );
+        echo '<ul class="items-list">';
+        while ($row = mysqli_fetch_array($data)) {
+          // TODO: sprintf()
+          $item_state = $row['enabled'] == 1
+            ? array(
+              'class_name' => 'enabled',
+              'href' => 'disable-item.php?id=' . $row['id'],
+              'state' => 'Disable'
+            )
+            : array(
+              'class_name' => 'disabled',
+              'href' => 'enable-item.php?id=' . $row['id'],
+              'state' => 'Enable'
+            );
 
-          echo "<li class='{$item_state['class_name']}'>
-            <span class='check-item'>
-              <input type='checkbox'>
-            </span>
-            <span class='item-id'>
-              {$row['id']}
-            </span>
-            <a href='" . FRONT_SIDE . "/item/" . $row['url'] . "' class='item-title' target='_blank'>
-              {$row['title']}
-            </a>
-            <a href='#' class='subcategory'>
-              {$row['subcategory']}
-            </a>
-            <span class='item-posted-date'>" . date_format(date_create($row['published']), 'd F, Y') . "</span>
-            <div class='action-icons'>
+            echo "<li class='{$item_state['class_name']}'>
+              <span class='check-item'>
+                <input name='items[]' type='checkbox' value='{$row['id']}'>
+              </span>
+              <span class='item-id'>
+                {$row['id']}
+              </span>
               <a href='" . FRONT_SIDE . "/item/" . $row['url'] . "' class='item-title' target='_blank'>
-                <i class='icon ion-md-link'></i>
+                {$row['title']}
               </a>
-              <a href='#' class='edit-icon'>
-                <i class='icon ion-md-create'></i>
+              <a href='#' class='subcategory'>
+                {$row['subcategory']}
               </a>
-              <a href='{$item_state['href']}' class='enable-icon'></a>
-              <a href='renew-item.php?id={$row['id']}' class='renew-icon'>
-                <i class='icon ion-md-refresh'></i>
-              </a>
-              <a href='#' class='disable-icon'>
-                <i class='icon ion-md-eye-off'></i>
-              </a>
-              <a href='#' class='spam-icon'>
-                <i class='icon ion-md-flame'></i>
-              </a>
-              <a href='remove-item.php?id={$row['id']}' class='remove-icon' onclick='return confirm('Are you sure?')'>
-                <i class='icon ion-md-trash'></i>
-              </a>
-            </div>
-          </li>";
-      }
-      echo '</ul>';
+              <span class='item-posted-date'>" . date_format(date_create($row['published']), 'd F, Y') . "</span>
 
-      $query = "SELECT COUNT(*) AS total FROM cls_ads";
-      $res = mysqli_query($dbc, $query);
-      $total_items = mysqli_fetch_row($res);
-      $total_pages = ceil($total_items[0] / ITEMS_PER_PAGE);
+              <div class='action-icons'>
+                <a href='" . FRONT_SIDE . "/item/" . $row['url'] . "' class='item-url' target='_blank'>
+                  <i class='icon ion-md-link'></i>
+                </a>
+                <a href='#' class='edit-icon'>
+                  <i class='icon ion-md-create'></i>
+                </a>
+                <a href='{$item_state['href']}' class='enable-icon'>
+                  <i class='icon ion-md-trending'></i>
+                </a>
+                <a href='renew-item.php?id={$row['id']}' class='renew-icon'>
+                  <i class='icon ion-md-refresh'></i>
+                </a>
+                <a href='#' class='disable-icon'>
+                  <i class='icon ion-md-eye-off'></i>
+                </a>
+                <a href='#' class='spam-icon'>
+                  <i class='icon ion-md-flame'></i>
+                </a>
+                <a href='remove-item.php?id={$row['id']}' class='remove-icon' onclick='return confirm('Are you sure?')'>
+                  <i class='icon ion-md-trash'></i>
+                </a>
+              </div>
+            </li>";
+        }
+        echo '</ul>';
 
-      mysqli_close($dbc);
+        $query = "SELECT COUNT(*) AS total FROM cls_ads";
+        $res = mysqli_query($dbc, $query);
+        $total_items = mysqli_fetch_row($res);
+        $total_pages = ceil($total_items[0] / ITEMS_PER_PAGE);
 
-      $page_name = 'index';
-      $pages = [];
-      for ($i = 0; $i < $total_pages; $i++) {
-        $pages[] = $i + 1;
-      }
+        mysqli_close($dbc);
 
-      include_once './pagination.php';
-    ?>
+        $page_name = 'index';
+        $pages = [];
+        for ($i = 0; $i < $total_pages; $i++) {
+          $pages[] = $i + 1;
+        }
+      ?>
+
+      <button name="submit" onclick="return confirm('Are you sure?')">Delete items</button>
+    </form>
+
+    <?php include_once './pagination.php'; ?>
   </main>
   
   <?php include './footer.php'; ?>
