@@ -46,25 +46,39 @@
         ORDER BY id DESC
         LIMIT " . ITEMS_PER_PAGE . " OFFSET $offset";
       $regions = mysqli_query($dbc, $query);
+    ?>
 
-      echo '<ul class="regions-list">';
-      while ($row = mysqli_fetch_array($regions)) {
-        echo '<li>
-          <span class="check-region">
-            <input type="checkbox">
-          </span>
-          <span class="region-id">' . $row['id'] . '</span>
-          <span class="region-title">' . $row['title'] . '</span>
-          <div class="action-icons">
-            <a href="#" class="edit-region"><i class="icon ion-md-create"></i></a>
-            <a href="remove-region.php?id=' . $row['id'] . '" class="remove-region" onclick="confirm(\'Are you sure?\')">
-              <i class="icon ion-md-trash"></i>
-            </a>
-          </div>
-        </li>';
-      }
-      echo '</ul>';
+    <form action="remove-regions.php" method="POST">
+      <ul class="regions-list">
+        <?php
+          while ($row = mysqli_fetch_array($regions)) {
+            echo "<li>
+              <span class='check-region'>
+                <input name='items[]' type='checkbox' value='{$row['id']}'>
+              </span>
+              <span class='region-id'>{$row['id']}</span>
+              <span class='region-title'>{$row['title']}</span>
+              <div class='action-icons'>
+                <a href='#' class='edit-region'>
+                  <i class='icon ion-md-create'></i>
+                </a>
+                <a
+                  class='remove-region'
+                  href='remove-region.php?id={$row['id']}'
+                  onclick='confirm('Are you sure?')'
+                >
+                  <i class='icon ion-md-trash'></i>
+                </a>
+              </div>
+            </li>";
+          }
+        ?>
+      </ul>
 
+      <button name="submit" onclick="return confirm('Are you sure?')">Delete items</button>
+    </form>
+
+    <?php
       $query = "SELECT COUNT(*) AS total FROM cls_regions";
       $res = mysqli_query($dbc, $query);
       $total_items = mysqli_fetch_row($res);
