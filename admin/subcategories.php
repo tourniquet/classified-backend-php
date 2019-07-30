@@ -59,29 +59,43 @@
       while ($i = mysqli_fetch_assoc($categories)) {
         $subcategories[] = $i;
       }
+    ?>
 
-      echo '<ul class="subcategories-list">';
-        for ($i = 0; $i < count($subcategories); $i++) {
-        echo '<li>
-          <span class="check-subcategory"><input type="checkbox"></span>
-          <span class="subcategory-id">' . $subcategories[$i]['id'] . '</span>
-          <span class="subcategory-name">' . $subcategories[$i]['title'] . '</span>
-          <span class="subcategory-parent">' . $subcategories[$i]['category'] . '</span>
-          <div class="action-icons">
-            <a href="#" class="edit-subcategory"><i class="icon ion-md-create"></i></a>
-            <a
-              href="remove-subcategory.php?id=' . $subcategories[$i]['id'] . '&parent_id=' . $subcategories[$i]['parent_id'] . '"
-              class="remove-subcategory"
-              onclick="return confirm(\'Are you sure?\')"
-            >
-              <i class="icon ion-md-trash"></i>
-            </a>
-          </div>
-        </li>';
-      }
-      echo '</ul>';
+    <form action="remove-subcategories.php" method="POST">
+      <ul class="subcategories-list">
+        <?php
+          for ($i = 0; $i < count($subcategories); $i++) {
+            echo "<li>
+              <span class='check-subcategory'>
+                <input name='items[]' type='checkbox' value='{$subcategories[$i]['id']}'>
+              </span>
+              <span class='subcategory-id'>{$subcategories[$i]['id']}</span>
+              <span class='subcategory-name'>{$subcategories[$i]['title']}</span>
+              <span class='subcategory-parent'>{$subcategories[$i]['category']}</span>
+              <div class='action-icons'>
+                <a href='#' class='edit-subcategory'>
+                  <i class='icon ion-md-create'></i>
+                </a>
+                <a
+                  href='remove-subcategory.php?id={$subcategories[$i]['id']}&parent_id={$subcategories[$i]['parent_id']}'
+                  class='remove-subcategory'
+                  onclick='return confirm('Are you sure?')'
+                >
+                  <i class='icon ion-md-trash'></i>
+                </a>
+              </div>
+            </li>";
+          }
+        ?>
+      </ul>
 
-      $query = "SELECT COUNT(*) AS total FROM cls_categories WHERE parent_id IS NOT NULL";
+      <button name="submit" onclick="return confirm('Are you sure?')">Delete items</button>
+    </form>
+
+    <?php
+      $query = "SELECT COUNT(*) AS total
+        FROM cls_categories
+        WHERE parent_id IS NOT NULL";
       $res = mysqli_query($dbc, $query);
       $total_items = mysqli_fetch_row($res);
       $total_pages = ceil($total_items[0] / ITEMS_PER_PAGE);
