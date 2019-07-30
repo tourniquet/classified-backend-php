@@ -14,6 +14,7 @@
         FROM cls_categories
         WHERE id IN ($items)";
       mysqli_query($dbc, $remove_subcategories_query);
+      mysqli_close($dbc);
     }
   ?>
 

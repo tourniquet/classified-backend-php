@@ -14,6 +14,7 @@
         FROM cls_currencies
         WHERE id IN ($items)";
       mysqli_query($dbc, $remove_currencies_query);
+      mysqli_close($dbc);
     }
   ?>
 

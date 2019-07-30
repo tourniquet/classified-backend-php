@@ -32,6 +32,8 @@
           WHERE id IN ($items)";
         mysqli_query($dbc, $remove_ad_query);
       }
+
+      mysqli_close($dbc);
     }
   ?>
 
