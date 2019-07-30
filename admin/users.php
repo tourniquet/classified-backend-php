@@ -22,37 +22,57 @@
 
     <?php
       $page = !empty($_GET['page']) ? $_GET['page'] : 1;
-      $offset = ($page - 1) * 5;
+      $offset = ($page - 1) * ITEMS_PER_PAGE;
 
       $query = "SELECT *
         FROM cls_users
         ORDER BY id DESC
-        LIMIT 10 OFFSET $offset";
+        LIMIT " . ITEMS_PER_PAGE . " OFFSET $offset";
       $users = mysqli_query($dbc, $query);
+    ?>
 
-      echo '<ul class="users-list">';
-      while ($row = mysqli_fetch_array($users)) {
-        echo '<li>
-            <span class="check-user">
-              <input type="checkbox" name="id[]" value="' . $row['id'] . '">
-            </span>
-            <span class="user-id">' . $row['id'] . '</span>
-            <span class="user-email">' . $row['email'] . '</span>
-            <span class="registration-date">08 July, 2019</span>
-            <div class="action-icons">
-              <a href="#" class="user-profile"><i class="icon ion-md-person"></i></a>
-              <a href="#" class="edit-user"><i class="icon ion-md-create"></i></a>
-              <a href="#" class="block-user"><i class="icon ion-md-alert"></i></a>
-              <a href="remove.php?id=' . $row['id'] . '" class="remove-user"><i class="icon ion-md-trash"></i></a>
-            </div>
-          </li>';
-      }
-      echo '</ul>';
+    <form action="remove-users.php" method="POST">
+      <ul class="users-list">
+        <?php
+          while ($row = mysqli_fetch_array($users)) {
+            echo "<li>
+              <span class='check-user'>
+                <input type='checkbox' name='items[]' value='{$row['id']}'>
+              </span>
+              <span class='user-id'>{$row['id']}</span>
+              <span class='user-email'>{$row['email']}</span>
+              <span class='registration-date'>08 July, 2019</span> // TODO: add registration date column to table
+              <div class='action-icons'>
+                <a href='#' class='user-profile'>
+                  <i class='icon ion-md-person'></i>
+                </a>
+                <a href='#' class='edit-user'>
+                  <i class='icon ion-md-create'></i>
+                </a>
+                <a href='#' class='block-user'>
+                  <i class='icon ion-md-alert'></i>
+                </a>
+                <a
+                  class='remove-user'
+                  href='remove-user.php?id={$row['id']}'
+                  onclick='return confirm(\"Are you sure?\")'
+                >
+                  <i class='icon ion-md-trash'></i>
+                </a>
+              </div>
+            </li>";
+          }
+        ?>
+      </ul>
 
+      <button name="submit" onclick="return confirm('Are you sure?')">Delete users</button>
+    </form>
+
+    <?php
       $query = "SELECT COUNT(*) AS total FROM cls_users";
       $res = mysqli_query($dbc, $query);
       $total_users = mysqli_fetch_row($res);
-      $total_pages = ceil($total_users[0] / 10);
+      $total_pages = ceil($total_users[0] / ITEMS_PER_PAGE);
 
       mysqli_close($dbc);
 
