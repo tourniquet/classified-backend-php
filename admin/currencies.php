@@ -62,7 +62,11 @@
                 <a href='#' class='edit-currency'>
                   <i class='icon ion-md-create'></i>
                 </a>
-                <a href='remove-currency.php?id={$row['id']}' class='remove-currency' onclick='return confirm('Are you sure?')'>
+                <a
+                  class='remove-currency'
+                  href='remove-currency.php?id={$row['id']}'
+                  onclick='return confirm(\"Are you sure?\")'
+                >
                   <i class='icon ion-md-trash'></i>
                 </a>
               </div>

@@ -65,7 +65,7 @@
                 <a
                   class='remove-region'
                   href='remove-region.php?id={$row['id']}'
-                  onclick='confirm('Are you sure?')'
+                  onclick='return confirm(\"Are you sure?\")'
                 >
                   <i class='icon ion-md-trash'></i>
                 </a>

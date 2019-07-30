@@ -55,7 +55,7 @@
               <a
                 class='remove-category'
                 href='remove-category.php?id={$row['id']}'
-                onclick='return confirm('Are you sure?')'
+                onclick='return confirm(\"Are you sure?\")'
               >
                 <i class='icon ion-md-trash'></i>
               </a>
