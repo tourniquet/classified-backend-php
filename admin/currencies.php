@@ -75,7 +75,7 @@
         ?>
       </ul>
 
-      <button name="submit" onclick="return confirm('Are you sure?')">Delete items</button>
+      <button name="submit" onclick="return confirm('Are you sure?')">Delete selected currencies</button>
     </form>
 
     <?php

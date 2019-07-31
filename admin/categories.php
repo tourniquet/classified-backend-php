@@ -65,7 +65,7 @@
       ?>
       </ul>
 
-      <button name="submit" onclick="return confirm('Are you sure?')">Delete items</button>
+      <button name="submit" onclick="return confirm('Are you sure?')">Delete selected categories</button>
     </form>
 
     <?php
