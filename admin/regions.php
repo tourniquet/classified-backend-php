@@ -50,29 +50,27 @@
 
     <form action="remove-regions.php" method="POST">
       <ul class="regions-list">
-        <?php
-          while ($row = mysqli_fetch_array($regions)) {
-            echo "<li>
-              <span class='check-region'>
-                <input name='items[]' type='checkbox' value='{$row['id']}'>
-              </span>
-              <span class='region-id'>{$row['id']}</span>
-              <span class='region-title'>{$row['title']}</span>
-              <div class='action-icons'>
-                <a href='#' class='edit-region'>
-                  <i class='icon ion-md-create'></i>
-                </a>
-                <a
-                  class='remove-region'
-                  href='remove-region.php?id={$row['id']}'
-                  onclick='return confirm(\"Are you sure?\")'
-                >
-                  <i class='icon ion-md-trash'></i>
-                </a>
-              </div>
-            </li>";
-          }
-        ?>
+        <?php while ($row = mysqli_fetch_array($regions)) { ?>
+          <li>
+            <span class="check-region">
+              <input name="items[]" type="checkbox" value="<?= $row['id'] ?>">
+            </span>
+            <span class="region-id"><?= $row['id'] ?></span>
+            <span class="region-title"><?= $row['title'] ?></span>
+            <div class="action-icons">
+              <a href="#" class="edit-region">
+                <i class="icon ion-md-create"></i>
+              </a>
+              <a
+                class="remove-region"
+                href="remove-region.php?id=<?= $row['id'] ?>"
+                onclick="return confirm('Are you sure?')"
+              >
+                <i class="icon ion-md-trash"></i>
+              </a>
+            </div>
+          </li>
+        <?php } ?>
       </ul>
 
       <button name="submit" onclick="return confirm('Are you sure?')">Delete selected regions</button>

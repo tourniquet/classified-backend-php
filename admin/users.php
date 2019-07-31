@@ -33,36 +33,34 @@
 
     <form action="remove-users.php" method="POST">
       <ul class="users-list">
-        <?php
-          while ($row = mysqli_fetch_array($users)) {
-            echo "<li>
-              <span class='check-user'>
-                <input type='checkbox' name='items[]' value='{$row['id']}'>
-              </span>
-              <span class='user-id'>{$row['id']}</span>
-              <span class='user-email'>{$row['email']}</span>
-              <span class='registration-date'>08 July, 2019</span> // TODO: add registration date column to table
-              <div class='action-icons'>
-                <a href='#' class='user-profile'>
-                  <i class='icon ion-md-person'></i>
-                </a>
-                <a href='#' class='edit-user'>
-                  <i class='icon ion-md-create'></i>
-                </a>
-                <a href='#' class='block-user'>
-                  <i class='icon ion-md-alert'></i>
-                </a>
-                <a
-                  class='remove-user'
-                  href='remove-user.php?id={$row['id']}'
-                  onclick='return confirm(\"Are you sure?\")'
-                >
-                  <i class='icon ion-md-trash'></i>
-                </a>
-              </div>
-            </li>";
-          }
-        ?>
+        <?php while ($row = mysqli_fetch_array($users)) { ?>
+          <li>
+            <span class="check-user">
+              <input type="checkbox" name="items[]" value="<?= $row['id'] ?>">
+            </span>
+            <span class="user-id"><?= $row['id'] ?></span>
+            <span class="user-email"><?= $row['email'] ?></span>
+            <span class="registration-date">08 July, 2019</span> <!-- TODO: add registration date column to users table -->
+            <div class="action-icons">
+              <a href="#" class="user-profile">
+                <i class="icon ion-md-person"></i>
+              </a>
+              <a href="#" class="edit-user">
+                <i class="icon ion-md-create"></i>
+              </a>
+              <a href="#" class="block-user">
+                <i class="icon ion-md-alert"></i>
+              </a>
+              <a
+                class="remove-user"
+                href="remove-user.php?id=<?= $row['id'] ?>"
+                onclick="return confirm('Are you sure?')"
+              >
+                <i class="icon ion-md-trash"></i>
+              </a>
+            </div>
+          </li>
+        <?php } ?>
       </ul>
 
       <button name="submit" onclick="return confirm('Are you sure?')">Delete selected users</button>

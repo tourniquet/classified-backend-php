@@ -1,6 +1,7 @@
+<?php include_once './head.php'; ?>
+
 <?php
   include_once './header.php';
-
   require_once('../dbc.php');
 
   $ad_id = $_GET['id'];
@@ -16,7 +17,7 @@
     $enable_ad = 'UPDATE cls_ads SET enabled = 1 WHERE id = ' . $ad_id;
     mysqli_query($dbc, $enable_ad);
 
-    echo '<h3>Your ad ' . $row['title'] . ' ' . $ad_id . ' was enabled!</h3';
+    echo "<h3>Ad {$row['title']} was enabled!</h3";
   }
 
   mysqli_close($dbc);

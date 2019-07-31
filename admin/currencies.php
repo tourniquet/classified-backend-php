@@ -50,29 +50,27 @@
 
     <form action="remove-currencies.php" method="POST">
       <ul class="currencies-list">
-        <?php
-          while ($row = mysqli_fetch_array($currencies)) {
-            echo "<li>
-              <span class='check-currency'>
-                <input name='items[]' type='checkbox' value='{$row['id']}'>
-              </span>
-              <span class='currency-id'>{$row['id']}</span>
-              <span class='currency-name'>{$row['title']}</span>
-              <div class='action-icons'>
-                <a href='#' class='edit-currency'>
-                  <i class='icon ion-md-create'></i>
-                </a>
-                <a
-                  class='remove-currency'
-                  href='remove-currency.php?id={$row['id']}'
-                  onclick='return confirm(\"Are you sure?\")'
-                >
-                  <i class='icon ion-md-trash'></i>
-                </a>
-              </div>
-            </li>";
-          }
-        ?>
+        <?php while ($row = mysqli_fetch_array($currencies)) { ?>
+          <li>
+            <span class="check-currency">
+              <input name="items[]" type="checkbox" value="<?= $row['id'] ?>">
+            </span>
+            <span class="currency-id"><?= $row['id'] ?></span>
+            <span class="currency-name"><?= $row['title'] ?></span>
+            <div class="action-icons">
+              <a href="#" class="edit-currency">
+                <i class="icon ion-md-create"></i>
+              </a>
+              <a
+                class="remove-currency"
+                href="remove-currency.php?id=<?= $row['id'] ?>"
+                onclick="return confirm('Are you sure?')"
+              >
+                <i class="icon ion-md-trash"></i>
+              </a>
+            </div>
+          </li>
+        <?php } ?>
       </ul>
 
       <button name="submit" onclick="return confirm('Are you sure?')">Delete selected currencies</button>

@@ -94,52 +94,48 @@
               'href' => 'enable-item.php?id=' . $row['id'],
               'state' => 'Enable'
             );
+          ?>
 
-            echo "<li class='{$item_state['class_name']}'>
-              <span class='check-item'>
-                <input name='items[]' type='checkbox' value='{$row['id']}'>
-              </span>
-              <span class='item-id'>
-                {$row['id']}
-              </span>
-              <a href='" . FRONT_SIDE . "/item/" . $row['url'] . "' class='item-title' target='_blank'>
-                {$row['title']}
-              </a>
-              <a href='#' class='subcategory'>
-                {$row['subcategory']}
-              </a>
-              <span class='item-posted-date'>" . date_format(date_create($row['published']), 'd F, Y') . "</span>
+          <li class="<?= $item_state['class_name'] ?>">
+            <span class="check-item">
+              <input name="items[]" type="checkbox" value="<?= $row['id'] ?>">
+            </span>
+            <span class="item-id"><?= $row['id'] ?></span>
+            <a href="<?= FRONT_SIDE . '/item/' . $row['url'] ?>" class="item-title" target="_blank">
+              <?= $row['title'] ?>
+            </a>
+            <a href="#" class="subcategory"><?= $row['subcategory'] ?></a>
+            <span class="item-posted-date"><?= date_format(date_create($row['published']), 'd F, Y') ?></span>
 
-              <div class='action-icons'>
-                <a href='" . FRONT_SIDE . "/item/" . $row['url'] . "' class='item-url' target='_blank'>
-                  <i class='icon ion-md-link'></i>
-                </a>
-                <a href='#' class='edit-icon'>
-                  <i class='icon ion-md-create'></i>
-                </a>
-                <a href='{$item_state['href']}' class='enable-icon'>
-                  <i class='icon ion-md-trending'></i>
-                </a>
-                <a href='renew-item.php?id={$row['id']}' class='renew-icon'>
-                  <i class='icon ion-md-refresh'></i>
-                </a>
-                <a href='#' class='disable-icon'>
-                  <i class='icon ion-md-eye-off'></i>
-                </a>
-                <a href='#' class='spam-icon'>
-                  <i class='icon ion-md-flame'></i>
-                </a>
-                <a
-                  class='remove-icon'
-                  href='remove-item.php?id={$row['id']}'
-                  onclick='return confirm(\"Are you sure?\")'
-                >
-                  <i class='icon ion-md-trash'></i>
-                </a>
-              </div>
-            </li>";
-        }
-      ?>
+            <div class="action-icons">
+              <a href="<?= FRONT_SIDE . '/item/' . $row['url'] ?>" class="item-url" target="_blank">
+                <i class="icon ion-md-link"></i>
+              </a>
+              <a href="#" class="edit-icon">
+                <i class="icon ion-md-create"></i>
+              </a>
+              <a href="<?= $item_state['href'] ?>" class="enable-icon">
+                <i class="icon ion-md-trending"></i>
+              </a>
+              <a href="renew-item.php?id=<?= $row['id'] ?>" class="renew-icon">
+                <i class="icon ion-md-refresh"></i>
+              </a>
+              <a href="#" class="disable-icon">
+                <i class="icon ion-md-eye-off"></i>
+              </a>
+              <a href="#" class="spam-icon">
+                <i class="icon ion-md-flame"></i>
+              </a>
+              <a
+                class="remove-icon"
+                href="remove-item.php?id=<?= $row['id'] ?>"
+                onclick="return confirm('Are you sure?')"
+              >
+                <i class="icon ion-md-trash"></i>
+              </a>
+            </div>
+          </li>
+        <?php } ?>
       </ul>
 
       <button name="submit" onclick="return confirm('Are you sure?')">Delete selected items</button>

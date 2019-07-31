@@ -40,29 +40,27 @@
 
     <form action="remove-categories.php" method="POST">
       <ul class="categories-list">
-        <?php
-          while ($row = mysqli_fetch_array($categories)) {
-          echo "<li>
-            <span class='check-category'>
-              <input name='items[]' type='checkbox' value='{$row['id']}'>
+        <?php while ($row = mysqli_fetch_array($categories)) { ?>
+          <li>
+            <span class="check-category">
+              <input name="items[]" type="checkbox" value="<?= $row['id'] ?>">
             </span>
-            <span class='category-id'>{$row['id']}</span>
-            <span class='category-name'>{$row['title']}</span>
-            <div class='action-icons'>
-              <a href='#' class='edit-category'>
-                <i class='icon ion-md-create'></i>
+            <span class="category-id"><?= $row['id'] ?></span>
+            <span class="category-name"><?= $row['title'] ?></span>
+            <div class="action-icons">
+              <a href="#" class="edit-category">
+                <i class="icon ion-md-create"></i>
               </a>
               <a
-                class='remove-category'
-                href='remove-category.php?id={$row['id']}'
-                onclick='return confirm(\"Are you sure?\")'
+                class="remove-category"
+                href="remove-category.php?id=<?= $row['id'] ?>"
+                onclick="return confirm('Are you sure?')"
               >
-                <i class='icon ion-md-trash'></i>
+                <i class="icon ion-md-trash"></i>
               </a>
             </div>
-          </li>";
-        }
-      ?>
+          </li>
+        <?php } ?>
       </ul>
 
       <button name="submit" onclick="return confirm('Are you sure?')">Delete selected categories</button>
