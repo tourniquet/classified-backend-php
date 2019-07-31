@@ -139,26 +139,28 @@
               </div>
             </li>";
         }
-        echo '</ul>';
-
-        $query = "SELECT COUNT(*) AS total FROM cls_ads";
-        $res = mysqli_query($dbc, $query);
-        $total_items = mysqli_fetch_row($res);
-        $total_pages = ceil($total_items[0] / ITEMS_PER_PAGE);
-
-        mysqli_close($dbc);
-
-        $page_name = 'index';
-        $pages = [];
-        for ($i = 0; $i < $total_pages; $i++) {
-          $pages[] = $i + 1;
-        }
       ?>
+      </ul>
 
       <button name="submit" onclick="return confirm('Are you sure?')">Delete selected items</button>
     </form>
 
-    <?php include_once './pagination.php'; ?>
+    <?php
+      $query = "SELECT COUNT(*) AS total FROM cls_ads";
+      $res = mysqli_query($dbc, $query);
+      $total_items = mysqli_fetch_row($res);
+      $total_pages = ceil($total_items[0] / ITEMS_PER_PAGE);
+
+      mysqli_close($dbc);
+
+      $page_name = 'index';
+      $pages = [];
+      for ($i = 0; $i < $total_pages; $i++) {
+        $pages[] = $i + 1;
+      }
+  
+      include_once './pagination.php';
+    ?>
   </main>
   
   <?php include './footer.php'; ?>
