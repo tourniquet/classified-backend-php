@@ -1,11 +1,12 @@
 <?php
-  include_once './head.php';
+  require_once('../../private/initialize.php');
+  include(SHARED_PATH . '/head.php');
 ?>
 
 <div class="admin-panel">
   <?php
-    include_once './header.php';
-    require_once('../dbc.php');
+    include(SHARED_PATH . '/header.php');
+    require_once('../../dbc.php');
 
     if (isset($_POST['submit']) && isset($_POST)) {
       $items = implode(',', $_POST['items']);
@@ -19,10 +20,8 @@
   ?>
 
   <div>
-    <a href="currencies.php?page=1"><<< Back</a>
+    <a href="index.php?page=1"><<< Back</a>
   </div>
 
-  <?php
-    include_once './footer.php';
-  ?>
+  <?php include(SHARED_PATH . '/footer.php'); ?>
 </div>
