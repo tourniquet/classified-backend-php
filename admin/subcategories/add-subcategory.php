@@ -1,5 +1,5 @@
 <?php
-  require_once('../dbc.php');
+  require_once('../../dbc.php');
 
   $category_title = $_POST['title'];
   $parent_id = is_numeric($_POST['parent-id']) ? $_POST['parent-id'] : "NULL";
@@ -9,5 +9,5 @@
   mysqli_query($dbc, $query);
   mysqli_close($dbc);
 
-  header('Location: subcategories.php?page=1');
+  header('Location: index.php?page=1');
 ?>

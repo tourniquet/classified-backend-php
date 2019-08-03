@@ -1,14 +1,15 @@
 <?php
-  include_once './head.php';
+  require_once('../../private/initialize.php');
+  include(SHARED_PATH . '/head.php');
 ?>
 
 <div class="admin-panel">
   <?php
-    include_once './header.php';
-    include_once './sidebar.php';
+    include(SHARED_PATH . '/header.php');
+    include(SHARED_PATH . '/sidebar.php');
 
-    require_once('../dbc.php');
-    require_once('./constants.php');
+    require_once('../../dbc.php');
+    require_once('../constants.php');
   ?>
 
   <main>
@@ -46,7 +47,7 @@
 
     <?php
       // Use this syntax $page = $_GET['page'] ?? 1;
-      $page = !empty($_GET['page']) ? $_GET['page'] : 1;
+      $page = isset($_GET['page']) ? $_GET['page'] : 1;
       $offset = ($page - 1) * ITEMS_PER_PAGE;
 
       $query = "SELECT sub.*, cat.title AS 'category'
@@ -106,9 +107,9 @@
         $pages[] = $i + 1;
       }
 
-      include_once './pagination.php';
+      include(SHARED_PATH . '/pagination.php');
     ?>
   </main>
 
-  <?php include_once './footer.php'; ?>
+  <?php include(SHARED_PATH . '/footer.php'); ?>
 </div>
