@@ -1,5 +1,5 @@
 <?php
-  require_once('../dbc.php');
+  require_once('../../dbc.php');
 
   $user_id = $_GET['id'];
 
@@ -9,5 +9,5 @@
   mysqli_query($dbc, $remove_user_query);
   mysqli_close($dbc);
 
-  header('Location: users.php?page=1');
+  header('Location: index.php?page=1');
 ?>
