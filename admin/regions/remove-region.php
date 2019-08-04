@@ -1,5 +1,5 @@
 <?php
-  require_once('../dbc.php');
+  require_once('../../dbc.php');
 
   $region_id = $_GET['id'];
   $query = "DELETE
@@ -8,5 +8,5 @@
   mysqli_query($dbc, $query);
   mysqli_close($dbc);
 
-  header('Location: regions.php?page=1');
+  header('Location: index.php?page=1');
 ?>
