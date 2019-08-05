@@ -41,7 +41,7 @@
 
     <form action="remove-categories.php" method="POST">
       <ul class="categories-list">
-        <?php while ($row = mysqli_fetch_array($categories)) { ?>
+        <?php while ($row = mysqli_fetch_assoc($categories)) { ?>
           <li>
             <span class="check-category">
               <input name="items[]" type="checkbox" value="<?= $row['id'] ?>">

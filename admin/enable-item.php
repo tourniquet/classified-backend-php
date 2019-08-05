@@ -13,7 +13,7 @@
     exit();
   }
 
-  while ($row = mysqli_fetch_array($res)) {
+  while ($row = mysqli_fetch_assoc($res)) {
     $enable_ad = 'UPDATE cls_ads SET enabled = 1 WHERE id = ' . $ad_id;
     mysqli_query($dbc, $enable_ad);
 

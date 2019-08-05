@@ -13,7 +13,7 @@
       WHERE ad_id = $ad_id";
     $images = mysqli_query($dbc, $images_query);
 
-    while ($row = mysqli_fetch_array($images)) {
+    while ($row = mysqli_fetch_assoc($images)) {
       // remove every single image from uploads folder
       @unlink('../' . UPLOADS_PATH . $row['image']);
       @unlink('../' . UPLOADS_PATH . 'thumb_' . $row['image']);

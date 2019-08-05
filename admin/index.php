@@ -81,7 +81,7 @@
         // }
 
         echo '<ul class="items-list">';
-        while ($row = mysqli_fetch_array($data)) {
+        while ($row = mysqli_fetch_assoc($data)) {
           // TODO: sprintf()
           $item_state = $row['enabled'] == 1
             ? array(

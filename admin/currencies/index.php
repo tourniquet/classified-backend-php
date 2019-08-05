@@ -51,7 +51,7 @@
 
     <form action="remove-currencies.php" method="POST">
       <ul class="currencies-list">
-        <?php while ($row = mysqli_fetch_array($currencies)) { ?>
+        <?php while ($row = mysqli_fetch_assoc($currencies)) { ?>
           <li>
             <span class="check-currency">
               <input name="items[]" type="checkbox" value="<?= $row['id'] ?>">

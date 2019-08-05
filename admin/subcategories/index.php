@@ -28,7 +28,7 @@
       <select class="parent-category" name="parent-id">
         <option>No parent</option>
         <?php
-          while ($row = mysqli_fetch_array($parent_categories)) {
+          while ($row = mysqli_fetch_assoc($parent_categories)) {
             echo '<option value="' . $row['id'] . '">' . $row['title'] . '</option>';
           }
         ?>

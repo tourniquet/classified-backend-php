@@ -34,7 +34,7 @@
 
     <form action="remove-users.php" method="POST">
       <ul class="users-list">
-        <?php while ($row = mysqli_fetch_array($users)) { ?>
+        <?php while ($row = mysqli_fetch_assoc($users)) { ?>
           <li>
             <span class="check-user">
               <input type="checkbox" name="items[]" value="<?= $row['id'] ?>">

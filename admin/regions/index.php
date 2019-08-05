@@ -51,7 +51,7 @@
 
     <form action="remove-regions.php" method="POST">
       <ul class="regions-list">
-        <?php while ($row = mysqli_fetch_array($regions)) { ?>
+        <?php while ($row = mysqli_fetch_assoc($regions)) { ?>
           <li>
             <span class="check-region">
               <input name="items[]" type="checkbox" value="<?= $row['id'] ?>">
