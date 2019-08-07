@@ -55,7 +55,6 @@
               <a
                 class="remove-user"
                 href="remove-user.php?id=<?= $row['id'] ?>"
-                onclick="return confirm('Are you sure?')"
               >
                 <i class="icon ion-md-trash"></i>
               </a>

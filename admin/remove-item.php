@@ -1,16 +1,20 @@
 <?php
-  include_once './head.php';
+  require_once('../private/initialize.php');
+  include(SHARED_PATH . '/head.php');
 ?>
 
 <div class="admin-panel">
   <?php
-    include_once './header.php';
+    include(SHARED_PATH . '/header.php');
+    include(SHARED_PATH . '/sidebar.php');
+
+    require_once('../private/initialize.php');
     require_once('../dbc.php');
     
-    $ad_id = $_GET['id'];
+    $item_id = $_GET['id'];
     $images_query = "SELECT *
       FROM cls_images
-      WHERE ad_id = $ad_id";
+      WHERE ad_id = $item_id";
     $images = mysqli_query($dbc, $images_query);
 
     while ($row = mysqli_fetch_assoc($images)) {
@@ -18,29 +22,31 @@
       @unlink('../' . UPLOADS_PATH . $row['image']);
       @unlink('../' . UPLOADS_PATH . 'thumb_' . $row['image']);
 
-      // Remove ad item
-      $remov_ad_query = 'DELETE
-        FROM cls_ads
-        WHERE id = ' . $_GET['id'];
-      mysqli_query($dbc, $remov_ad_query);
-
       // Remove ad images from _images table
-      $remove_images_query = 'DELETE
+      $remove_images_query = "DELETE
         FROM cls_images
-        WHERE ad_id = ' . $_GET['id'];
+        WHERE ad_id = '$item_id'";
       mysqli_query($dbc, $remove_images_query);
+    }
 
-      echo '<h3>Ad was removed!</h3';
+    $item = return_field_name('cls_ads', $item_id);
+
+    if (is_post_request()) {
+      delete_item('cls_ads', $item_id);
     }
 
     mysqli_close($dbc);
   ?>
-    
-  <div>
-    <a href="/classified/backend/admin"><<< Back</a>
-  </div>
 
-  <?php
-    include_once './footer.php';
-  ?>
+  <main>
+    <a href="/classified/backend/admin"><<< Back</a>
+    <br>
+
+    <form action="remove-item.php?id=<?php echo $item_id; ?>" method="POST">
+      <span>Are you sure you want to remove <?php echo $item['title']; ?>?</span>
+      <button>Remove item</button>
+    </form>
+  </main>
+
+  <?php include(SHARED_PATH . '/footer.php'); ?>
 </div>

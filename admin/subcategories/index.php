@@ -79,7 +79,6 @@
               <a
                 href="remove-subcategory.php?id=<?= $subcategories[$i]['id'] ?>&parent_id=<?= $subcategories[$i]['parent_id'] ?>"
                 class="remove-subcategory"
-                onclick="return confirm('Are you sure?')"
               >
                 <i class="icon ion-md-trash"></i>
               </a>
