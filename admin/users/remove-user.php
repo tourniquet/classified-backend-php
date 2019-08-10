@@ -11,7 +11,7 @@
     require_once('../../private/initialize.php');
     require_once('../../dbc.php');
 
-    $user_id = $_GET['id'];
+    $user_id = db_escape($dbc, $_GET['id']);
     $user = return_field_name('cls_users', $user_id);
 
     if (is_post_request()) {

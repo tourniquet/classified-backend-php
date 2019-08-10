@@ -22,7 +22,7 @@
     </ul>
 
     <?php
-      $page = isset($_GET['page']) ? $_GET['page'] : 1;
+      $page = isset($_GET['page']) ? db_escape($dbc, $_GET['page']) : 1;
       $offset = ($page - 1) * ITEMS_PER_PAGE;
 
       $query = "SELECT *

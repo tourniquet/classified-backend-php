@@ -11,14 +11,14 @@
     require_once('../private/initialize.php');
     require_once('../dbc.php');
     
-    $item_id = $_GET['id'];
+    $item_id = db_escape($dbc, $_GET['id']);
     $images_query = "SELECT *
       FROM cls_images
       WHERE ad_id = $item_id";
     $images = mysqli_query($dbc, $images_query);
 
     while ($row = mysqli_fetch_assoc($images)) {
-      // remove every single image from uploads folder
+      // remove every single image related to removed ad from uploads folder
       @unlink('../' . UPLOADS_PATH . $row['image']);
       @unlink('../' . UPLOADS_PATH . 'thumb_' . $row['image']);
 

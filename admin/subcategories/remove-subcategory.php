@@ -11,8 +11,8 @@
     require_once('../../private/initialize.php');
     require_once('../../dbc.php');
 
-    $subcategory_id = $_GET['id'];
-    $parent_id = $_GET['parent_id'];
+    $subcategory_id = db_escape($dbc, $_GET['id']);
+    $parent_id = db_escape($dbc, $_GET['parent_id']);
     $subcategory = return_field_name('cls_categories', $subcategory_id);
 
     if (is_post_request()) {

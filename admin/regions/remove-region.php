@@ -11,7 +11,7 @@
     require_once('../../private/initialize.php');
     require_once('../../dbc.php');
 
-    $region_id = $_GET['id'];
+    $region_id = db_escape($dbc, $_GET['id']);
     $region = return_field_name('cls_regions', $region_id);
 
     if (is_post_request()) {

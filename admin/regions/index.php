@@ -19,13 +19,13 @@
     </form>
 
     <?php
-      if (isset($_POST['submit'])) {
+      if (is_post_request()) {
         $region = $_POST['region'];
 
         $query = "INSERT INTO cls_regions (title) VALUES ('$region')";
         mysqli_query($dbc, $query) or die('Error adding region.');
 
-        header('Location: ' . $_SERVER['PHP_SELF']);
+        redirect_to($_SERVER['PHP_SELF']);
       }
     ?>
 
@@ -39,7 +39,7 @@
     </ul>
 
     <?php
-      $page = isset($_GET['page']) ? $_GET['page'] : 1;
+      $page = isset($_GET['page']) ? db_escape($dbc, $_GET['page']) : 1;
       $offset = ($page - 1) * ITEMS_PER_PAGE;
 
       $query = "SELECT *

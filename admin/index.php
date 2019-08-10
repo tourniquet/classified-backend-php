@@ -58,7 +58,7 @@
       <?php
         // when admin panel is accessed, url looks like www.example.com/admin/,
         // without page value, so by default page=1
-        $page = !empty($_GET['page']) ? $_GET['page'] : 1;
+        $page = isset($_GET['page']) ? db_escape($dbc, $_GET['page']) : 1;
         $offset = ($page - 1) * ITEMS_PER_PAGE;
 
         $query = "SELECT ads.*, sub.title AS subcategory

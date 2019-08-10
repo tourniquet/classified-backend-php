@@ -25,7 +25,7 @@
         $query = "INSERT INTO cls_currencies (title) VALUES ('$currency')";
         mysqli_query($dbc, $query) or die('Error adding currency.');
 
-        header('Location: ' . $_SERVER['PHP_SELF']);
+        redirect_to('Location: ' . $_SERVER['PHP_SELF']);
       }
     ?>
 
@@ -39,7 +39,7 @@
     </ul>
 
     <?php
-      $page = isset($_GET['page']) ? $_GET['page'] : 1;
+      $page = isset($_GET['page']) ? db_escape($dbc, $_GET['page']) : 1;
       $offset = ($page - 1) * ITEMS_PER_PAGE;
 
       $query = "SELECT *

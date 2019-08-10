@@ -5,8 +5,8 @@
     include_once './header.php';
     require_once('../dbc.php');
 
-    $ad_id = $_GET['id'];
-    $query = "SELECT * FROM cls_ads WHERE id = $ad_id";
+    $item_id = db_escape($dbc, $_GET['id']);
+    $query = "SELECT * FROM cls_ads WHERE id = '$item_id'";
     $res = mysqli_query($dbc, $query);
 
     if (mysqli_connect_errno($dbc)) {
@@ -15,13 +15,21 @@
     }
 
     while ($row = mysqli_fetch_assoc($res)) {
-      $disable_ad = "UPDATE cls_ads SET enabled = 0 WHERE id = $ad_id";
-      mysqli_query($dbc, $disable_ad);
+      $disable_ad = "UPDATE cls_ads
+        SET enabled = 0
+        WHERE id = '$item_id'
+        LIMIT 1";
+      $result = mysqli_query($dbc, $disable_ad);
 
-      echo "<h3>Ad {$row['title']} was disabled!</h3";
+      if ($result) {
+        echo "<h3>Ad {$row['title']} was disabled!</h3";
+        mysqli_close($dbc);
+      } else {
+        echo mysqli_error($dbc);
+        mysqli_close($dbc);
+        exit;
+      }
     }
-
-    mysqli_close($dbc);
   ?>
 
   <div>

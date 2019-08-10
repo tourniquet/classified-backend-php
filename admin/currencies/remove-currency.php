@@ -11,7 +11,7 @@
     require_once('../../private/initialize.php');
     require_once('../../dbc.php');
 
-    $currency_id = $_GET['id'];
+    $currency_id = db_escape($dbc, $_GET['id']);
     $currency = return_field_name('cls_currencies', $currency_id);
 
     if (is_post_request()) {

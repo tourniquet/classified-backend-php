@@ -3,8 +3,11 @@
 
   require_once('../dbc.php');
 
-  $ad_id = $_GET['id'];
-  $query = "SELECT * FROM cls_ads WHERE id = $ad_id";
+  $item_id = db_escape($dbc, $_GET['id']);
+  $query = "SELECT *
+    FROM cls_ads
+    WHERE id = '$item_id'
+    LIMIT 1";
   $res = mysqli_query($dbc, $query);
 
   if (mysqli_connect_errno($dbc)) {
@@ -13,10 +16,13 @@
   }
 
   while ($row = mysqli_fetch_assoc($res)) {
-    $enable_ad = 'UPDATE cls_ads SET published = NOW() WHERE id = ' . $ad_id;
+    $enable_ad = "UPDATE cls_ads
+      SET published = NOW()
+      WHERE id = $item_id
+      LIMIT 1";
     $data = mysqli_query($dbc, $enable_ad);
 
-    echo '<h3>Your ad ' . $row['title'] . ' ' . $ad_id . ' was renewed!</h3';
+    echo "<h3>Your ad {$row['title']} {$item_id} was renewed!</h3";
   }
 
   mysqli_close($dbc);

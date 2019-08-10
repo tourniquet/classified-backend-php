@@ -68,7 +68,8 @@
 
     <?php
       $query = "SELECT COUNT(*) AS total
-        FROM cls_categories WHERE parent_id IS NULL";
+        FROM cls_categories
+        WHERE parent_id IS NULL";
       $res = mysqli_query($dbc, $query);
       $total_items = mysqli_fetch_row($res);
       $total_pages = ceil($total_items[0] / ITEMS_PER_PAGE);

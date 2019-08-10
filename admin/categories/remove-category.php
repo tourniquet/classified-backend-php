@@ -11,7 +11,7 @@
     require_once('../../private/initialize.php');
     require_once('../../dbc.php');
 
-    $category_id = $_GET['id'];
+    $category_id = db_escape($dbc, $_GET['id']);
     $category = return_field_name('cls_categories', $category_id);
 
     if (is_post_request()) {
