@@ -87,7 +87,7 @@
             <span class="subcategory-name"><?= $subcategories[$i]['title'] ?></span>
             <span class="subcategory-parent"><?= $subcategories[$i]['category'] ?></span>
             <div class="action-icons">
-              <a href="#" class="edit-subcategory">
+              <a href="edit-subcategory.php?id=<?= $subcategories[$i]['id'] ?>" class="edit-subcategory">
                 <i class='icon ion-md-create'></i>
               </a>
               <a
