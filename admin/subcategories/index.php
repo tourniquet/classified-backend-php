@@ -22,8 +22,8 @@
       $parent_categories = mysqli_query($dbc, $query);
     ?>
 
-    <form action="add-subcategory.php" class="add-subcategory" method="POST">
-      <input class="subcategory-name" name="title" placeholder="Subcategory name" type="text"> <!-- TODO: replace title with name -->
+    <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" class="add-subcategory" method="POST">
+      <input class="subcategory-name" name="name" placeholder="Subcategory name" type="text">
 
       <select class="parent-category" name="parent-id">
         <option>No parent</option>
@@ -36,6 +36,20 @@
 
       <button>Add subcategory</button>
     </form>
+
+    <?php
+      if (is_post_request()) {
+        $subcategory_name = db_escape($dbc, $_POST['name']);
+        $parent_id = is_numeric($_POST['parent-id']) ? db_escape($dbc, $_POST['parent-id']) : "NULL";
+
+        $query = "INSERT INTO cls_categories (name, parent_id)
+          VALUES ('$subcategory_name', $parent_id)";
+        mysqli_query($dbc, $query) or die(mysqli_error());
+        mysqli_close($dbc);
+
+        redirect_to('index.php?page=1');
+      }
+    ?>
 
     <ul class="subcategories-list-header">
       <li class="check-all"><input id="check-all" type="checkbox"></li>
