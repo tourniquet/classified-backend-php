@@ -24,7 +24,7 @@
     <br>
 
     <form action="remove-category.php?id=<?php echo $category_id; ?>" method="POST">
-      <span>Are you sure you want to remove <?php echo $category['title']; ?>?</span>
+      <span>Are you sure you want to remove <?php echo $category['name']; ?>?</span>
       <button>Remove category</button>
     </form>
   </main>

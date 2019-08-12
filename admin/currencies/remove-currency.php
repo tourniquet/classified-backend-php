@@ -24,7 +24,7 @@
     <br>
 
     <form action="remove-currency.php?id=<?php echo $currency_id; ?>" method="POST">
-      <span>Are you sure you want to remove <?php echo $currency['title']; ?>?</span>
+      <span>Are you sure you want to remove <?php echo $currency['name']; ?>?</span>
       <button>Remove currency</button>
     </form>
   </main>

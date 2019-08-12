@@ -22,8 +22,8 @@
       if (isset($_POST['submit'])) {
         $currency = $_POST['currency'];
 
-        $query = "INSERT INTO cls_currencies (title) VALUES ('$currency')";
         mysqli_query($dbc, $query) or die('Error adding currency.');
+        $query = "INSERT INTO cls_currencies (name) VALUES ('$currency')";
 
         redirect_to('Location: ' . $_SERVER['PHP_SELF']);
       }
@@ -57,7 +57,7 @@
               <input name="items[]" type="checkbox" value="<?= $row['id'] ?>">
             </span>
             <span class="currency-id"><?= $row['id'] ?></span>
-            <span class="currency-name"><?= $row['title'] ?></span>
+            <span class="currency-name"><?= $row['name'] ?></span>
             <div class="action-icons">
               <a href="edit-currency.php?id=<?= $row['id'] ?>" class="edit-currency">
                 <i class="icon ion-md-create"></i>

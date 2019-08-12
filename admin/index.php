@@ -61,7 +61,7 @@
         $page = isset($_GET['page']) ? db_escape($dbc, $_GET['page']) : 1;
         $offset = ($page - 1) * ITEMS_PER_PAGE;
 
-        $query = "SELECT ads.*, sub.title AS subcategory
+        $query = "SELECT ads.*, sub.name AS subcategory
           FROM cls_ads AS ads
           INNER JOIN cls_categories AS sub ON ads.subcategory_id = sub.id
           ORDER BY published DESC

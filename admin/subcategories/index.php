@@ -29,7 +29,7 @@
         <option>No parent</option>
         <?php
           while ($row = mysqli_fetch_assoc($parent_categories)) {
-            echo '<option value="' . $row['id'] . '">' . $row['title'] . '</option>';
+            echo '<option value="' . $row['id'] . '">' . $row['name'] . '</option>';
           }
         ?>
       </select>
@@ -64,7 +64,7 @@
       $page = isset($_GET['page']) ? db_escape($dbc, $_GET['page']) : 1;
       $offset = ($page - 1) * ITEMS_PER_PAGE;
 
-      $query = "SELECT sub.*, cat.title AS 'category'
+      $query = "SELECT sub.*, cat.name AS 'category'
         FROM cls_categories AS sub LEFT JOIN cls_categories AS cat ON sub.parent_id = cat.id
         WHERE sub.parent_id IS NOT NULL
         LIMIT " . ITEMS_PER_PAGE . " OFFSET $offset";
@@ -84,7 +84,7 @@
               <input name="items[]" type="checkbox" value="<?= $subcategories[$i]['id'] ?>">
             </span>
             <span class="subcategory-id"><?= $subcategories[$i]['id'] ?></span>
-            <span class="subcategory-name"><?= $subcategories[$i]['title'] ?></span>
+            <span class="subcategory-name"><?= $subcategories[$i]['name'] ?></span>
             <span class="subcategory-parent"><?= $subcategories[$i]['category'] ?></span>
             <div class="action-icons">
               <a href="edit-subcategory.php?id=<?= $subcategories[$i]['id'] ?>" class="edit-subcategory">

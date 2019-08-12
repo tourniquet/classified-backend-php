@@ -22,7 +22,7 @@
       if (is_post_request()) {
         $region = $_POST['region'];
 
-        $query = "INSERT INTO cls_regions (title) VALUES ('$region')";
+        $query = "INSERT INTO cls_regions (name) VALUES ('$region')";
         mysqli_query($dbc, $query) or die('Error adding region.');
 
         redirect_to($_SERVER['PHP_SELF']);
@@ -57,7 +57,7 @@
               <input name="items[]" type="checkbox" value="<?= $row['id'] ?>">
             </span>
             <span class="region-id"><?= $row['id'] ?></span>
-            <span class="region-title"><?= $row['title'] ?></span>
+            <span class="region-title"><?= $row['name'] ?></span>
             <div class="action-icons">
               <a href="edit-region.php?id=<?= $row['id'] ?>" class="edit-region">
                 <i class="icon ion-md-create"></i>

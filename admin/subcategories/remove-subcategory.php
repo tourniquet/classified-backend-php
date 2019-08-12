@@ -32,7 +32,7 @@
     <br>
 
     <form action='remove-subcategory.php?id=<?php echo "$subcategory_id&parent_id=$parent_id" ?>' method="POST">
-      <span>Are you sure you want to remove <?php echo $subcategory['title']; ?>?</span>
+      <span>Are you sure you want to remove <?php echo $subcategory['name']; ?>?</span>
       <button>Remove subcategory</button>
     </form>
   </main>
