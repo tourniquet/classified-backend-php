@@ -59,7 +59,7 @@
             <span class="region-id"><?= $row['id'] ?></span>
             <span class="region-title"><?= $row['title'] ?></span>
             <div class="action-icons">
-              <a href="#" class="edit-region">
+              <a href="edit-region.php?id=<?= $row['id'] ?>" class="edit-region">
                 <i class="icon ion-md-create"></i>
               </a>
               <a
