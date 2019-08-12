@@ -59,9 +59,9 @@
               <input name="items[]" type="checkbox" value="<?= $row['id'] ?>">
             </span>
             <span class="category-id"><?= $row['id'] ?></span>
-            <span class="category-name"><?= $row['title'] ?></span>
+            <span class="category-name"><?= $row['name'] ?></span>
             <div class="action-icons">
-              <a href="#" class="edit-category">
+              <a href="edit-category.php?id=<?= $row['id'] ?>" class="edit-category">
                 <i class="icon ion-md-create"></i>
               </a>
               <a
