@@ -13,11 +13,23 @@
   ?>
 
   <main>
-    <form action="add-category.php" class="add-category" method="POST">
-      <input class="category-name" name="title" placeholder="Category name" type="text"> <!-- TODO: replace title with name -->
+    <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" class="add-category" method="POST">
+      <input class="category-name" name="category" placeholder="Category name" type="text">
 
       <button>Add category</button>
     </form>
+
+    <?php
+      if (is_post_request()) {
+        $category = db_escape($dbc, $_POST['category']);
+
+        $query = "INSERT INTO cls_categories (name)
+          VALUES ('$category')";
+        mysqli_query($dbc, $query) or die(mysqli_error());
+
+        redirect_to($_SERVER['PHP_SELF']);
+      }
+    ?>
 
     <ul class="categories-list-header">
       <li class="check-all"><input id="check-all" type="checkbox"></li>
