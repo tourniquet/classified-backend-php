@@ -59,7 +59,7 @@
             <span class="currency-id"><?= $row['id'] ?></span>
             <span class="currency-name"><?= $row['title'] ?></span>
             <div class="action-icons">
-              <a href="#" class="edit-currency">
+              <a href="edit-currency.php?id=<?= $row['id'] ?>" class="edit-currency">
                 <i class="icon ion-md-create"></i>
               </a>
               <a
