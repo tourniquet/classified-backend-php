@@ -24,6 +24,7 @@
         class="category-name"
         name="category"
         placeholder="Category name"
+        required
         type="text"
         value="<?= $category['name']; ?>"
       >

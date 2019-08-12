@@ -24,6 +24,7 @@
         class="subcategory-name"
         name="subcategory"
         placeholder="Subcategory name"
+        required
         type="text"
         value="<?= $subcategory['name']; ?>"
       >
