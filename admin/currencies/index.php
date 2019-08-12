@@ -15,17 +15,17 @@
   <main>
     <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" class="add-currency" method="POST">
       <input class="currency-name" name="currency" placeholder="Currency name" required type="text">
-      <button name="submit">Add currency</button>
+      <button>Add currency</button>
     </form>
 
     <?php
-      if (isset($_POST['submit'])) {
+      if (is_post_request()) {
         $currency = $_POST['currency'];
 
-        mysqli_query($dbc, $query) or die('Error adding currency.');
         $query = "INSERT INTO cls_currencies (name) VALUES ('$currency')";
+        mysqli_query($dbc, $query) or die(mysqli_error());
 
-        redirect_to('Location: ' . $_SERVER['PHP_SELF']);
+        redirect_to($_SERVER['PHP_SELF']);
       }
     ?>
 
