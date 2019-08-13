@@ -162,6 +162,7 @@ time, mark, audio, video {
           width: 45px; }
         .admin-panel main ul.items-list li a.item-title {
           border-right: 1px solid #FFF;
+          color: inherit;
           padding-left: 5px;
           width: 800px; }
         .admin-panel main ul.items-list li a.subcategory,

@@ -76,7 +76,7 @@
                 <i class="icon ion-md-create"></i>
               </a>
               <a href="<?= $item_state['href'] ?>" class="enable-icon">
-                <i class="icon ion-md-trending"></i>
+                <i class="icon ion-md-trending-up"></i>
               </a>
               <a href="renew-item.php?id=<?= $row['id'] ?>" class="renew-icon">
                 <i class="icon ion-md-refresh"></i>
