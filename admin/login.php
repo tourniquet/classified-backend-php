@@ -36,6 +36,8 @@
         $error = 'You must enter your password';
       }
     }
+  } else {
+    redirect_to('index.php?page=1');
   }
 ?>
 

@@ -1,6 +1,7 @@
 <?php
-  require_once('../../private/initialize.php');
-  include(SHARED_PATH . '/head.php');
+    require_once('../../private/initialize.php');
+    include(SHARED_PATH . '/head.php');
+
     if (!isset($_COOKIE['email'])) {
       redirect_to(WWW_ROOT . 'admin/login.php');
     }

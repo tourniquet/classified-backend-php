@@ -1,6 +1,6 @@
   <footer class="footer">
     <div class="copyright">
-      Thank you for for using <a href="https://github.com/tourniquet/classified-backend-php">MinClass</a>
+      Thank you for for using <a href="https://github.com/tourniquet/classified-backend-php">minClass</a>
     </div>
 
     <nav class="admin-footer-list">
@@ -20,7 +20,9 @@
     }
 
     const checkAllCheckboxes = document.getElementById('check-all')
-    checkAllCheckboxes.addEventListener('click', checkAll)
+    if (checkAllCheckboxes) {
+      checkAllCheckboxes.addEventListener('click', checkAll)
+    }
   </script>
 </body>
 </html>
