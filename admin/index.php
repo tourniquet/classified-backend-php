@@ -1,5 +1,8 @@
 <?php
   include_once './head.php';
+    if (!isset($_COOKIE['email'])) {
+      redirect_to('login.php');
+    }
 ?>
 
 <div class="admin-panel">
