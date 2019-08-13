@@ -1,5 +1,7 @@
 <?php
-  include_once './head.php';
+    require_once('../private/initialize.php');
+    include(SHARED_PATH . '/head.php');
+
     if (!isset($_COOKIE['email'])) {
       redirect_to('login.php');
     }
@@ -7,8 +9,8 @@
 
 <div class="admin-panel">
   <?php
-    include_once './header.php';
-    include_once './sidebar.php';
+    include(SHARED_PATH . '/header.php');
+    include(SHARED_PATH . '/sidebar.php');
 
     require_once('../dbc.php');
     require_once('./constants.php');
@@ -36,17 +38,12 @@
           INNER JOIN cls_categories AS sub ON ads.subcategory_id = sub.id
           ORDER BY published DESC
           LIMIT " . ITEMS_PER_PAGE . " OFFSET $offset";
-        $data = mysqli_query($dbc, $query);
+        $data = mysqli_query($dbc, $query) or die(mysqli_error());
+      ?>
 
-        // if (!$data) {
-        //   echo json_encode(mysqli_connect_error());
-        // }
-
-        // echo json_encode($data);
-
-        echo '<ul class="items-list">';
+      <ul class="items-list">
+      <?php
         while ($row = mysqli_fetch_assoc($data)) {
-          // TODO: sprintf()
           $item_state = $row['enabled'] == 1
             ? array(
               'class_name' => 'enabled',
@@ -118,10 +115,10 @@
         $pages[] = $i + 1;
       }
   
-      include_once './pagination.php';
+      include(SHARED_PATH . '/pagination.php');
     ?>
   </main>
   
-  <?php include './footer.php'; ?>
+  <?php include(SHARED_PATH . '/footer.php'); ?>
 </div>
 
