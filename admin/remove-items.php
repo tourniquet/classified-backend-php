@@ -1,47 +1,28 @@
 <?php
-  include_once './head.php';
-?>
+  require_once('../private/initialize.php');
+  require_once('../dbc.php');
 
-<div class="admin-panel">
-  <?php
-    include_once './header.php';
+  if (is_post_request()) {
+    $items = implode(',', $_POST['items']);
 
-    require_once('../dbc.php');
+    $images_query = "SELECT *
+      FROM cls_images
+      WHERE ad_id IN ($items)";
+    $images = mysqli_query($dbc, $images_query);
 
-    if (isset($_POST['submit']) && isset($_POST)) {
-      $items = implode(',', $_POST['items']);
-
-      $images_query = "SELECT *
-        FROM cls_images
-        WHERE ad_id IN ($items)";
-      $images = mysqli_query($dbc, $images_query);
-
-      while ($row = mysqli_fetch_assoc($images)) {
-        // remove every single image from uploads folder
-        @unlink('../' . UPLOADS_PATH . $row['image']);
-        @unlink('../' . UPLOADS_PATH . 'thumb_' . $row['image']);
-
-        // Remove ad images from _images table
-        $remove_images_query = "DELETE
-          FROM cls_images
-          WHERE ad_id IN ($items)";
-        mysqli_query($dbc, $remove_images_query);
-
-        $remove_ad_query = "DELETE
-          FROM cls_ads
-          WHERE id IN ($items)";
-        mysqli_query($dbc, $remove_ad_query);
-      }
-
-      mysqli_close($dbc);
+    while ($row = mysqli_fetch_assoc($images)) {
+      // remove every single image from uploads folder
+      @unlink('../' . UPLOADS_PATH . $row['image']);
+      @unlink('../' . UPLOADS_PATH . 'thumb_' . $row['image']);
     }
-  ?>
 
-  <div>
-    <a href="/classified/backend/admin"><<< Back</a>
-  </div>
+    $remove_ad_query = "DELETE
+      FROM cls_ads
+      WHERE id IN ($items)";
+    mysqli_query($dbc, $remove_ad_query);
 
-  <?php
-    include_once './footer.php';
-  ?>
-</div>
+    mysqli_close($dbc);
+  }
+
+  redirect_to('index.php?page=1');
+?>

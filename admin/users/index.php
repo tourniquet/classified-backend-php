@@ -45,7 +45,7 @@
             </span>
             <span class="user-id"><?= $row['id'] ?></span>
             <span class="user-email"><?= $row['email'] ?></span>
-            <span class="registration-date">08 July, 2019</span> <!-- TODO: add registration date column to users table -->
+            <span class="registration-date">08 July, 2019</span>
             <div class="action-icons">
               <a href="#" class="user-profile">
                 <i class="icon ion-md-person"></i>
