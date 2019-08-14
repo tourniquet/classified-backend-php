@@ -2,7 +2,7 @@
   require_once('../../dbc.php');
   require_once('../../private/initialize.php');
 
-  if (isset($_POST['submit']) && isset($_POST)) {
+  if (is_post_request()) {
     $items = implode(',', $_POST['items']);
 
     $remove_subcategories_query = "DELETE

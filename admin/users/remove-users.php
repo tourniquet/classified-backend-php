@@ -8,7 +8,7 @@
     include(SHARED_PATH . '/header.php');
     require_once('../../dbc.php');
 
-    if (isset($_POST['submit']) && isset($_POST)) {
+    if (is_post_request()) {
       $items = implode(',', $_POST['items']);
 
       $remove_users_query = "DELETE

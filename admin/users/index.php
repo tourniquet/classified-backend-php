@@ -67,7 +67,7 @@
         <?php } ?>
       </ul>
 
-      <button name="submit" onclick="return confirm('Are you sure?')">Delete selected users</button>
+      <button onclick="return confirm('Are you sure?')">Delete selected users</button>
     </form>
 
     <?php

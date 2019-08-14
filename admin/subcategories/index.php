@@ -105,7 +105,7 @@
         <?php } ?>
       </ul>
 
-      <button name="submit" onclick="return confirm('Are you sure?')">Delete selected subcategories</button>
+      <button onclick="return confirm('Are you sure?')">Delete selected subcategories</button>
     </form>
 
     <?php

@@ -17,7 +17,7 @@
   ?>
 
   <main>
-    <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>"class="add-region" method="POST">
+    <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" class="add-region" method="POST">
       <input class="region-name" name="region" placeholder="Region name" required type="text">
       <button name="submit">Add region</button>
     </form>
@@ -77,7 +77,7 @@
         <?php } ?>
       </ul>
 
-      <button name="submit" onclick="return confirm('Are you sure?')">Delete selected regions</button>
+      <button onclick="return confirm('Are you sure?')">Delete selected regions</button>
     </form>
 
     <?php
