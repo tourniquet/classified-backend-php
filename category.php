@@ -6,11 +6,11 @@
   $items_per_page = 10;
   $offset = ($page_number - 1) * $items_per_page;
 
-  $query = "SELECT ads.*, sub.title AS subcategory, cat.title AS category
+  $query = "SELECT ads.*, sub.name AS subcategory, cat.name AS category
     FROM cls_ads AS ads
     INNER JOIN cls_categories AS sub ON ads.subcategory_id = sub.id
     INNER JOIN cls_categories AS cat ON sub.parent_id = cat.id
-    WHERE cat.title = '$category'
+    WHERE cat.name = '$category'
     ORDER BY published DESC
     LIMIT $items_per_page OFFSET $offset";
   $res = mysqli_query($dbc, $query) or die('category.php mysql error');
@@ -20,11 +20,11 @@
     $items[] = $i;
   }
 
-  $query = "SELECT COUNT(*) AS total, sub.title AS subcategory, cat.title AS category
+  $query = "SELECT COUNT(*) AS total, sub.name AS subcategory, cat.name AS category
     FROM cls_ads AS ads
     INNER JOIN cls_categories AS sub ON ads.subcategory_id = sub.id
     INNER JOIN cls_categories AS cat ON sub.parent_id = cat.id
-    WHERE cat.title = '$category'";
+    WHERE cat.name = '$category'";
   $res = mysqli_query($dbc, $query);
   $total = mysqli_fetch_row($res);
 

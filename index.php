@@ -5,7 +5,7 @@
   $items_per_page = 10;
   $offset = ($page_number - 1) * $items_per_page;
 
-  $query = "SELECT ads.*, sub.title AS subcategory, cat.title AS category
+  $query = "SELECT ads.*, sub.name AS subcategory, cat.name AS category
     FROM cls_ads AS ads
     INNER JOIN cls_categories AS sub ON ads.subcategory_id = sub.id
     INNER JOIN cls_categories AS cat ON sub.parent_id = cat.id
