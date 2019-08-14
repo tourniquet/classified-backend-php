@@ -32,7 +32,7 @@
   header('Content-type: application/json', false);
   header('HTTP/1.1 200 OK');
 
-  echo json_encode($res);
+  echo json_encode($result, JSON_PRETTY_PRINT);
 
   // increment views when ad is viewed
   $query = "UPDATE cls_ads SET views = views + 1 WHERE url = " . $_GET['url'];

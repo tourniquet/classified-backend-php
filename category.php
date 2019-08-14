@@ -39,5 +39,5 @@
   $data->page = $page_number;
   $data->total = $total[0];
   
-  echo json_encode($data);
+  echo json_encode($data, JSON_PRETTY_PRINT);
 ?>

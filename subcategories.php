@@ -17,7 +17,6 @@
   header('Content-type: application/json', false);
   header('HTTP/1.1 200 OK');
 
-  echo json_encode($res);
-
   mysqli_close($dbc);
+  echo json_encode($subcategories, JSON_PRETTY_PRINT);
 ?>
