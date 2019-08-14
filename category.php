@@ -1,8 +1,8 @@
 <?php
   require_once('dbc.php');
 
-  $category = $_GET['category'];
-  $page_number = $_GET['page'];
+  $category = db_escape($dbc, $_GET['category']);
+  $page_number = db_escape($dbc, $_GET['page']);
   $items_per_page = 10;
   $offset = ($page_number - 1) * $items_per_page;
 

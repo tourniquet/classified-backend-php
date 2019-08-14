@@ -1,41 +1,78 @@
 <?php
+  require_once('../private/initialize.php');
   require_once('../dbc.php');
 
-  if (!isset($_COOKIE['email'])) {
-    if (isset($_POST['submit'])) {
-      $email = mysqli_real_escape_string($dbc, trim(strtolower($_POST['email'])));
-      $password = mysqli_real_escape_string($dbc, trim($_POST['password']));
+  include(SHARED_PATH . '/head.php');
 
-      if (!empty($email) && !empty($password)) {
-        $query = "SELECT email FROM cls_users WHERE email = '$email'";
+  if (!isset($_COOKIE['email'])) {
+    if (is_post_request()) {
+      $email = db_escape($dbc, trim(strtolower($_POST['email'])));
+      $password = db_escape($dbc, trim($_POST['password']));
+      $error = '';
+
+      if (isset($email) && isset($password)) {
+        $query = "SELECT email, password
+          FROM cls_users
+          WHERE email = '$email' AND admin = 1";
         $data = mysqli_query($dbc, $query);
 
         if (mysqli_num_rows($data) == 1) {
-          $row = mysqli_fetch_array($data);
+          $row = mysqli_fetch_assoc($data);
 
-          if (password_verify($row['password'], $password)) {
+          if (password_verify($password, $row['password'])) {
             setcookie('email', $row['email'], time() + (86400 * 30), "/");  
-            header('Location: ' . 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/index.php');
+            redirect_to('http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/index.php');
           } else {
-            echo '<p>Your password in incorrect</p>';
+            $error = 'Your password in incorrect';
           }
         } else {
-          echo '<p>Your email is incorrect</p>';
+          $error = 'Your email is incorrect';
         }
       } elseif (empty($email) && empty($password)) {
-        echo '<p>You must enter your email and password</p>';
+        $error = 'You must enter your email and password';
       } elseif (empty($email)) {
-        echo '<p>You must enter your email</p>';
+        $error = 'You must enter your email';
       } elseif (empty($password)) {
-        echo '<p>You must enter your password</p>';
+        $error = 'You must enter your password';
       }
     }
+  } else {
+    redirect_to('index.php?page=1');
   }
 ?>
-  <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-    <input name="email" type="email" value="<?php if (isset($email)) echo $email ?>" required>
-    <br>
-    <input name="password" type="password" value="<?php if (isset($password)) echo $password ?>" required>
-    <br>
-    <button name="submit" type="submit">Log in</button>
-  </form>
+
+<div class="admin-login-page">
+  <div class="admin-login-form-container">
+    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" class="admin-login-form" method="POST">
+      <?php
+        if (isset($error)) {
+          echo '<span class="login-error">' . $error . '</span>';
+        }
+      ?>
+
+      <label for="admin-email">Email</label>
+      <input
+        class="admin-email"
+        id="admin-email"
+        name="email"
+        placeholder="Email"
+        required
+        type="email"
+        value="<?php if (isset($email)) echo $email ?>"
+      >
+
+      <label for="admin-password">Password</label>
+      <input
+        class="admin-password"
+        name="password"
+        placeholder="Password"
+        required
+        type="password"
+      >
+
+      <button class="admin-login-button">Log in</button>
+    </form>
+  </div>
+
+  <?php include(SHARED_PATH . '/footer.php'); ?>
+</div>
