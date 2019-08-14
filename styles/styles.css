@@ -288,7 +288,7 @@ ul.currencies-list li {
   line-height: 50px;
   width: 100%; }
   ul.currencies-list li:not(:last-child) {
-    border-bottom: 2px solid #f6f6f6; }
+    border-bottom: 2px solid #F6F6F6; }
   ul.currencies-list li:hover {
     background: #F3F2F3; }
   ul.currencies-list li > span.check-currency {
@@ -355,7 +355,7 @@ ul.currencies-list li {
         width: 35%; }
         .install form .form-group input.form-control:focus {
           border-color: #66afe9;
-          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+          box-shadow: inset 0 1px 1px #000, 0 0 8px #66AfE9;
           outline: 0; }
       .install form .form-group span.required {
         color: red;
@@ -455,7 +455,7 @@ ul.regions-list li {
   line-height: 50px;
   width: 100%; }
   ul.regions-list li:not(:last-child) {
-    border-bottom: 2px solid #f6f6f6; }
+    border-bottom: 2px solid #F6F6F6; }
   ul.regions-list li:hover {
     background: #F3F2F3; }
   ul.regions-list li > span.check-region {
