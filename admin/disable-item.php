@@ -11,7 +11,7 @@
       SET enabled = 0
       WHERE id = '$item_id'
       LIMIT 1";
-    mysqli_query($dbc, $disable_ad) or die(mysqli_error());
+    mysqli_query($dbc, $disable_ad) or die(mysqli_error($dbc));
   }
 
   mysqli_close($dbc);

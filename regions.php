@@ -2,7 +2,7 @@
   require_once('dbc.php');
 
   $query = "SELECT * FROM cls_regions";
-  $data = mysqli_query($dbc, $query) or die('Error querying regions');
+  $data = mysqli_query($dbc, $query) or die(mysqli_error($dbc));
 
   $res = [];
   while ($i = mysqli_fetch_assoc($data)) {

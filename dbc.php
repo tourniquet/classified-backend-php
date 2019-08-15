@@ -6,7 +6,7 @@
     DB_USER,
     DB_PASSWORD,
     DB_NAME
-  ) or die('Error connecting to database');
+  ) or die(mysqli_error($dbc));
 
   mysqli_set_charset($dbc, 'utf8');
 ?>

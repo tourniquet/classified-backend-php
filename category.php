@@ -1,4 +1,5 @@
 <?php
+  require_once('./private/initialize.php');
   require_once('dbc.php');
 
   $category = db_escape($dbc, $_GET['category']);
@@ -13,7 +14,7 @@
     WHERE cat.name = '$category'
     ORDER BY published DESC
     LIMIT $items_per_page OFFSET $offset";
-  $res = mysqli_query($dbc, $query) or die('category.php mysql error');
+  $res = mysqli_query($dbc, $query) or die(mysqli_error($dbc));
 
   $items = [];
   while ($i = mysqli_fetch_assoc($res)) {

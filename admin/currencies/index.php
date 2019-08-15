@@ -27,7 +27,7 @@
         $currency = $_POST['currency'];
 
         $query = "INSERT INTO cls_currencies (name) VALUES ('$currency')";
-        mysqli_query($dbc, $query) or die(mysqli_error());
+        mysqli_query($dbc, $query) or die(mysqli_error($dbc));
 
         redirect_to($_SERVER['PHP_SELF']);
       }

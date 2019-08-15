@@ -12,7 +12,7 @@
     WHERE sub.name = '$subcategory'
     ORDER BY published DESC
     LIMIT $items_per_page OFFSET $offset";
-  $res = mysqli_query($dbc, $query) or die('subcategory.php mysql error');
+  $res = mysqli_query($dbc, $query) or die(mysqli_error($dbc));
 
   $items = [];
   while ($i = mysqli_fetch_assoc($res)) {

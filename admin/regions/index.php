@@ -27,7 +27,7 @@
         $region = $_POST['region'];
 
         $query = "INSERT INTO cls_regions (name) VALUES ('$region')";
-        mysqli_query($dbc, $query) or die('Error adding region.');
+        mysqli_query($dbc, $query) or die(mysqli_error($dbc));
 
         redirect_to($_SERVER['PHP_SELF']);
       }

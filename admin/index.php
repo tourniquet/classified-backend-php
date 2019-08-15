@@ -38,7 +38,7 @@
           INNER JOIN cls_categories AS sub ON ads.subcategory_id = sub.id
           ORDER BY published DESC
           LIMIT " . ITEMS_PER_PAGE . " OFFSET $offset";
-        $data = mysqli_query($dbc, $query) or die(mysqli_error());
+        $data = mysqli_query($dbc, $query) or die(mysqli_error($dbc));
       ?>
 
       <ul class="items-list">
