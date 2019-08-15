@@ -44,7 +44,7 @@
           $db_user,
           $db_password,
           $db_name
-        ) or die('Error connecting to database');
+        ) or die(mysqli_error($dbc));
 
         // create _users table
         // Because _ads table contains user_id FOREIGN KEY, _users table must be created first
@@ -56,7 +56,7 @@
             registration TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             admin TINYINT(1) NOT NULL DEFAULT 0
           )";
-        mysqli_query($dbc, $query) or die('Error creating _user table');
+        mysqli_query($dbc, $query) or die(mysqli_error($dbc));
 
         // Create admin user
         $admin_user = $_POST['admin-email'];
@@ -86,9 +86,9 @@
             views INT(6) NOT NULL,
             currency_id TINYINT NOT NULL,
             region_id INT(4) NOT NULL,
-            `subcategory_id` int(4) NOT NULL
+            subcategory_id int(4) NOT NULL
           ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci";
-        mysqli_query($dbc, $query) or die('Error creating _ads table');
+        mysqli_query($dbc, $query) or die(mysqli_error($dbc));
 
         // create cls_images table
         $query = "CREATE TABLE cls_images (
@@ -99,21 +99,21 @@
             ON DELETE CASCADE
             ON UPDATE CASCADE
           )";
-        mysqli_query($dbc, $query) or die('Error creating _images table');
+        mysqli_query($dbc, $query) or die(mysqli_error($dbc));
 
         /** create currencies table */
         $query = "CREATE TABLE cls_currencies (
             id INTEGER PRIMARY KEY AUTO_INCREMENT,
             name VARCHAR(10) NULL UNIQUE
           ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci";
-        mysqli_query($dbc, $query) or die('Error creating _currencies table');
+        mysqli_query($dbc, $query) or die(mysqli_error($dbc));
         /**
          * insert a currency with ID == 0 && title == '' (empty string)
          * TODO: this query MUST be deleted when a solution to query an item without price && currency is found
          */
         $query = "INSERT INTO cls_currencies (id, name)
           VALUES (1, '')";
-        mysqli_query($dbc, $query) or die('Error inserting into _currencies table');
+        mysqli_query($dbc, $query) or die(mysqli_error($dbc));
 
         /** Create categories table */
         $query = "CREATE TABLE cls_categories (
@@ -124,29 +124,29 @@
               REFERENCES cls_categories (id)
               ON DELETE CASCADE
           ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci";
-        mysqli_query($dbc, $query) or die('Error creating _categories table');
+        mysqli_query($dbc, $query) or die(mysqli_error($dbc));
 
         /** Add Transport category */
         $query = "INSERT INTO cls_categories (name)
           VALUES ('Transport')";
-        mysqli_query($dbc, $query) or die('Error inserting Transport to categories table');
+        mysqli_query($dbc, $query) or die(mysqli_error($dbc));
   
         /** Add Cars subcategory */
         $query = "INSERT INTO cls_categories (name, parent_id)
           VALUES ('Cars', 1)";
-        mysqli_query($dbc, $query) or die('Error inserting Transport to categories table');
+        mysqli_query($dbc, $query) or die(mysqli_error($dbc));
 
         /** create regions table */
         $query = "CREATE TABLE cls_regions (
             id INTEGER PRIMARY KEY AUTO_INCREMENT,
-            name VARCHAR(20) NOT NULL
+            name VARCHAR(20) NOT NULL UNIQUE
           ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci";
-        mysqli_query($dbc, $query) or die('Error creating _regions table');
+        mysqli_query($dbc, $query) or die(mysqli_error($dbc));
 
         // Inserting default region in _regions table
         $query = "INSERT INTO cls_regions (name)
           VALUES ('London')";
-        mysqli_query($dbc, $query) or die('Error inserting London to regions table');
+        mysqli_query($dbc, $query) or die(mysqli_error($dbc));
 
 
         /** Add a basic ad on newly instaled script */
@@ -169,7 +169,7 @@
             1,
             1
           )";
-        mysqli_query($dbc, $query) or die('Error querying database.');
+        mysqli_query($dbc, $query) or die(mysqli_error($dbc));
 
         mysqli_close($dbc);
       }

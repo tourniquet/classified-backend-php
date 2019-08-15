@@ -29,7 +29,7 @@
 
         $query = "INSERT INTO cls_categories (name)
           VALUES ('$category')";
-        mysqli_query($dbc, $query) or die(mysqli_error());
+        mysqli_query($dbc, $query) or die(mysqli_error($dbc));
 
         redirect_to($_SERVER['PHP_SELF']);
       }

@@ -7,7 +7,7 @@
     SET published = NOW()
     WHERE id = '$item_id'
     LIMIT 1";
-  mysqli_query($dbc, $query) or die(mysqli_error());
+  mysqli_query($dbc, $query) or die(mysqli_error($dbc));
   mysqli_close($dbc);
 
   redirect_to('index.php?page=1');

@@ -2,7 +2,7 @@
   require_once('dbc.php');
 
   $query = "SELECT * FROM cls_categories WHERE parent_id IS NULL";
-  $data = mysqli_query($dbc, $query) or die('mysql_error');
+  $data = mysqli_query($dbc, $query) or die(mysqli_error($dbc));
   
   $res = [];
   while ($i = mysqli_fetch_assoc($data)) {

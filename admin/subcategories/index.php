@@ -48,7 +48,7 @@
 
         $query = "INSERT INTO cls_categories (name, parent_id)
           VALUES ('$subcategory_name', $parent_id)";
-        mysqli_query($dbc, $query) or die(mysqli_error());
+        mysqli_query($dbc, $query) or die(mysqli_error($dbc));
         mysqli_close($dbc);
 
         redirect_to('index.php?page=1');

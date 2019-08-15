@@ -13,7 +13,7 @@
     WHERE region.title = '$region'
     ORDER BY published DESC
     LIMIT $items_per_page OFFSET $offset";
-  $data = mysqli_query($dbc, $query) or die('region.php mysql error');
+  $data = mysqli_query($dbc, $query) or die(mysqli_error($dbc));
 
   $items = [];
   while ($i = mysqli_fetch_assoc($data)) {

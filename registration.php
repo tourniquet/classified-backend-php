@@ -20,7 +20,7 @@
       if (mysqli_num_rows($data) == 0) {
         // the email is unique, so insert the data into the database
         $query = "INSERT INTO cls_users (email, password) VALUES ('$email', '$password')";
-        mysqli_query($dbc, $query) or die('Error querying database.');
+        mysqli_query($dbc, $query) or die(mysqli_error($dbc));
         
         // confirm success with the user
         echo json_encode(['message' => 'Success!']);

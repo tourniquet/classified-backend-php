@@ -21,7 +21,7 @@
   */}
 
   $query = "SELECT * FROM cls_images WHERE ad_id = " . $res['id'];
-  $data = mysqli_query($dbc, $query) or die('mysql_error');
+  $data = mysqli_query($dbc, $query) or die(mysqli_error($dbc));
   $images = [];
   while ($row = $data -> fetch_row()) {
     $images[] = $row[0];
@@ -36,8 +36,6 @@
 
   // increment views when ad is viewed
   $query = "UPDATE cls_ads SET views = views + 1 WHERE url = " . $_GET['url'];
-  mysqli_query($dbc, $query)
-    or die('mysql throw an error when tried to update views column');
-
+  mysqli_query($dbc, $query) or die(mysqli_error($dbc));
   mysqli_close($dbc);
 ?>

@@ -20,7 +20,7 @@
         FROM cls_categories
         WHERE id = $subcategory_id AND parent_id = $parent_id
         LIMIT 1";
-      mysqli_query($dbc, $query) or die('Error deleting subcategory');
+      mysqli_query($dbc, $query) or die(mysqli_error($dbc));
       mysqli_close($dbc);
 
       redirect_to('index.php?page=1');
