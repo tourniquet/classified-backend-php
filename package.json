@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/tourniquet/classified-backend-php#readme",
   "devDependencies": {
-    "sass": "^1.22.9"
+    "sass": "^1.9.0"
   }
 }
