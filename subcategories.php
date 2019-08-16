@@ -1,4 +1,5 @@
 <?php
+  require_once('./private/initialize.php');
   require_once('dbc.php');
 
   // index page don't use a parameter to fetch subcategories,

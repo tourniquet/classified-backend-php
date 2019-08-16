@@ -1,4 +1,5 @@
 <?php
+  require_once('./private/initialize.php');
   require_once('dbc.php');
 
   $subcategory = db_escape($dbc, $_GET['subcategory']);
