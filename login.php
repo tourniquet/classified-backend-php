@@ -3,8 +3,8 @@
 
   $data = $_POST;
 
-  $email = mysqli_real_escape_string($dbc, trim(strtolower($data['email'])));
-  $password = mysqli_real_escape_string($dbc, trim($data['password']));
+  $email = db_escape($dbc, trim(strtolower($data['email'])));
+  $password = db_escape($dbc, trim($data['password']));
 
   if (!empty($email) && !empty($password)) {
     $query = "

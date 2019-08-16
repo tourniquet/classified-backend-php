@@ -5,6 +5,7 @@
    * TODO: When a solution will be found how to JOIN currencies if there is a price set for the item,
    * remove INSERT query to cls_currencies from install.php
    */
+  $url = db_escape($dbc, $_GET['url']);
   $query = "SELECT ads.*, sub.name AS subcategory, cat.name AS category, currency.name AS currency, region.name AS region
     FROM cls_ads AS ads
     INNER JOIN cls_categories AS sub ON ads.subcategory_id = sub.id

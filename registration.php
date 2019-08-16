@@ -3,9 +3,9 @@
 
   $data = $_POST;
 
-  $email = mysqli_real_escape_string($dbc, trim(strtolower($data['email'])));
-  $password = mysqli_real_escape_string($dbc, password_hash($data['password'], PASSWORD_DEFAULT));
-  $password_confirmation = mysqli_real_escape_string($dbc, $data['passwordConfirmation']);
+  $email = db_escape($dbc, trim(strtolower($data['email'])));
+  $password = db_escape($dbc, password_hash($data['password'], PASSWORD_DEFAULT));
+  $password_confirmation = db_escape($dbc, $data['passwordConfirmation']);
 
   if (!empty($email) && !empty($password) && !empty($password_confirmation)) {
     if (password_verify($password_confirmation, $password)) {

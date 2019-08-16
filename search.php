@@ -3,7 +3,7 @@
 
   $data = file_get_contents('php://input');
   $keywords = explode(' ', str_replace(', ', ' ', json_decode($data, true)));
-  $page_number = $_GET['page'];
+  $page_number = db_escape($dbc, $_GET['page']);
   $items_per_page = 10;
   $offset = ($page_number - 1) * $items_per_page;
 

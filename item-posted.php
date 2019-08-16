@@ -13,14 +13,14 @@
   $url = $data['url'];
   $user_id = (!empty($data['userId'])) ? "'" . $data['userId'] . "'" : "NULL";
   $user_email = (!empty($data['userEmail'])) ? "'" . $data['userEmail'] . "'"  : "NULL";
-  $ad_title = mysqli_real_escape_string($dbc, $data['title']);
-  $ad_description = mysqli_real_escape_string($dbc, $data['description']);
-  $phone = mysqli_real_escape_string($dbc, $data['phone']);
-  $visitor_name = mysqli_real_escape_string($dbc, $data['name']);
-  $ad_price = mysqli_real_escape_string($dbc, $data['price']);
-  $subcategory_id = mysqli_real_escape_string($dbc, $data['subcategoryId']);
-  $currency_id = mysqli_real_escape_string($dbc, $data['currencyId']);
-  $region_id = mysqli_real_escape_string($dbc, $data['regionId']);
+  $ad_title = db_escape($dbc, $data['title']);
+  $ad_description = db_escape($dbc, $data['description']);
+  $phone = db_escape($dbc, $data['phone']);
+  $visitor_name = db_escape($dbc, $data['visitor-name']);
+  $ad_price = db_escape($dbc, $data['price']);
+  $subcategory_id = db_escape($dbc, $data['subcategoryId']);
+  $currency_id = db_escape($dbc, $data['currencyId']);
+  $region_id = db_escape($dbc, $data['regionId']);
 
 
   if ($url && $ad_title && $ad_description && $visitor_name) {
