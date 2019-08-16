@@ -17,4 +17,7 @@
 
   /** The name of the database */
   define('DB_NAME', 'classified');
+
+  /** Front-end site address */
+  define('FRONT_SIDE', 'localhost:3000');
 ?>
