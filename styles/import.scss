@@ -20,7 +20,8 @@ time, mark, audio, video {
 	vertical-align: baseline;
 }
 
-@import 'admin-panel';
+@import 'admin/index';
+@import 'admin/edit-item';
 @import 'body';
 @import 'categories';
 @import 'currencies';
