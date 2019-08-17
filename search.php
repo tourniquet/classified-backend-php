@@ -10,12 +10,12 @@
 
   $description_query = array();
   foreach ($keywords as $keyword) {
-    if (!empty($keyword)) $description_query[] = "title LIKE '%$keyword%'";
+    if (isset($keyword)) $description_query[] = "title LIKE '%$keyword%'";
   }
 
   $query = 'SELECT * FROM cls_ads ';
   $where_clause = implode(' OR ', $description_query);
-  if (!empty($where_clause)) {
+  if (isset($where_clause)) {
     $query .= "WHERE $where_clause
       ORDER BY published DESC
       LIMIT $items_per_page OFFSET $offset";

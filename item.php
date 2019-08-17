@@ -13,31 +13,36 @@
     INNER JOIN cls_categories AS cat ON sub.parent_id = cat.id
     INNER JOIN cls_currencies AS currency ON ads.currency_id = currency.id
     INNER JOIN cls_regions AS region ON ads.region_id = region.id
-    WHERE ads.url = " . $_GET['url'];
-  $data = mysqli_query($dbc, $query) or die('mysql_error');
-  $res = mysqli_fetch_assoc($data);
+    WHERE ads.url = '$url'";
+  $result = mysqli_fetch_assoc(mysqli_query($dbc, $query));
   // send data as a valid JSON and allow Origin Access
   {/* 
     TODO: I think that there will be a good idea to allow only front end host,
     which can be stored in the database and set up when back-end is installed
   */}
 
-  $query = "SELECT * FROM cls_images WHERE ad_id = " . $res['id'];
+  $query = "SELECT *
+    FROM cls_images
+    WHERE ad_id = '{$result['id']}'";
   $data = mysqli_query($dbc, $query) or die(mysqli_error($dbc));
   $images = [];
   while ($row = $data -> fetch_row()) {
     $images[] = $row[0];
   }
-  $res['images'] = $images;
+  $result['images'] = $images;
 
   header('Access-Control-Allow-Origin: *', false);
   header('Content-type: application/json', false);
   header('HTTP/1.1 200 OK');
 
-  echo json_encode($result, JSON_PRETTY_PRINT);
-
+  $item_url = $_GET['url'];
   // increment views when ad is viewed
-  $query = "UPDATE cls_ads SET views = views + 1 WHERE url = " . $_GET['url'];
+  $query = "UPDATE cls_ads
+    SET views = views + 1
+    WHERE url = $item_url
+    LIMIT 1";
   mysqli_query($dbc, $query) or die(mysqli_error($dbc));
   mysqli_close($dbc);
+
+  echo json_encode($result, JSON_PRETTY_PRINT);
 ?>

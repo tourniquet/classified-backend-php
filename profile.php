@@ -1,7 +1,9 @@
 <?php
+  require_once('./private/initialize.php');
+
   if (!isset($_COOKIE['email'])) {
     $login_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/login.php';
-    header('Location: ' . $login_url);
+    redirect_to($login_url);
   } else {
     $email = $_COOKIE['email'];
 

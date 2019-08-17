@@ -10,6 +10,7 @@
   $query = "SELECT ads.*, sub.name AS subcategory, cat.name AS category
     FROM cls_ads AS ads
     INNER JOIN cls_categories AS sub ON ads.subcategory_id = sub.id
+    INNER JOIN cls_categories AS cat ON sub.parent_id = cat.id
     WHERE sub.name = '$subcategory'
     ORDER BY published DESC
     LIMIT $items_per_page OFFSET $offset";

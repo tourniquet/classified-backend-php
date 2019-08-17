@@ -7,7 +7,7 @@
   $email = db_escape($dbc, trim(strtolower($data['email'])));
   $password = db_escape($dbc, trim($data['password']));
 
-  if (!empty($email) && !empty($password)) {
+  if (isset($email) && isset($password)) {
     $query = "
       SELECT id, email, password
       FROM cls_users
