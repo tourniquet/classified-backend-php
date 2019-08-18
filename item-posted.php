@@ -1,4 +1,5 @@
 <?php
+  require_once('./private/initialize.php');
   require_once('dbc.php');
 
   {/* 
@@ -11,21 +12,45 @@
 
   $data = $_POST;
   $url = $data['url'];
-  $user_id = (!empty($data['userId'])) ? "'" . $data['userId'] . "'" : "NULL";
-  $user_email = (!empty($data['userEmail'])) ? "'" . $data['userEmail'] . "'"  : "NULL";
-  $ad_title = mysqli_real_escape_string($dbc, $data['title']);
-  $ad_description = mysqli_real_escape_string($dbc, $data['description']);
-  $phone = mysqli_real_escape_string($dbc, $data['phone']);
-  $visitor_name = mysqli_real_escape_string($dbc, $data['name']);
-  $ad_price = mysqli_real_escape_string($dbc, $data['price']);
-  $subcategory_id = mysqli_real_escape_string($dbc, $data['subcategoryId']);
-  $currency_id = mysqli_real_escape_string($dbc, $data['currencyId']);
-  $region_id = mysqli_real_escape_string($dbc, $data['regionId']);
+  $user_id = (!empty($data['userId'])) ? $data['userId'] : "NULL";
+  $user_email = (isset($data['email'])) ? $data['email'] : "NULL";
+  $ad_title = db_escape($dbc, $data['title']);
+  $ad_description = db_escape($dbc, $data['description']);
+  $phone = db_escape($dbc, $data['phone']);
+  $visitor_name = db_escape($dbc, $data['visitor-name']);
+  $ad_price = db_escape($dbc, $data['price']);
+  $subcategory_id = db_escape($dbc, $data['subcategoryId']);
+  $currency_id = db_escape($dbc, $data['currencyId']);
+  $region_id = db_escape($dbc, $data['regionId']);
 
 
   if ($url && $ad_title && $ad_description && $visitor_name) {
-    $query = "INSERT INTO cls_ads (url, user_id, user_email, published, name, title, description, phone, price, currency_id, subcategory_id, region_id)
-      VALUES ('$url', $user_id, $user_email, NOW(), '$visitor_name', '$ad_title', '$ad_description', '$phone', '$ad_price', '$currency_id', '$subcategory_id', '$region_id')";
+    $query = "INSERT INTO cls_ads (
+        url,
+        user_id,
+        user_email,
+        visitor_name,
+        title,
+        description,
+        phone,
+        price,
+        currency_id,
+        subcategory_id,
+        region_id
+      )
+      VALUES (
+        '$url',
+        $user_id,
+        '$user_email',
+        '$visitor_name',
+        '$ad_title',
+        '$ad_description',
+        '$phone',
+        '$ad_price',
+        '$currency_id',
+        '$subcategory_id',
+        '$region_id'
+      )";
     mysqli_query($dbc, $query) or die(mysqli_error($dbc));
 
     // to be used in 'insert image name into table' query
@@ -85,7 +110,7 @@
     // TODO: if !error, send an email to site admin
     if (mysqli_affected_rows($dbc)) {
       header('HTTP/1.1 200 OK');
-      // mail('admyn3d@gmail.com', '$subject', '$msg', 'admyn3d@gmail.com');
+      // mail('mail@example.com', '$subject', '$msg', 'mail@example.com');
       echo json_encode(['url' => $url]);
     }
 

@@ -1,12 +1,13 @@
 <?php
+  require_once('./private/initialize.php');
   require_once('dbc.php');
 
   $data = $_POST;
 
-  $email = mysqli_real_escape_string($dbc, trim(strtolower($data['email'])));
-  $password = mysqli_real_escape_string($dbc, trim($data['password']));
+  $email = db_escape($dbc, trim(strtolower($data['email'])));
+  $password = db_escape($dbc, trim($data['password']));
 
-  if (!empty($email) && !empty($password)) {
+  if (isset($email) && isset($password)) {
     $query = "
       SELECT id, email, password
       FROM cls_users

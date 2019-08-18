@@ -1,8 +1,8 @@
 <?php
   require_once('dbc.php');
 
-  $region = $_GET['region'];
-  $page_number = $_GET['page'];
+  $region = db_escape($dbc, $_GET['region']);
+  $page_number = db_escape($dbc, $_GET['page']);
   $items_per_page = 10;
   $offset = ($page_number - 1) * $items_per_page;
 

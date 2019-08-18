@@ -1,20 +1,21 @@
 <?php
+  require_once('./private/initialize.php');
   require_once('dbc.php');
 
   $data = file_get_contents('php://input');
   $keywords = explode(' ', str_replace(', ', ' ', json_decode($data, true)));
-  $page_number = $_GET['page'];
+  $page_number = db_escape($dbc, $_GET['page']);
   $items_per_page = 10;
   $offset = ($page_number - 1) * $items_per_page;
 
   $description_query = array();
   foreach ($keywords as $keyword) {
-    if (!empty($keyword)) $description_query[] = "title LIKE '%$keyword%'";
+    if (isset($keyword)) $description_query[] = "title LIKE '%$keyword%'";
   }
 
   $query = 'SELECT * FROM cls_ads ';
   $where_clause = implode(' OR ', $description_query);
-  if (!empty($where_clause)) {
+  if (isset($where_clause)) {
     $query .= "WHERE $where_clause
       ORDER BY published DESC
       LIMIT $items_per_page OFFSET $offset";

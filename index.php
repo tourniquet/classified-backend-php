@@ -1,7 +1,8 @@
 <?php
+  require_once('./private/initialize.php');
   require_once('dbc.php');
 
-  $page_number = $_GET['page'];
+  $page_number = isset($_GET['page']) ? db_escape($dbc, $_GET['page']) : 1;
   $items_per_page = 10;
   $offset = ($page_number - 1) * $items_per_page;
 
