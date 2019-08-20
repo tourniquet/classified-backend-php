@@ -62,19 +62,32 @@
           }
         ?>
       </select>
-      
+
       <input class="title" name="title" type="text" value="<?= $item['title'] ?>">
-      
-      <textarea class="description" name="description">
-        <?= $item['description'] ?>
-      </textarea>
-      
+
+      <textarea class="description" name="description"><?= $item['description'] ?></textarea>
+
+      <?php
+        // images query
+        $query = "SELECT *
+          FROM cls_images
+          WHERE ad_id = '$item_id'";
+        $images = mysqli_query($dbc, $query);
+
+        while ($row = mysqli_fetch_assoc($images)) {
+          echo '<div class="image-block" id="' . $row['image'] . '">';
+            echo '<img class="remove-button" onclick="removeImage(\'' . $row['image'] . '\', ' . $_GET['id'] . ')" src="' . WWW_ROOT . '/img/remove.png">';
+            echo '<img class="image" src="' . WWW_ROOT . '/uploads/thumb_' . $row['image'] . '">';
+          echo '</div>';
+        }
+      ?>
+
       <input class="phone" name="phone" type="text" value="<?= $item['phone'] ?>">
-      
+
       <input class="visitor" name="visitor" type="text" value="<?= $item['visitor_name'] ?>">
-      
+
       <input class="price" id="price" name="price" type="text" value="<?= $item['price'] ?>">
-      
+
       <select class="currencies" id="currencies" name="currency">
         <?php
           while ($row = mysqli_fetch_assoc($currencies)) {
@@ -85,7 +98,7 @@
         ?>
       </select>
 
-      <button>Update</button>
+      <button class="update">Update</button>
     </form>
 
     <?php
@@ -113,3 +126,5 @@
 
   <?php include(SHARED_PATH . '/footer.php'); ?>
 </div>
+
+<script src="js/remove-image.js"></script>
