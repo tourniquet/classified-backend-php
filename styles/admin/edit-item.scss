@@ -30,6 +30,7 @@ form.edit-item {
 
   .description {
     border-radius: 3px;
+    display: block;
   }
 
   #price,
@@ -42,22 +43,29 @@ form.edit-item {
     width: 100px;
   }
 
-  .image-block {
-    height: 120px;
-    margin-top: 10px;
-    position: relative;
-    width: 200px;
-
-    .remove-button {
-      position: absolute;
-      right: -9px;
-      top: -9px;
-      z-index: 2;
-    }
-
-    .image {
-      position: absolute;
-      width: 200px;
+  .images-container {
+    .image-block {
+      display: inline-block;
+      height: 120px;
+      margin-top: 10px;
+      position: relative;
+      width: 107.5px;
+  
+      &:not(:first-of-type) {
+        margin-left: 15px;
+      }
+  
+      .remove-button {
+        position: absolute;
+        right: -9px;
+        top: -9px;
+        z-index: 2;
+      }
+  
+      .image {
+        position: absolute;
+        width: 107.5px;
+      }
     }
   }
 

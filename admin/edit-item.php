@@ -67,20 +67,22 @@
 
       <textarea class="description" name="description"><?= $item['description'] ?></textarea>
 
-      <?php
-        // images query
-        $query = "SELECT *
-          FROM cls_images
-          WHERE ad_id = '$item_id'";
-        $images = mysqli_query($dbc, $query);
+      <div class="images-container">
+        <?php
+          // images query
+          $query = "SELECT *
+            FROM cls_images
+            WHERE ad_id = '$item_id'";
+          $images = mysqli_query($dbc, $query);
 
-        while ($row = mysqli_fetch_assoc($images)) {
-          echo '<div class="image-block" id="' . $row['image'] . '">';
-            echo '<img class="remove-button" onclick="removeImage(\'' . $row['image'] . '\', ' . $_GET['id'] . ')" src="' . WWW_ROOT . '/img/remove.png">';
-            echo '<img class="image" src="' . WWW_ROOT . '/uploads/thumb_' . $row['image'] . '">';
-          echo '</div>';
-        }
-      ?>
+          while ($row = mysqli_fetch_assoc($images)) {
+            echo '<div class="image-block" id="' . $row['image'] . '">';
+              echo '<img class="remove-button" onclick="removeImage(\'' . $row['image'] . '\', ' . $_GET['id'] . ')" src="' . WWW_ROOT . '/img/remove.png">';
+              echo '<img class="image" src="' . WWW_ROOT . '/uploads/thumb_' . $row['image'] . '">';
+            echo '</div>';
+          }
+        ?>
+      </div> <!-- .images-container -->
 
       <input class="phone" name="phone" type="text" value="<?= $item['phone'] ?>">
 
