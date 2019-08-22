@@ -1,0 +1,75 @@
+form.edit-item {
+  select,
+  input[type=text] {
+    border-radius: 3px;
+    border: 1px solid #4e4b4d;
+    box-sizing: border-box;
+    display: block;
+    height: 22px;
+    line-height: 18px;
+    margin-bottom: 10px;
+    padding: 5px;
+    width: 250px;
+  }
+
+  select {
+    padding: 0;
+  }
+
+  .title {
+    width: 500px;
+  }
+
+  .description {
+    border: 1px solid #4e4b4d;
+    box-sizing: border-box;
+    height: 250px;
+    padding: 5px;
+    width: 500px;
+  }
+
+  .description {
+    border-radius: 3px;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  #price,
+  #currencies {
+    display: inline-block;
+    width: 146px;
+  }
+
+  #currencies {
+    width: 100px;
+  }
+
+  .images-container {
+    .image-block {
+      display: inline-block;
+      height: 120px;
+      position: relative;
+      width: 107.5px;
+  
+      &:not(:first-of-type) {
+        margin-left: 15px;
+      }
+  
+      .remove-button {
+        position: absolute;
+        right: -9px;
+        top: -9px;
+        z-index: 2;
+      }
+  
+      .image {
+        position: absolute;
+        width: 107.5px;
+      }
+    }
+  }
+
+  button.update {
+    display: block;
+  }
+}

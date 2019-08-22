@@ -72,7 +72,7 @@
               <a href="<?= FRONT_SIDE . '/item/' . $row['url'] ?>" class="item-url" target="_blank">
                 <i class="icon ion-md-link"></i>
               </a>
-              <a href="#" class="edit-icon">
+              <a href="edit-item.php?id=<?= $row['id'] ?>" class="edit-icon">
                 <i class="icon ion-md-create"></i>
               </a>
               <a href="<?= $item_state['href'] ?>" class="enable-icon">
