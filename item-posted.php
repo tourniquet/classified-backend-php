@@ -60,13 +60,33 @@
     foreach ($_FILES['images']['tmp_name'] as $key => $name) {
       if (!empty($_FILES['images']['tmp_name'][$key])) {
         $temp_name = $_FILES['images']['tmp_name'][$key];
-        $image_extension = pathinfo($_FILES['images']['name'][$key]);
-        $image_name = $url . '_' . $key . '.' . $image_extension['extension'];
+        $image_name = $url . '_' . $key . '.jpg';
         $image_path = UPLOADS_PATH . $image_name;
         $thumbnail_name = 'thumb_' . $image_name;
         $thumbnail_path = UPLOADS_PATH . $thumbnail_name;
 
-        list($src_image_width, $src_image_height, $src_image_type) = getimagesize($temp_name);
+        list($src_image_width, $src_image_height) = getimagesize($temp_name);
+        $mime = getimagesize($temp_name)['mime'];
+
+        switch ($mime) {
+          case 'image/gif':
+            $image_create = "imagecreatefromgif";
+            $image = "imagegif";
+            break;
+          case 'image/png':
+            $image_create = "imagecreatefrompng";
+            $image = "imagepng";
+            $quality = 7;
+            break;
+          case 'image/jpeg':
+            $image_create = "imagecreatefromjpeg";
+            $image = "imagejpeg";
+            $quality = 100;
+            break;
+          default:
+            return false;
+            break;
+        }
 
         // aspect ratio formula
         // if width > height -> (original height / original width) * new width = new height
@@ -82,25 +102,23 @@
           $thumbnail_height = ($src_image_height / $src_image_width) * THUMBNAIL_SIZE; // (922 / 509) * 215 = 389
         }
 
-        if ($src_image_type == IMAGETYPE_JPEG) {
-          $create_new_image = imagecreatefromjpeg($temp_name);
-          $target_layer = imagecreatetruecolor($new_image_width, $new_image_height);
-          imagecopyresampled($target_layer, $create_new_image, 0, 0, 0, 0, $new_image_width, $new_image_height, $src_image_width, $src_image_height);
-          $resized_image = imagejpeg($target_layer, $image_path);
+        $new_image = $image_create($temp_name);
+        $target_layer = imagecreatetruecolor($new_image_width, $new_image_height);
+        imagecopyresampled($target_layer, $new_image, 0, 0, 0, 0, $new_image_width, $new_image_height, $src_image_width, $src_image_height);
+        $resized_image = imagejpeg($target_layer, $image_path);
 
-          // create thumbnail
-          if ($src_image_width > $src_image_height) {
-            $x_axis = round(($src_image_width - $src_image_height) / 2);
-            $cropped = imagecrop(imagecreatetruecolor($thumbnail_width, $thumbnail_height), ['x' => 0, 'y' => 0, 'width' => THUMBNAIL_SIZE, 'height' => THUMBNAIL_SIZE]);
-            imagecopyresampled($cropped, $create_new_image, 0, 0, $x_axis, 0, $thumbnail_width, $thumbnail_height, $src_image_width, $src_image_height);
-          } elseif ($src_image_height >= $src_image_width) {
-            $y_axis = round(($src_image_height - $src_image_width) / 2);
-            $cropped = imagecrop(imagecreatetruecolor($thumbnail_width, $thumbnail_height), ['x' => 0, 'y' => 0, 'width' => THUMBNAIL_SIZE, 'height' => THUMBNAIL_SIZE]);
-            imagecopyresampled($cropped,$create_new_image, 0, 0, 0, $y_axis, $thumbnail_width, $thumbnail_height, $src_image_width, $src_image_height);
-          }
-
-          $thumbnail = imagejpeg($cropped, $thumbnail_path);
+        // create thumbnail
+        if ($src_image_width > $src_image_height) {
+          $x_axis = round(($src_image_width - $src_image_height) / 2);
+          $cropped = imagecrop(imagecreatetruecolor($thumbnail_width, $thumbnail_height), ['x' => 0, 'y' => 0, 'width' => THUMBNAIL_SIZE, 'height' => THUMBNAIL_SIZE]);
+          imagecopyresampled($cropped, $new_image, 0, 0, $x_axis, 0, $thumbnail_width, $thumbnail_height, $src_image_width, $src_image_height);
+        } elseif ($src_image_height >= $src_image_width) {
+          $y_axis = round(($src_image_height - $src_image_width) / 2);
+          $cropped = imagecrop(imagecreatetruecolor($thumbnail_width, $thumbnail_height), ['x' => 0, 'y' => 0, 'width' => THUMBNAIL_SIZE, 'height' => THUMBNAIL_SIZE]);
+          imagecopyresampled($cropped,$new_image, 0, 0, 0, $y_axis, $thumbnail_width, $thumbnail_height, $src_image_width, $src_image_height);
         }
+
+        $thumbnail = imagejpeg($cropped, $thumbnail_path);
 
         move_uploaded_file($resized_image, $image_path);
         move_uploaded_file($thumbnail, $thumbnail_path);
