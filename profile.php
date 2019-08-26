@@ -1,30 +1,40 @@
 <?php
   require_once('./private/initialize.php');
+  require_once('dbc.php');
 
-  if (!isset($_COOKIE['email'])) {
-    $login_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/login.php';
-    redirect_to($login_url);
-  } else {
-    $email = $_COOKIE['email'];
+  $page_number = isset($_GET['page']) ? db_escape($dbc, $_GET['page']) : 1;
+  $items_per_page = 10;
+  $offset = ($page_number - 1) * $items_per_page;
 
-    require_once('dbc.php');
-    $query = 'SELECT email FROM cls_users WHERE email = ' . $email;
+  $id = db_escape($dbc, $_GET['id']);
+  $query = "SELECT *
+    FROM cls_ads
+    WHERE user_id = '$id' AND enabled = 1
+    ORDER BY published DESC
+    LIMIT $items_per_page OFFSET $offset";
+  $user_items = mysqli_query($dbc, $query);
 
-    mysqli_close($dbc);
+  $items = [];
+  while ($item = mysqli_fetch_assoc($user_items)) {
+    $items[] = $item;
   }
-?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
-<body>
-  <?php
-    echo "<p>Your email address is $email</p>"
-  ?>
-</body>
-</html>
+  $query = "SELECT COUNT(*) AS total
+    FROM cls_ads
+    WHERE user_id = '$id'";
+  $res = mysqli_query($dbc, $query);
+  $total = mysqli_fetch_row($res);
+
+  mysqli_close($dbc);
+
+  header('Access-Control-Allow-Origin: *', false);
+  header('Content-type: application/json', false);
+  header('HTTP/1.1 200 OK');
+
+  $data = (object)[];
+  $data->items = $items;
+  $data->page = $page_number;
+  $data->total = $total[0];
+
+  echo json_encode($data, JSON_PRETTY_PRINT);
+?>
