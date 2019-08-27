@@ -17,15 +17,24 @@
     header('Content-type: application/json', false);
     header('HTTP/1.1 200 OK');
 
-    if (($user['email'] === $email) && password_verify($old_password, $user['password'])) {
-      echo json_encode('email === email');
-      if (password_verify($new_password_confirmation, $new_password)) {
-        // update password query
-        $query = "UPDATE cls_users
-          SET password = '$new_password'
-          WHERE email = '$email'
-          LIMIT 1";
-        // mysqli_query($dbc, $query); TODO: uncomment this
+    if (($user['email'] === $email)) {
+      if (password_verify($old_password, $user['password'])) {
+        if (password_verify($new_password_confirmation, $new_password)) {
+          // update password query
+          $query = "UPDATE cls_users
+            SET password = '$new_password'
+            WHERE email = '$email'
+            LIMIT 1";
+          $result = mysqli_query($dbc, $query) or die(mysqli_error($dbc));
+
+          if ($result) echo json_encode(['message' => 'Success!']);
+        } else {
+          // if password confirmation doesn't match new password
+          echo json_encode(['message' => 'Unmatch!']);
+        }
+      } else {
+        // if old password sent to backend did not match
+        echo json_encode(['message' => 'Wrong password!']);
       }
     }
   }
