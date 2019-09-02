@@ -1,6 +1,6 @@
 <?php
-  require_once('./private/initialize.php');
-  require_once('dbc.php');
+  require_once('../private/initialize.php');
+  require_once('../dbc.php');
 
   $email = db_escape($dbc, trim(strtolower($_POST['email'])));
   $old_password = db_escape($dbc, $_POST['old-password']);
