@@ -10,9 +10,11 @@
   $user_id = mysqli_real_escape_string($dbc, trim($credentials['userId']));
   $user_email = mysqli_real_escape_string($dbc, trim(strtolower($credentials['userEmail'])));
 
-  $query = "SELECT * FROM cls_ads
-    WHERE user_id = '$user_id'
-    AND user_email = '$user_email'
+  $query = "SELECT ads.*, sub.name AS subcategory, cat.name AS category
+    FROM cls_ads AS ads
+    INNER JOIN cls_categories AS sub ON ads.subcategory_id = sub.id
+    INNER JOIN cls_categories AS cat ON sub.parent_id = cat.id
+    WHERE user_id = '$user_id' AND user_email = '$user_email'
     ORDER BY published DESC
     LIMIT $items_per_page OFFSET $offset";
   $res = mysqli_query($dbc, $query);
