@@ -1,5 +1,7 @@
 <?php
   require_once('../private/initialize.php');
+  require_once('../dbc.php');
+
   include(SHARED_PATH . '/head.php');
 ?>
 
@@ -8,9 +10,6 @@
     include(SHARED_PATH . '/header.php');
     include(SHARED_PATH . '/sidebar.php');
 
-    require_once('../private/initialize.php');
-    require_once('../dbc.php');
-    
     $item_id = db_escape($dbc, $_GET['id']);
     $images_query = "SELECT *
       FROM cls_images
