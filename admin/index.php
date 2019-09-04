@@ -42,60 +42,52 @@
       ?>
 
       <ul class="items-list">
-      <?php
-        while ($row = mysqli_fetch_assoc($data)) {
-          $item_state = $row['enabled'] == 1
-            ? array(
-              'class_name' => 'enabled',
-              'href' => 'disable-item.php?id=' . $row['id'],
-              'state' => 'Disable'
-            )
-            : array(
-              'class_name' => 'disabled',
-              'href' => 'enable-item.php?id=' . $row['id'],
-              'state' => 'Enable'
-            );
-          ?>
+      <?php while ($row = mysqli_fetch_assoc($data)) { ?>
+        <li class="<?= $row['enabled'] == 1 ? 'enabled' : 'disabled' ?>">
+          <span class="check-item">
+            <input name="items[]" type="checkbox" value="<?= $row['id'] ?>">
+          </span>
 
-          <li class="<?= $item_state['class_name'] ?>">
-            <span class="check-item">
-              <input name="items[]" type="checkbox" value="<?= $row['id'] ?>">
-            </span>
-            <span class="item-id"><?= $row['id'] ?></span>
-            <a href="<?= FRONT_SIDE . '/item/' . $row['url'] ?>" class="item-title" target="_blank">
-              <?= $row['title'] ?>
+          <span class="item-id"><?= $row['id'] ?></span>
+
+          <a href="<?= FRONT_SIDE . '/item/' . $row['url'] ?>" class="item-title" target="_blank">
+            <?= $row['title'] ?>
+          </a>
+
+          <a href="#" class="subcategory"><?= $row['subcategory'] ?></a>
+
+          <span class="item-posted-date"><?= date_format(date_create($row['published']), 'd F, Y') ?></span>
+
+          <div class="action-icons">
+            <a href="<?= FRONT_SIDE . '/item/' . $row['url'] ?>" class="item-url" target="_blank">
+              <i class="icon ion-md-link"></i>
             </a>
-            <a href="#" class="subcategory"><?= $row['subcategory'] ?></a>
-            <span class="item-posted-date"><?= date_format(date_create($row['published']), 'd F, Y') ?></span>
 
-            <div class="action-icons">
-              <a href="<?= FRONT_SIDE . '/item/' . $row['url'] ?>" class="item-url" target="_blank">
-                <i class="icon ion-md-link"></i>
-              </a>
-              <a href="edit-item.php?id=<?= $row['id'] ?>" class="edit-icon">
-                <i class="icon ion-md-create"></i>
-              </a>
-              <a href="<?= $item_state['href'] ?>" class="enable-icon">
-                <i class="icon ion-md-trending-up"></i>
-              </a>
-              <a href="renew-item.php?id=<?= $row['id'] ?>" class="renew-icon">
-                <i class="icon ion-md-refresh"></i>
-              </a>
-              <a href="#" class="disable-icon">
-                <i class="icon ion-md-eye-off"></i>
-              </a>
-              <a href="#" class="spam-icon">
-                <i class="icon ion-md-flame"></i>
-              </a>
-              <a
-                class="remove-icon"
-                href="remove-item.php?id=<?= $row['id'] ?>"
-              >
-                <i class="icon ion-md-trash"></i>
-              </a>
-            </div>
-          </li>
-        <?php } ?>
+            <a href="edit-item.php?id=<?= $row['id'] ?>" class="edit-icon">
+              <i class="icon ion-md-create"></i>
+            </a>
+
+            <a href="change-item-status.php?id=<?= $row['id'] ?>" class="enable-icon">
+              <i class="icon ion-md-eye-off"></i>
+            </a>
+
+            <a href="renew-item.php?id=<?= $row['id'] ?>" class="renew-icon">
+              <i class="icon ion-md-refresh"></i>
+            </a>
+
+            <a href="#" class="spam-icon">
+              <i class="icon ion-md-flame"></i>
+            </a>
+
+            <a
+              class="remove-icon"
+              href="remove-item.php?id=<?= $row['id'] ?>"
+            >
+              <i class="icon ion-md-trash"></i>
+            </a>
+          </div>
+        </li>
+      <?php } ?>
       </ul>
 
       <button name="submit" onclick="return confirm('Are you sure?')">Delete selected items</button>
