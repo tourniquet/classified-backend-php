@@ -108,6 +108,12 @@
       > a {
         color: #FFF;
         text-decoration: none;
+        width: 105px;
+
+        &.logo {
+          background: url('../img/logo.png');
+          height: 30px;
+        }
       }
     }
   }
