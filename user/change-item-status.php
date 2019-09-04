@@ -23,7 +23,7 @@
       SET enabled = '$new_item_status'
       WHERE id = '$item_id' AND user_email = '$user_email' AND user_id = '$user_id'
       LIMIT 1";
-    $result = mysqli_query($dbc, $change_status_query) or die($dbc);
+    $result = mysqli_query($dbc, $change_status_query) or die(mysqli_error($dbc));
 
     header('Access-Control-Allow-Origin: *', false);
     header('Content-type: application/json', false);
