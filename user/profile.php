@@ -2,11 +2,13 @@
   require_once('../private/initialize.php');
   require_once('../dbc.php');
 
+  $raw_data = file_get_contents('php://input');
+  $data = json_decode($raw_data, true);
   $page_number = isset($_GET['page']) ? db_escape($dbc, $_GET['page']) : 1;
   $items_per_page = 10;
   $offset = ($page_number - 1) * $items_per_page;
 
-  $id = db_escape($dbc, $_GET['id']);
+  $id = db_escape($dbc, $data['id']);
   $query = "SELECT ads.*, sub.name AS subcategory, cat.name AS category
     FROM cls_ads AS ads
     INNER JOIN cls_categories AS sub ON ads.subcategory_id = sub.id
