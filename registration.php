@@ -12,7 +12,7 @@
     if (password_verify($password_confirmation, $password)) {
       // check if email is already taken
       $query = "SELECT * FROM cls_users WHERE email = '$email'";
-      $data = mysqli_query($dbc, $query);
+      $data = mysqli_query($dbc, $query) or die(mysqli_error($dbc));
 
       header('Access-Control-Allow-Origin: *', false);
       header('Content-type: application/json', false);

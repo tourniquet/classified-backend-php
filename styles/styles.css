@@ -106,7 +106,11 @@ time, mark, audio, video {
       justify-content: space-around; }
       .admin-panel header nav > a {
         color: #FFF;
-        text-decoration: none; }
+        text-decoration: none;
+        width: 105px; }
+        .admin-panel header nav > a.logo {
+          background: url("../img/logo.png");
+          height: 30px; }
   .admin-panel main {
     display: flex;
     flex-direction: column;
