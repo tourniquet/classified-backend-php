@@ -7,8 +7,8 @@
   $items_per_page = 10;
   $offset = ($page_number - 1) * $items_per_page;
 
-  $user_id = mysqli_real_escape_string($dbc, trim($credentials['userId']));
-  $user_email = mysqli_real_escape_string($dbc, trim(strtolower($credentials['userEmail'])));
+  $user_id = mysqli_real_escape_string($dbc, trim($credentials['id']));
+  $user_email = mysqli_real_escape_string($dbc, trim(strtolower($credentials['email'])));
 
   $query = "SELECT ads.*, sub.name AS subcategory, cat.name AS category
     FROM cls_ads AS ads
