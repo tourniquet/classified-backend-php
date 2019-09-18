@@ -21,6 +21,26 @@
     $items[] = $i;
   }
 
+  // If an item have at least one image, JSON returned will contain images: value
+  // images query
+  $query = "SELECT *
+    FROM cls_images";
+  $result = mysqli_query($dbc, $query);
+  $images = [];
+  while ($i = mysqli_fetch_assoc($result)) {
+    $images[] = $i;
+  }
+
+  $images_length = sizeof($images);
+  $items_length = sizeof($items);
+  for ($i = 0; $i < $images_length; $i++) {
+    for ($j = 0; $j < $items_length; $j++) {
+      if ($items[$j]['id'] === $images[$i]['ad_id']) {
+        $items[$j]['images'] = $images[$i]['image'];
+      }
+    }
+  }
+
   $query = "SELECT COUNT(*) AS total, sub.name AS subcategory
     FROM cls_ads AS ads
     INNER JOIN cls_categories AS sub ON ads.subcategory_id = sub.id
