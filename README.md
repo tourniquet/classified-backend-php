@@ -259,7 +259,7 @@ Send JSON data to create a search query
 
 - **URL**
 
-  /search.php
+  /search.php?page=1
 
 - **Method:**
 
@@ -267,7 +267,9 @@ Send JSON data to create a search query
 
 - **URL Params**
 
-  None
+  **Required:**
+
+  `page=[integer]`
 
 - **Data Params**
 
@@ -281,35 +283,29 @@ Send JSON data to create a search query
 
     **Content:**
     ```json
-      [
-        {
-          "id": "40",
-          "published": "2018-08-06 20:58:57",
-          "name": "John",
-          "title": "Ad title",
-          "description": "Ad description",
-          "price": "3.20",
-          "image": null,
-          "enabled": "0",
-          "url": "89137472",
-          "views": "17"
-        },
-        {
-          "id": "40",
-          "published": "2018-08-06 20:58:57",
-          "name": "John",
-          "title": "Ad title",
-          "description": "Ad description",
-          "price": "3.20",
-          "image": null,
-          "enabled": "0",
-          "url": "89137471",
-          "views": "17"
-        },
-        {
-          ...
-        }
-      ]
+    {
+      "items":
+      [{
+        "id": "131",
+        "url": "25349429",
+        "user_id": null,
+        "user_email": "",
+        "published": "2019-09-19 21:35:49",
+        "modified": null,
+        "title": "Example title",
+        "description": "Example description",
+        "phone": "555-5555",
+        "visitor_name": "John Doe",
+        "price": "30",
+        "enabled": "1",
+        "views": "1",
+        "currency_id": "1",
+        "region_id": "1",
+        "subcategory_id": "3"
+      }],
+    "page": "1",
+    "total": "1"
+    }
     ```
 
 - **Sample Call:**
