@@ -8,6 +8,7 @@
 - [POST /registration.php](#user-registration)
 - [POST /item-posted.php](#item-posted)
 - [POST /search.php](#search)
+- [GET /category.php](#category)
 
 ## **Build styles**
 
@@ -317,3 +318,70 @@ Send JSON data to create a search query
       .then(() => ())
       .catch(error => console.error(error))
   ```
+
+## **Category**
+---
+Returns all adds with a specific category
+
+- **URL**
+
+  /category.php?category=:category&page=:pageNumber
+
+- **Method:**
+
+  `GET`
+
+- **URL Params**
+
+  **Required:**
+
+  `category=[string]`
+
+  `pageNumber=[integer]`
+
+- **Data Params**
+
+  None
+
+- **Success Response:**
+
+    **Content:**
+    ```json
+    "items": [
+      {
+        "id": "115",
+        "url": "61650910",
+        "user_id": "1",
+        "user_email": "email@example.com",
+        "published": "2019-08-22 09:14:11",
+        "modified": null,
+        "title": "Example title",
+        "description": "Example description",
+        "phone": "7448459333",
+        "visitor_name": "John Doe",
+        "price": "",
+        "enabled": "1",
+        "views": "0",
+        "currency_id": "1",
+        "region_id": "1",
+        "subcategory_id": "3",
+        "subcategory": "Trucks",
+        "category": "Transport"
+      }
+    ],
+    "page": "1",
+    "total": "118"
+    ```
+
+- **Sample Call:**
+
+  ```javascript
+    const url = `/category.php?category=${category}&page=1`
+
+    window
+      .fetch(url)
+      .then(response => response.json())
+      .then(result => ())
+      .catch(err => console.error(err))
+  ```
+
