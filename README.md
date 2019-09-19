@@ -10,6 +10,7 @@
 - [POST /search.php](#search)
 - [GET /category.php](#category)
 - [GET /subcategory.php](#subcategory)
+- [GET /categories.php](#categories)
 
 ## **Build styles**
 
@@ -451,3 +452,52 @@ Returns all adds with a specific subcategory
       .catch(err => console.error(err))
   ```
 
+## **Categories**
+---
+Returns all available categories as list
+
+- **URL**
+
+  /categories.php
+
+- **Method:**
+
+  `GET`
+
+- **URL Params**
+
+   None
+
+- **Data Params**
+
+  None
+
+- **Success Response:**
+
+    **Content:**
+    ```json
+      [
+        {
+          "id": "1",
+          "title": "Property",
+          "parent_id": null
+        },
+        {
+          "id": "3",
+          "title": "Motors",
+          "parent_id": null
+        }
+      ]
+    ```
+
+- **Sample Call:**
+
+  ```javascript
+    const url = `/categories.php`
+
+    window
+      .fetch(url)
+      .then(response => response.json())
+      .then(result => ())
+      .catch(err => console.error(err))
+  ```
