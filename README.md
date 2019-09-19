@@ -12,6 +12,7 @@
 - [GET /subcategory.php](#subcategory)
 - [GET /categories.php](#categories)
 - [GET /subcategories.php](#subcategories)
+- [GET /regions.php](#regions)
 
 ## **Build styles**
 
@@ -547,6 +548,54 @@ Returns all subcategories with a specific parent category id as list
 
   ```javascript
     const url = `/subcategories.php?id=1`
+
+    window
+      .fetch(url)
+      .then(response => response.json())
+      .then(result => ())
+      .catch(err => console.error(err))
+  ```
+
+## **Regions**
+---
+Returns all regions as list
+
+- **URL**
+
+  /regions.php
+
+- **Method:**
+
+  `GET`
+
+- **URL Params**
+
+  None
+
+- **Data Params**
+
+  None
+
+- **Success Response:**
+
+    **Content:**
+    ```json
+      [
+        {
+          "id": "1",
+          "name": "London"
+        },
+        {
+          "id": "2",
+          "name": "Manchester"
+        }
+      ]
+    ```
+
+- **Sample Call:**
+
+  ```javascript
+    const url = `/regions.php`
 
     window
       .fetch(url)
