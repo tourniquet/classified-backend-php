@@ -207,25 +207,28 @@ Send JSON data to create a new ad
   /item-posted.php
 
 - **Method:**
+
   `POST`
 
 - **URL Params**
+
     None
 
-- **Data params**
-  ```json
-    {
-      "title": "string",
-      "description": "string",
-      "images[]": "array",
-      "phone": "number",
-      "name": "string",
-      "email": "string",
-      "price": "string?",
-      "url": "number",
-      "userId": "number",
-      "userEmail": "string"
-    }
+- **Data params (form-data)**
+  ```form-data
+    title: Example title
+    description: Example description
+    images[]: (binary)
+    phone: 555-5555
+    visitor-name: "John Doe
+    email: email@example.com
+    price: 20
+    subcategoryId: 3
+    regionId: 1
+    url: 25349429
+    userId: 1
+    userEmail: email@example.com
+    currencyId: 1
   ```
 - **Success Response:**
 
