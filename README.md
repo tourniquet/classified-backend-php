@@ -3,8 +3,8 @@
 ## Table of contents
 
 - [Build styles](#build-styles)
-- [GET /](#get-all-ads)
 - [GET /item.php?url=$:id](#get-single-ad)
+- [GET /index.php?page=:page](#get-all-ads)
 - [POST /registration.php](#user-registration)
 - [POST /item-posted.php](#item-posted)
 - [POST /search.php](#search)
@@ -23,7 +23,7 @@
 
 - **URL**
 
-  /
+  /index.php?page=1
 
 - **Method:**
 
@@ -31,48 +31,44 @@
 
 - **URL Params**
 
-  None
+  **Optional:**
+
+  `page=[integer]`
 
 - **Success Response:**
 
   - **Code:** 200
   - **Content:**
     ```json
-      [
-        {
-          "id": "40",
-          "published": "2018-08-06 20:58:57",
-          "name": "John",
-          "title": "Ad title",
-          "description": "Ad description",
-          "price": "3.20",
-          "image": null,
-          "enabled": "0",
-          "url": "89137472",
-          "views": "17"
-        },
-        {
-          "id": "40",
-          "published": "2018-08-06 20:58:57",
-          "name": "John",
-          "title": "Ad title",
-          "description": "Ad description",
-          "price": "3.20",
-          "image": null,
-          "enabled": "0",
-          "url": "89137471",
-          "views": "17"
-        },
-        {
-          ...
-        }
-      ]
+      items: [{
+        "id": "130",
+        "url": "24409687",
+        "user_id": null,
+        "user_email": "",
+        "published": "2019-09-18 17:33:29",
+        "modified": null,
+        "title": "Test title",
+        "description": "Test category",
+        "phone": "7447459323",
+        "visitor_name": "John Doe",
+        "price": "",
+        "enabled": "1",
+        "views": "1",
+        "currency_id": "1",
+        "region_id": "1",
+        "subcategory_id": "2",
+        "subcategory": "Cars",
+        "category": "Transport",
+        "images": "24409687_0.jpg"
+      }],
+      page: "1",
+      total: "118"
     ```
 
 - **Sample Call:**
 
   ```javascript
-    const url = `/`
+    const url = `/index.php?page=1`
 
     fetch(url)
       .then(response => response.json())
