@@ -11,6 +11,7 @@
 - [GET /category.php](#category)
 - [GET /subcategory.php](#subcategory)
 - [GET /categories.php](#categories)
+- [GET /subcategories.php](#subcategories)
 
 ## **Build styles**
 
@@ -494,6 +495,58 @@ Returns all available categories as list
 
   ```javascript
     const url = `/categories.php`
+
+    window
+      .fetch(url)
+      .then(response => response.json())
+      .then(result => ())
+      .catch(err => console.error(err))
+  ```
+
+## **Subcategories**
+---
+Returns all subcategories with a specific parent category id as list
+
+- **URL**
+
+  /subcategories.php?parent_id=:id
+
+- **Method:**
+
+  `GET`
+
+- **URL Params**
+
+   **Required:**
+
+   `id=[integer]`
+
+- **Data Params**
+
+  None
+
+- **Success Response:**
+
+    **Content:**
+    ```json
+      [
+        {
+            "id": "2",
+            "name": "Cars",
+            "parent_id": "1"
+        },
+        {
+            "id": "3",
+            "name": "Trucks",
+            "parent_id": "1"
+        }
+      ]
+    ```
+
+- **Sample Call:**
+
+  ```javascript
+    const url = `/subcategories.php?id=1`
 
     window
       .fetch(url)
