@@ -9,6 +9,7 @@
 - [POST /item-posted.php](#item-posted)
 - [POST /search.php](#search)
 - [GET /category.php](#category)
+- [GET /subcategory.php](#subcategory)
 
 ## **Build styles**
 
@@ -377,6 +378,71 @@ Returns all adds with a specific category
 
   ```javascript
     const url = `/category.php?category=${category}&page=1`
+
+    window
+      .fetch(url)
+      .then(response => response.json())
+      .then(result => ())
+      .catch(err => console.error(err))
+  ```
+
+## **Subcategory**
+---
+Returns all adds with a specific subcategory
+
+- **URL**
+
+  /subcategory.php?subcategory=:subcategory&page=pageNumber
+
+- **Method:**
+
+  `GET`
+
+- **URL Params**
+
+  **Required:**
+
+  `subcategory=[string]`
+
+  `pageNumber=[integer]`
+
+- **Data Params**
+
+  None
+
+- **Success Response:**
+
+    **Content:**
+    ```json
+       "items": [{
+          "id": "124",
+          "url": "62485226",
+          "user_id": "1",
+          "user_email": "admyn3d@gmail.com",
+          "published": "2019-09-04 21:17:19",
+          "modified": null,
+          "title": "Some people say",
+          "description": "Some people say",
+          "phone": "7448459321",
+          "visitor_name": "Ion Prodan",
+          "price": "",
+          "enabled": "0",
+          "views": "4",
+          "currency_id": "1",
+          "region_id": "1",
+          "subcategory_id": "3",
+          "subcategory": "Trucks",
+          "category": "Transport",
+          "images": "62485226_2.gif"
+      }],
+      "page": "1",
+      "total": "14"
+    ```
+
+- **Sample Call:**
+
+  ```javascript
+    const url = `/subcategory.php?subcategory=Trucks&page=1`
 
     window
       .fetch(url)
